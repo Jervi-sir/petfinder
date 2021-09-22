@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Race;
+use App\Models\Color;
+use App\Models\Wilaya;
+use App\Models\SubRace;
 use Illuminate\Http\Request;
 
 class PetController extends Controller
@@ -23,7 +27,16 @@ class PetController extends Controller
      */
     public function create()
     {
-        //
+        $races = Race::all();
+        $subRaces = SubRace::all();
+        $wilayas = Wilaya::all();
+        $colors = Color::all();
+        return view('pets.add', [
+            'races' => $races,
+            'subRaces' => $subRaces,
+            'wilayas' => $wilayas,
+            'colors' => $colors,
+        ]);
     }
 
     /**
@@ -34,7 +47,7 @@ class PetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**

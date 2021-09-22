@@ -7,7 +7,9 @@ use Database\Seeders\TagSeeder;
 use Illuminate\Database\Seeder;
 use Database\Seeders\RaceSeeder;
 use Database\Seeders\RoleSeeder;
+use Database\Seeders\ColorSeeder;
 use Database\Seeders\StatusSeeder;
+use Database\Seeders\WilayaSeeder;
 use Database\Seeders\SubraceSeeder;
 use Database\Seeders\UsertypeSeeder;
 
@@ -27,6 +29,8 @@ class DatabaseSeeder extends Seeder
         $status = new StatusSeeder();
         $tag = new TagSeeder();
         $userType = new UsertypeSeeder();
+        $wilayas = new WilayaSeeder();
+        $colors = new ColorSeeder();
 
         $role->run();
         $race->run();
@@ -34,5 +38,7 @@ class DatabaseSeeder extends Seeder
         $status->run();
         $tag->run();
         $userType->run();
+        $wilayas->run();
+        $colors->run();
     }
 }
