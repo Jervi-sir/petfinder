@@ -23,7 +23,6 @@ class CreateUsersTable extends Migration
             $table->string('pic')->nullable();
             $table->longText('socials')->nullable();
             $table->foreignId('role_id')->constrained('roles');
-            $table->foreignId('usertype_id')->constrained('usertypes');
             $table->rememberToken();
             $table->timestamps();
         });
