@@ -1,8 +1,13 @@
+/*---------
+    main
+    ----------*/
+
 main {
-    padding: 1.1rem;
+    /*padding: calc(var(--gap) - 1rem);*/
+    padding: var(--padding-layout);
     display: flex;
     flex-wrap: wrap;
-    gap: var(--gap);
+    gap: 1rem;
     justify-content: space-between;
 }
 
@@ -26,7 +31,6 @@ main .top .filter {
     font-weight: 600;
     font-size: 30px;
     line-height: 33px;
-
     color: #000000;
 }
 
@@ -50,12 +54,12 @@ main .top .filter {
     background: #F9E3D2;
 }
 
-
-.card-top .save{
+.card-top .save {
     position: absolute;
     top: 1rem;
     right: 1rem;
 }
+
 .card-top .images {
     display: flex;
     align-items: flex-end;
@@ -76,11 +80,10 @@ main .top .filter {
     font-style: normal;
     font-weight: normal;
     font-size: 15px;
-
     color: #FFFFFF;
 }
 
-.card .details  {
+.card .details {
     display: flex;
     gap: 1rem;
     align-items: center;
@@ -118,7 +121,6 @@ main .top .filter {
     color: #F364A9;
 }
 
-
 .card .details .location {
     display: flex;
     align-items: center;
@@ -129,7 +131,6 @@ main .top .filter {
     font-weight: 300;
     font-size: 10px;
     line-height: 13px;
-
     color: rgba(0, 0, 0, 0.7);
 }
 
@@ -148,5 +149,3 @@ main .top .filter {
     font-size: 10px;
     color: #000000;
 }
-
-

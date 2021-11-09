@@ -39,21 +39,22 @@
                 <img src="../images/cat.png" alt="">
             </div>
             <!-- pets -->
-            <form class="main" action="">
+            <form class="main" method="POST" action="{{ route('register') }}">
+                @csrf
                 <div class="row">
-                    <input type="text" placeholder="Name">
+                    <input name="name" type="text" placeholder="Name">
                 </div>
                 <div class="row">
-                    <input type="text" placeholder="Email">
+                    <input name="email" type="text" placeholder="Email">
                 </div>
                 <div class="row">
-                    <input type="password" placeholder="Password">
+                    <input name="password" type="password" placeholder="Password">
                 </div>
                 <div class="actions">
-                    <button class="login" type="button">create</button>
+                    <button class="login" type="submit">create</button>
                 </div>
             </form>
-            <a class="dont-have" href="#">I have an account</a>
+            <a class="dont-have" href="{{ route('login') }}">I have an account</a>
         </main>
         <!-- end main -->
     </div>

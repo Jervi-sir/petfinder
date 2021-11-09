@@ -51,7 +51,7 @@
                     <button class="login" type="button">Login</button>
                 </div>
             </form>
-            <a class="dont-have" href="#">I don't have an account</a>
+            <a class="dont-have" href="{{ route('register') }}">I don't have an account</a>
         </main>
         <!-- end main -->
     </div>

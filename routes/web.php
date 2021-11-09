@@ -26,7 +26,6 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/all', [PetController::class, 'index'])->name('pet.all');
 
 Route::get('/add-pet', [PetController::class, 'create'])->name('pet.create');
 Route::post('/add-pet', [PetController::class, 'store'])->name('pet.store');

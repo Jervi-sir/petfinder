@@ -1,166 +1,142 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/add.css">
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+@extends('layouts.master')
 
-    <title>add Pet</title>
-</head>
-<body >
-<div id="app">
-    <div class="body">
-         <!-- Header -->
-         <header class="active">
-            <div class="logo">
-                <img src="../images/logo.svg" alt="">
-            </div>
-            <div class="search active">
-                <form action="">
-                    <input type="text" placeholder="Search" @keyup="activeSearch">
-                    <button type="submit">
-                        <img src="../images/search.svg" alt="">
-                    </button>
-                </form>
-            </div>
-        </header>
-        <!-- end Header -->
+@section('title')
+<title>add Pet</title>
+@endsection
 
-        <!-- Lines -->
-        <div class="dotted-line"></div>
-        <!-- end Lines -->
+@section('style-head')
+<link rel="stylesheet" href="../css/add.css">
+@endsection
 
-        <!-- main -->
-        <main>
-            <!-- pets -->
-            <form action="{{ route('pet.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="image">
-                    <div class="show">
-                        a
-                    </div>
-                    <input type="file" name="images[]" id="">
-                </div>
-                <div class="row">
-                    <label for="">name</label>
-                    <input name="name" type="text">
-                </div>
-                <div class="row double">
-                    <div class="sub">
-                        <select name="race" id="">
-                            @foreach ($races as $race)
-                            <option value="{{ $race->id }}">{{ $race->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="sub">
-                        <select name="sub" id="">
-                            @foreach ($subRaces as $subRace)
-                            <option value="{{ $subRace->id }}">{{ $subRace->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <select name="gender" id="">
-                        <option value="male">male</option>
-                        <option value="female">female</option>
-                        <option value="non">I dont know</option>
-                    </select>
-                </div>
-                <div class="row double">
-                    <div class="sub">
-                        <select name="location" id="">
-                            <option value="">location</option>
-                        </select>
-                    </div>
-                    <div class="sub">
-                        <select name="wilaya" id="">
-                            @foreach ($wilayas as $wilaya)
-                            <option value="{{ $wilaya->id }}">{{ $wilaya->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="row double">
-                    <div class="sub">
-                        <select name="birthday" id="">
-                            <option value="">birthday</option>
-                        </select>
-                    </div>
-                    <div class="sub">
-                        <span class="age">age:</span>
-                    </div>
-                </div>
-                <div class="row">
-                    <label for="">price</label>
-                    <input name="price" type="text">
-                </div>
-                <div class="row">
-                    <select name="color" id="">
-                        @foreach ($colors as $color)
-                        <option value="{{ $color->id }}">{{ $color->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="row">
-                    <label for="">weight</label>
-                    <input name="weight" type="text">
-                </div>
-                <div class="row">
-                    <label for="">description</label>
-                    <textarea name="description" id="" cols="30" rows="10"></textarea>
-                </div>
-                <div class="row phone">
-                    <input class="phone" type="text" value="0558054300">
-                    <button type="button"><img src="../images/add.svg" alt=""></button>
-                </div>
-                <div class="actions">
-                    <button class="publish" type="submit">publish</button>
-                    <button class="preview" type="button">preview</button>
-                </div>
-            </form>
-        </main>
-        <!-- end main -->
-    </div>
-    <!-- menu -->
-    <div class="menu">
-        <div class="container">
-            <div class="item">
-                <img src="../images/home.svg" alt="">
+@section('script-head')
+    
+@endsection
+
+
+@section('main')
+<main>
+    <!-- pets -->
+    <form class="form" action="{{ route('pet.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="image">
+            <div class="show">
+                <img src="" alt="">
             </div>
-            <div class="item">
-                <img src="../images/comment.svg" alt="">
+            <label class="add-img" for="add-image"><span>+</span></label>
+            <input hidden type="file" name="images[]" id="add-image">
+        </div>
+        <div class="row">
+            <label for="">name</label>
+            <input name="name" type="text">
+        </div>
+        <div class="row double">
+            <div class="sub">
+                <select name="race" id="">
+                    @foreach ($races as $race)
+                    <option value="{{ $race->id }}">{{ $race->name }}</option>
+                    @endforeach
+                </select>
             </div>
-            <div class="item">
-                <img src="../images/bookmark.svg" alt="">
-            </div>
-            <div class="item">
-                <img src="../images/add.svg" alt="">
-            </div>
-            <div class="item">
-                <img src="../images/user.svg" alt="">
+            <div class="sub">
+                <select name="sub" id="">
+                    @foreach ($subRaces as $subRace)
+                    <option value="{{ $subRace->id }}">{{ $subRace->name }}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
-    </div>
-</div>
+        <div class="row">
+            <select name="gender" id="">
+                <option value="male">male</option>
+                <option value="female">female</option>
+                <option value="non">I dont know</option>
+            </select>
+        </div>
+        <div class="row double">
+            <div class="sub">
+                <select name="location" id="">
+                    <option value="">location</option>
+                </select>
+            </div>
+            <div class="sub">
+                <select name="wilaya" id="">
+                    @foreach ($wilayas as $wilaya)
+                    <option value="{{ $wilaya->id }}">{{ $wilaya->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="row double">
+            <div class="sub">
+                <select name="birthday" id="">
+                    <option value="">birthday</option>
+                </select>
+            </div>
+            <div class="sub">
+                <span class="age">age:</span>
+            </div>
+        </div>
+        <div class="row">
+            <label for="">price</label>
+            <input name="price" type="text">
+        </div>
+        <div class="row">
+            <select name="color" id="">
+                @foreach ($colors as $color)
+                <option value="{{ $color->id }}">{{ $color->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="row">
+            <label for="">weight</label>
+            <input name="weight" type="text">
+        </div>
+        <div class="row">
+            <label for="">description</label>
+            <textarea name="description" id="" cols="30" rows="10"></textarea>
+        </div>
+        <div class="row phone" v-for="(item, index) in items">
+            <input name="phone[]" class="phone" type="text" value="" placeholder="phone number" required>
+            <button type="button"  v-on:click="addItem" v-if="items.length - 1 <= index" v-bind:class="{ disabled: item.phone.length == 0 }"><img src="../images/plus.svg" alt=""></button>
+            <button type="button" v-on:click="removeItem(index);" v-if="(items.length - 1 >= index) && (items.length -1 != index)"><img src="../images/minus.svg" alt=""></a>
+        </div>
+        <div class="actions">
+            <button class="publish" type="submit">publish</button>
+            <button class="preview" type="button">preview</button>
+        </div>
+    </form>
+</main>
+@endsection
 
+@section('script')
 <script>
     var app = new Vue({
     el: '#app',
         data: {
             activesearch: false,
+            items: [
+                {
+                    phone: '',
+                },
+                
+            ]
         },
         methods: {
             activeSearch: function () {
                 this.activesearch = true;
+            },
+            addItem: function() {
+                console.log('aa');
+                this.items.push({
+                    phone: '',
+                });
+            },
+            removeItem: function(index) {
+                this.items.splice(index, 1);
             }
         }
     })
 
 </script>
+@endsection
 
-</body>
-</html>
