@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pet;
 use App\Models\Race;
 use App\Models\Color;
+use App\Models\Status;
 use App\Models\Wilaya;
 use App\Models\SubRace;
 use Illuminate\Http\Request;
+
 
 class PetController extends Controller
 {
@@ -17,7 +20,23 @@ class PetController extends Controller
      */
     public function index()
     {
-        //
+        $pets = Pet::all();
+        $pet = $pets->first();
+
+        foreach ($pets as $key => $pet) {
+            $data['pets'][$key] = [
+                'name' => $pet->name,
+                'race' => $pet->race->first()->name,
+                'subRace' => $pet->subRace->first()->name,
+                'status' => $pet->status->first()->name,
+                'image' => $pet->pics,
+                'slug' => $pet->id,
+            ];
+        }
+
+        //return response()->json($data, 201);
+
+        return view('home');
     }
 
     /**
@@ -31,11 +50,13 @@ class PetController extends Controller
         $subRaces = SubRace::all();
         $wilayas = Wilaya::all();
         $colors = Color::all();
+        $statuses = Status::all();
         return view('pets.add', [
             'races' => $races,
             'subRaces' => $subRaces,
             'wilayas' => $wilayas,
             'colors' => $colors,
+            'statuses' => $statuses,
         ]);
     }
 
@@ -48,6 +69,25 @@ class PetController extends Controller
     public function store(Request $request)
     {
         dd($request);
+        $pet = new Pet();
+        $pet->name = $request->name;
+        $pet->user_id = Auth()->user()->id;
+        $pet->race_id = $request->race_id;
+        $pet->sub_race_id = $request->sub_race_id;
+        $pet->status_id = $request->status_id;
+
+        $pet->wilaya_id = $request->wilaya_id;
+        $pet->gender = $request->gender;
+
+        $color = Color::find($request->color)->first()->name;
+        $pet->color = $color;
+        $pet->date_birth = $request->date_birth;
+        $pet->size = $request->size;
+        $pet->pics = $request->file('images');
+        $pet->description = $request->description;
+        $pet->phone_number = $request->phone_number;
+        $pet->save();
+        return back();
     }
 
     /**
@@ -58,7 +98,13 @@ class PetController extends Controller
      */
     public function show($id)
     {
-        //
+        $pet = Pet::find($id);
+
+        /*return view('pets.show', [
+            'pet' => $pet,
+        ]);
+        */
+        return view("pets.show");
     }
 
     /**
@@ -69,7 +115,9 @@ class PetController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pet = Pet::find($id);
+
+        return view('pets.edit');
     }
 
     /**
@@ -90,8 +138,8 @@ class PetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function search(Request $request)
     {
-        //
+        dd($request);
     }
 }

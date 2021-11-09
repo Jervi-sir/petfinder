@@ -1,0 +1,294 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+
+:root {
+    --ff-primary: 'Archivo', sans-serif;
+    --ff-secondary: 'Chakra Petch', sans-serif;
+    --padding-layout: 2rem;
+    --gap: 2rem;
+    --bg-primary: #333A5A;
+    --bg-secondary: #EBEAEF;
+    --bg-third: #fff;
+    --color-primary: #000;
+    --color-secondary: #fff;
+
+}
+
+html {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-size: 62.5%;
+    font-family: var(--ff-primary);
+    scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, h5, h6, span, p, body {
+    margin: 0;
+    padding: 0;
+}
+
+*, *::after, *::before {
+    box-sizing: inherit;
+}
+
+body {
+    background: var(--bg-primary);
+    border-radius: 38px;
+}
+
+.body {
+    height: 90vh;
+    background: var(--bg-secondary);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 5px 16px rgba(0, 0, 0, 0.25);
+    border-radius: 0 0 38px 38px;
+    overflow: scroll;
+}
+
+
+.menu {
+    height: 10vh;
+}
+
+/*---------
+    Header
+    ----------*/
+
+header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+    padding: var(--padding-layout);
+}
+
+header h1 {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 3rem;
+    line-height: 35px;
+    width: 20rem;
+
+    color: var(--color-primary);
+}
+
+header .search form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: var(--bg-third);
+    border-radius: 11px;
+    flex-direction: row;
+}
+
+header .search form input {
+    border: none;
+    flex: auto;
+    font-family: var(--ff-secondary);
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.5rem;
+
+    color: #8F8989;
+
+}
+
+header .search form input:focus {
+    outline: none;
+}
+
+header .search form button {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+}
+
+header.active {
+    display: flex;
+    flex-direction: row;
+    transform: 0.5s;
+}
+
+header .title.active {
+    display: none;
+}
+
+header .search.active {
+    width: 100%;
+}
+/*---- end header ---*/
+
+/*-------
+    Dots
+    -------*/
+.dotted-line {
+    display: inline-block;
+    width: 100%;
+    border-bottom: 2px dashed var(--bg-primary);
+}
+
+/*---- end dots ---*/
+
+
+/*---------
+    main
+    ----------*/
+main {
+    padding: var(--gap);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+    justify-content: space-between;
+}
+
+form {
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 2rem;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.show {
+    width: 5rem;
+    height: 5rem;
+    text-align: center;
+    background-color: black;
+    color: wheat;
+}
+
+
+.row {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.row label {
+    margin: 0.5rem 1rem;
+    font-family: Archivo;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 16px;
+    color: #000000;
+}
+
+.row input, .row select {
+    background: #EBEAEF;
+    border-radius: 5px;
+    width: 100%;
+    border: none;
+    padding: 1rem;
+}
+
+.row.double {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 2rem;
+    align-items: center;
+}
+
+.row .sub {
+    width: 100%;
+}
+
+.row .age {
+    font-family: Archivo;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 16px;
+
+    color: #000000;
+}
+
+textarea {
+    border: none;
+    resize: vertical;
+    background: #EBEAEF;
+    border-radius: 5px;
+}
+
+.phone {
+    display: flex;
+    flex-direction: row;
+}
+
+.phone button {
+    padding: 0.5rem;
+    background: #1EAD68;
+    border-radius: 5px;
+    border: none;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.actions button.publish {
+    border: none;
+    padding: 0.5rem 2rem;
+    font-family: Archivo;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 16px;
+
+    color: #FFFFFF;
+
+    background: #333A59;
+    border-radius: 5px;
+}
+
+.actions button.preview {
+    background-color: transparent;
+    border: none;
+    font-family: Archivo;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 16px;
+
+    color: #333A59;
+
+}
+
+
+/*---------
+    menu
+    ----------*/
+.menu {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+}
+
+.menu  .container {
+    display: flex;
+    justify-content: space-between;
+    padding: 3rem var(--gap);
+    width: 100%;
+}
+
+
+/*---- end menu ---*/
+
+
+
+
+
+
+
+
+
+
+
+

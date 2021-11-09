@@ -26,12 +26,15 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
+Route::get('/all', [PetController::class, 'index'])->name('pet.all');
+
 Route::get('/add-pet', [PetController::class, 'create'])->name('pet.create');
 Route::post('/add-pet', [PetController::class, 'store'])->name('pet.store');
 Route::get('/update-pet/{id}', [PetController::class, 'edit'])->name('pet.edit');
 Route::post('/update-pet/{id}', [PetController::class, 'update'])->name('pet.update');
 Route::post('/delete-pet/{id}', [PetController::class, 'delete'])->name('pet.delete');
 
+Route::get('/myprofile',[ProfileController::class, 'myprofile'])->name('profile.myprofile');
 Route::get('/profile-edit',[ProfileController::class, 'edit'])->name('profile.edit');
 Route::post('/profile-edit',[ProfileController::class, 'update'])->name('profile.update');
 Route::get('/pet-list',[ProfileController::class, 'list'])->name('profile.list');
@@ -55,13 +58,13 @@ Route::get('/search', [PetController::class, 'search'])->name('pet.search');
 /*
 
 
-- [ ] add pet
+- [z] add pet    -- images, turning id into numbers and stuffs
 - [ ] edit pet
 - [ ] delete pet
-- [ ] list all my pets
+- [z] list all my pets
 - [ ] edit profile
 - [ ] pet latest
-- [ ] show ome pet
+- [z] show one pet
 - [ ] like
 - [ ] unlike
 - [ ] save

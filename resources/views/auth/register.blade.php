@@ -1,59 +1,98 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/register.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
-
-            <!-- Name -->
-            <div>
-                <x-label for="name" :value="__('Name')" />
-
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+    <title>add Pet</title>
+</head>
+<body >
+<div id="app">
+    <div class="body">
+         <!-- Header -->
+         <header class="active">
+            <div class="logo">
+                <img src="../images/logo.svg" alt="">
             </div>
-
-            <!-- Email Address -->
-            <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+            <div class="search active">
+                <form action="">
+                    <input type="text" placeholder="Search" @keyup="activeSearch">
+                    <button type="submit">
+                        <img src="../images/search.svg" alt="">
+                    </button>
+                </form>
             </div>
+        </header>
+        <!-- end Header -->
 
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
+        <!-- Lines -->
+        <div class="dotted-line"></div>
+        <!-- end Lines -->
 
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="new-password" />
+        <!-- main -->
+        <main>
+            <div class="top">
+                <h1>Register</h1>
+                <img src="../images/cat.png" alt="">
             </div>
-
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required />
+            <!-- pets -->
+            <form class="main" action="">
+                <div class="row">
+                    <input type="text" placeholder="Name">
+                </div>
+                <div class="row">
+                    <input type="text" placeholder="Email">
+                </div>
+                <div class="row">
+                    <input type="password" placeholder="Password">
+                </div>
+                <div class="actions">
+                    <button class="login" type="button">create</button>
+                </div>
+            </form>
+            <a class="dont-have" href="#">I have an account</a>
+        </main>
+        <!-- end main -->
+    </div>
+    <!-- menu -->
+    <div class="menu">
+        <div class="container">
+            <div class="item">
+                <img src="../images/home.svg" alt="">
             </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
-                <x-button class="ml-4">
-                    {{ __('Register') }}
-                </x-button>
+            <div class="item">
+                <img src="../images/comment.svg" alt="">
             </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+            <div class="item">
+                <img src="../images/bookmark.svg" alt="">
+            </div>
+            <div class="item">
+                <img src="../images/add.svg" alt="">
+            </div>
+            <div class="item">
+                <img src="../images/user.svg" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var app = new Vue({
+    el: '#app',
+        data: {
+            activesearch: false,
+        },
+        methods: {
+            activeSearch: function () {
+                this.activesearch = true;
+            }
+        }
+    })
+
+</script>
+
+</body>
+</html>

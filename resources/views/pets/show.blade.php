@@ -4,18 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/pet.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 
-    <title>add Pet</title>
+    <title>Pet details</title>
 </head>
 <body >
 <div id="app">
     <div class="body">
-         <!-- Header -->
-         <header class="active">
+        <!-- Header -->
+        <header class="active">
             <div class="logo">
                 <img src="../images/logo.svg" alt="">
+            </div>
+            <div class="title active">
+                <h1>Find your favorite pet</h1>
             </div>
             <div class="search active">
                 <form action="">
@@ -34,24 +37,38 @@
 
         <!-- main -->
         <main>
-            <div class="top">
-                <h1>Login</h1>
-                <img src="../images/cat.png" alt="">
-            </div>
             <!-- pets -->
-            <form class="main" action="">
-                <div class="row">
-                    <input type="text" placeholder="Email">
+            <div class="image">
+                <div class="back">
+                    <img src="../images/back.svg" alt="">
                 </div>
-                <div class="row">
-                    <input type="password" placeholder="Password">
+                <img class="pic" src="../images/cat.png" alt="">
+            </div>
+            <div class="details">
+                <h2>pet name</h2>
+                <h3>race</h3>
+                <h4><img src="../images/location.svg" alt=""> location</h4>
+                <div class="bubbles">
+                    <span class="age">2Years</span>
+                    <span class="gender">male</span>
+                    <span class="weight">2kg</span>
+                    <span class="color">black</span>
+                </div>
+                <div class="bio">
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta autem provident nisi ipsa natus odit minus quos accusamus excepturi. Quod explicabo amet quam tenetur consequatur, suscipit nostrum architecto eius sit.
+                </div>
+                <div class="contact">
+                    <span>Owner number</span>
                 </div>
                 <div class="actions">
-                    <a href="#">Forgot my password</a>
-                    <button class="login" type="button">Login</button>
+                    <div class="like">
+                        <img src="../images/heart_empty.svg" alt="">
+                    </div>
+                    <div class="message">
+                        <button>Send message</button>
+                    </div>
                 </div>
-            </form>
-            <a class="dont-have" href="#">I don't have an account</a>
+            </div>
         </main>
         <!-- end main -->
     </div>

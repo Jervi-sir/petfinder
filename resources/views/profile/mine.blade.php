@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/profile.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 
-    <title>add Pet</title>
+    <title>Profile</title>
 </head>
 <body >
 <div id="app">
@@ -21,7 +21,7 @@
                 <form action="">
                     <input type="text" placeholder="Search" @keyup="activeSearch">
                     <button type="submit">
-                        <img src="../images/search.svg" alt="">
+                        <img src="../images/search.svg" al="">
                     </button>
                 </form>
             </div>
@@ -34,24 +34,57 @@
 
         <!-- main -->
         <main>
-            <div class="top">
-                <h1>Login</h1>
-                <img src="../images/cat.png" alt="">
+            <h3>my profile</h3>
+            <div class="profile-card">
+                <div class="details">
+                    <div class="left">
+                        <span>Namename</span>
+                        <span>email</span>
+                        <span>phone number</span>
+                    </div>
+                    <div class="right">
+                        <img src="" alt="">
+                    </div>
+                </div>
+                <div class="edit">
+                    <a href="#">edit</a>
+                </div>
             </div>
-            <!-- pets -->
-            <form class="main" action="">
-                <div class="row">
-                    <input type="text" placeholder="Email">
+            <div></div>
+            <h3>my pets</h3>
+            <div class="posts">
+                <div class="card">
+                    <div class="left">
+                        <img src="" alt="">
+                    </div>
+                    <div class="middle">
+                        <h4>Grig</h4>
+                        <h6>Breed</h6>
+                        <h6>Descrtiption</h6>
+                        <h5>Price</h5>
+                    </div>
+                    <div class="right">
+                        <span class="gender female">Female</span>
+                        <span class="age">20 years</span>
+                    </div>
                 </div>
-                <div class="row">
-                    <input type="password" placeholder="Password">
+                <div class="card">
+                    <div class="left">
+                        <img src="" alt="">
+                    </div>
+                    <div class="middle">
+                        <h4>Grig</h4>
+                        <h6>Breed</h6>
+                        <h6>Descrtiption</h6>
+                        <h5>Price</h5>
+                    </div>
+                    <div class="right">
+                        <span class="gender female">Female</span>
+                        <span class="age">20 years</span>
+                    </div>
                 </div>
-                <div class="actions">
-                    <a href="#">Forgot my password</a>
-                    <button class="login" type="button">Login</button>
-                </div>
-            </form>
-            <a class="dont-have" href="#">I don't have an account</a>
+            </div>
+
         </main>
         <!-- end main -->
     </div>
