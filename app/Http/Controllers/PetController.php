@@ -21,22 +21,25 @@ class PetController extends Controller
     public function index()
     {
         $pets = Pet::all();
-        $pet = $pets->first();
-
+        //$pet = $pets->first();
+        
         foreach ($pets as $key => $pet) {
             $data['pets'][$key] = [
+                'id' => $pet->id,
                 'name' => $pet->name,
-                'race' => $pet->race->first()->name,
-                'subRace' => $pet->subRace->first()->name,
-                'status' => $pet->status->first()->name,
+                'gender' => $pet->gender,
+                'race' => $pet->race->name,
+                'subRace' => $pet->subRace->name,
+                'status' => $pet->status->name,
+                'wilaya' => $pet->wilaya->name,
+                'status' => $pet->status->name,
                 'image' => $pet->pics,
-                'slug' => $pet->id,
             ];
         }
+        $data_obj = (object)$data['pets'];
+        //return response()->json($data['pets'], 201);
 
-        //return response()->json($data, 201);
-
-        return view('home');
+        return view('home', ['pets' => $data_obj]);
     }
 
     /**
@@ -68,24 +71,25 @@ class PetController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
         $pet = new Pet();
         $pet->name = $request->name;
         $pet->user_id = Auth()->user()->id;
-        $pet->race_id = $request->race_id;
-        $pet->sub_race_id = $request->sub_race_id;
-        $pet->status_id = $request->status_id;
+        $pet->race_id = $request->race;
+        $pet->sub_race_id = $request->sub;
 
-        $pet->wilaya_id = $request->wilaya_id;
+        $pet->status_id = $request->status;      //not setted
+
+        $pet->wilaya_id = $request->wilaya;
         $pet->gender = $request->gender;
 
         $color = Color::find($request->color)->first()->name;
         $pet->color = $color;
-        $pet->date_birth = $request->date_birth;
-        $pet->size = $request->size;
+        $pet->date_birth =  date("Y/m/d"); //$request->birthday;
+        $pet->size = $request->size;            //not setted
         $pet->pics = $request->file('images');
         $pet->description = $request->description;
-        $pet->phone_number = $request->phone_number;
+        $pet->phone_number = json_encode($request->phone);
+
         $pet->save();
         return back();
     }

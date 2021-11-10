@@ -26,11 +26,20 @@
             <input hidden type="file" name="images[]" id="add-image">
         </div>
         <div class="row">
+            <label for="">status</label>
+            <select name="status" id="">
+                @foreach ($statuses as $status)
+                <option value="{{ $status->id }}">{{ $status->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="row">
             <label for="">name</label>
             <input name="name" type="text">
         </div>
         <div class="row double">
             <div class="sub">
+                <label for="">race</label>
                 <select name="race" id="">
                     @foreach ($races as $race)
                     <option value="{{ $race->id }}">{{ $race->name }}</option>
@@ -38,6 +47,7 @@
                 </select>
             </div>
             <div class="sub">
+                <label for="">sub</label>
                 <select name="sub" id="">
                     @foreach ($subRaces as $subRace)
                     <option value="{{ $subRace->id }}">{{ $subRace->name }}</option>
@@ -46,6 +56,7 @@
             </div>
         </div>
         <div class="row">
+            <label for="">gender</label>
             <select name="gender" id="">
                 <option value="male">male</option>
                 <option value="female">female</option>
@@ -68,9 +79,7 @@
         </div>
         <div class="row double">
             <div class="sub">
-                <select name="birthday" id="">
-                    <option value="">birthday</option>
-                </select>
+                <input name="birthday" type="text" placeholder="birthday">
             </div>
             <div class="sub">
                 <span class="age">age:</span>

@@ -18,34 +18,30 @@
         el: '#app',
         data: {
             activesearch: false,
-            result: [{
-                id: '1',
-                image: '',
-                name: '',
-                breed: '',
-                gender: '',
-                location: '',
-                price: '',
-                link: '',
-            }, ]
+            results: [],
         },
         methods: {
             activeSearch: function() {
                 this.activesearch = true;
             }
+        },
+        created() {
+            var pets = {!! json_encode($pets) !!};
+            this.results = pets;
         }
     })
 </script>
 @endsection
 
 @section('main')
+
 <main>
     <div class="top">
         <h5>New Pets</h5>
         <div class="filter">...</div>
     </div>
     <!-- pets -->
-    <div class="card dog">
+    <div class="card dog" v-for="(result, index) in results">
         <div class="card-top">
             <div class="save">
                 <img src="../images/heart_empty.svg" alt="">
@@ -54,65 +50,20 @@
                 <img src="../images/dog.png" alt="">
             </div>
             <div class="name">
-                <span>foxy</span>
+                <span>@{{ result.name }}</span>
             </div>
         </div>
         <div class="details">
-            <div class="breed">Breed</div>
-            <div class="gender male">male</div>
+            <div class="breed">@{{ result.race }}</div>
+            <div class="gender" :class="result.gender">@{{ result.gender }}</div>
             <div class="location">
                 <img src="../images/location.svg" alt="">
-                <span>Location location</span>
+                <span>@{{ result.wilaya }}</span>
             </div>
             <div class="age">20 years</div>
-            <div class="price">adoption</div>
+            <div class="price">@{{ result.status }}</div>
         </div>
     </div>
-    <div class="card cat">
-        <div class="card-top">
-            <div class="save">
-                <img src="../images/heart_fill.svg" alt="">
-            </div>
-            <div class="images">
-                <img src="../images/cat.png" alt="">
-            </div>
-            <div class="name">
-                <span>Loxy</span>
-            </div>
-        </div>
-        <div class="details">
-            <div class="breed">Breed</div>
-            <div class="gender male">male</div>
-            <div class="location">
-                <img src="../images/location.svg" alt="">
-                <span>Location location</span>
-            </div>
-            <div class="age">20 years</div>
-            <div class="price">adoption</div>
-        </div>
-    </div>
-    <div class="card dog">
-        <div class="card-top">
-            <div class="save">
-                <img src="../images/heart_empty.svg" alt="">
-            </div>
-            <div class="images">
-                <img src="../images/dog.png" alt="">
-            </div>
-            <div class="name">
-                <span>foxy</span>
-            </div>
-        </div>
-        <div class="details">
-            <div class="breed">Breed</div>
-            <div class="gender male">male</div>
-            <div class="location">
-                <img src="../images/location.svg" alt="">
-                <span>Location location</span>
-            </div>
-            <div class="age">20 years</div>
-            <div class="price">adoption</div>
-        </div>
-    </div>
+    
 </main>
 @endsection

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Race;
 use App\Models\User;
 use App\Models\Status;
+use App\Models\Wilaya;
 use App\Models\SubRace;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,6 +34,9 @@ class Pet extends Model
         return $this->belongsTo(Status::class);
     }
 
-
+    public function wilaya()
+    {
+        return $this->belongsTo(Wilaya::class);
+    }
 
 }

@@ -102,9 +102,8 @@ main .top .filter {
 }
 
 .gender {
-    padding: .7rem 2rem;
+    padding: 0.5rem 1rem;
     border-radius: 25px;
-    width: 60px;
     font-style: normal;
     font-weight: normal;
     font-size: 10px;
@@ -119,6 +118,11 @@ main .top .filter {
 .gender.female {
     background: #FFD1E7;
     color: #F364A9;
+}
+
+.gender.non {
+    background: #dddddd;
+    color: #303030;
 }
 
 .card .details .location {
