@@ -80,6 +80,11 @@ form .img {
     max-height: 50px;
     background-color: orange;
     border-radius: 10px;
+    overflow: hidden;
+}
+
+.img img {
+    width: 100%;
 }
 
 form #image {

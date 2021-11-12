@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-<title>Profile</title>
+<title>my Profile</title>
 @endsection
 
 @section('style-head')
@@ -18,11 +18,16 @@
     el: '#app',
         data: {
             activesearch: false,
+            pets: [],
         },
         methods: {
             activeSearch: function () {
                 this.activesearch = true;
             }
+        },
+        created() {
+            var pets = {!! json_encode($pets) !!};
+            this.pets = pets;
         }
     })
 </script>
@@ -34,9 +39,9 @@
     <div class="profile-card">
         <div class="details">
             <div class="left">
-                <span>Namename</span>
-                <span>email</span>
-                <span>phone number</span>
+                <span>{{ $user->name }}</span>
+                <span>{{ $user->email }}</span>
+                <span>{{ $user->phone_number }}</span>
             </div>
             <div class="right">
                 <img src="" alt="">
@@ -49,36 +54,22 @@
     <div></div>
     <h3>my pets</h3>
     <div class="posts">
-        <div class="card">
+        <div class="card"  v-for="(pet, index) in pets">
             <div class="left">
                 <img src="" alt="">
             </div>
             <div class="middle">
-                <h4>Grig</h4>
-                <h6>Breed</h6>
-                <h6>Descrtiption</h6>
-                <h5>Price</h5>
+                <h4>@{{ pet.name }}</h4>
+                <h6>@{{ pet.race }}, @{{ pet.subRace }}</h6>
+                <h6>@{{ pet.race }}</h6>
+                <h5>@{{ pet.status }}</h5>
             </div>
             <div class="right">
-                <span class="gender female">Female</span>
+                <span class="gender" :class="pet.gender">@{{ pet.gender }}</span>
                 <span class="age">20 years</span>
             </div>
         </div>
-        <div class="card">
-            <div class="left">
-                <img src="" alt="">
-            </div>
-            <div class="middle">
-                <h4>Grig</h4>
-                <h6>Breed</h6>
-                <h6>Descrtiption</h6>
-                <h5>Price</h5>
-            </div>
-            <div class="right">
-                <span class="gender female">Female</span>
-                <span class="age">20 years</span>
-            </div>
-        </div>
+        
     </div>
 
 </main>

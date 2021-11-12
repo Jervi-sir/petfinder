@@ -34,6 +34,7 @@
 @endsection
 
 @section('main')
+@include('components.selector')
 
 <main>
     <div class="top">
@@ -41,29 +42,31 @@
         <div class="filter">...</div>
     </div>
     <!-- pets -->
-    <div class="card dog" v-for="(result, index) in results">
-        <div class="card-top">
-            <div class="save">
-                <img src="../images/heart_empty.svg" alt="">
+    <div class="results">
+
+        <div :class='result.race' class="card" v-for="(result, index) in results">
+            <div class="card-top">
+                <div class="save">
+                    <img src="../images/heart_empty.svg" alt="">
+                </div>
+                <div class="images">
+                    <img src="../images/dog.png" alt="">
+                </div>
+                <div class="name">
+                    <span>@{{ result.name }}</span>
+                </div>
             </div>
-            <div class="images">
-                <img src="../images/dog.png" alt="">
+            <div class="details">
+                <div class="breed">@{{ result.race }}</div>
+                <div class="gender" :class="result.gender">@{{ result.gender }}</div>
+                <div class="location">
+                    <img src="../images/location.svg" alt="">
+                    <span>@{{ result.wilaya }}</span>
+                </div>
+                <div class="age">20 years</div>
+                <div class="price">@{{ result.status }}</div>
             </div>
-            <div class="name">
-                <span>@{{ result.name }}</span>
-            </div>
-        </div>
-        <div class="details">
-            <div class="breed">@{{ result.race }}</div>
-            <div class="gender" :class="result.gender">@{{ result.gender }}</div>
-            <div class="location">
-                <img src="../images/location.svg" alt="">
-                <span>@{{ result.wilaya }}</span>
-            </div>
-            <div class="age">20 years</div>
-            <div class="price">@{{ result.status }}</div>
         </div>
     </div>
-    
 </main>
 @endsection

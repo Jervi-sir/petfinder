@@ -1,27 +1,17 @@
 <div class="selector">
     <div class=""></div>
     <div class="item">
-        All
+        <a href="#">
+            All
+        </a>
     </div>
+    @foreach ($races as $race)
     <div class="item">
-        <img src="../images/cat.svg" alt="">
-        <span>Cat</span>
+        <a href="#">
+            <img src="../images/cat.svg" alt="">
+            <span>{{ $race->name }}</span>
+        </a>
     </div>
-    <div class="item">
-        <img src="../images/cat.svg" alt="">
-        <span>Cat</span>
-    </div>
-    <div class="item">
-        <img src="../images/cat.svg" alt="">
-        <span>Cat</span>
-    </div>
-    <div class="item">
-        <img src="../images/cat.svg" alt="">
-        <span>Cat</span>
-    </div>
-    <div class="item">
-        <img src="../images/cat.svg" alt="">
-        <span>Cat</span>
-    </div>
+    @endforeach
 
 </div>

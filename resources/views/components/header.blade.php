@@ -44,4 +44,3 @@
 <div class="dotted-line"></div>
 <!-- end Lines -->
 
-@include('components.selector')

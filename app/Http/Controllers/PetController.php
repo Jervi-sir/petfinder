@@ -22,7 +22,7 @@ class PetController extends Controller
     {
         $pets = Pet::all();
         //$pet = $pets->first();
-        
+        $races = Race::all();
         foreach ($pets as $key => $pet) {
             $data['pets'][$key] = [
                 'id' => $pet->id,
@@ -39,7 +39,7 @@ class PetController extends Controller
         $data_obj = (object)$data['pets'];
         //return response()->json($data['pets'], 201);
 
-        return view('home', ['pets' => $data_obj]);
+        return view('home', ['pets' => $data_obj, 'races' => $races]);
     }
 
     /**
@@ -71,6 +71,8 @@ class PetController extends Controller
      */
     public function store(Request $request)
     {
+        $images = array_slice($request->file('images'), 0, 4);
+        dd($images);
         $pet = new Pet();
         $pet->name = $request->name;
         $pet->user_id = Auth()->user()->id;

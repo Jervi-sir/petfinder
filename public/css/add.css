@@ -17,7 +17,7 @@ main {
     display: flex;
     width: 100%;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem;
 }
 
 .image {
@@ -32,6 +32,14 @@ main {
     text-align: center;
     background-color: black;
     color: wheat;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.show img {
+    height: 100%;
 }
 
 .add-img {
@@ -53,11 +61,11 @@ main {
 }
 
 .row label {
-    margin: 0.5rem 1rem;
+    margin: 0rem 1rem;
     font-family: Archivo;
     font-style: normal;
     font-weight: normal;
-    font-size: 15px;
+    font-size: 10px;
     line-height: 16px;
     color: #000000;
 }
@@ -71,7 +79,7 @@ main {
     padding: 1rem;
 }
 
-.row.double {
+.double {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -92,11 +100,34 @@ main {
     color: #000000;
 }
 
+.box-container {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 1rem;
+    flex-direction: row;
+}
+
+.row .box {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.row .box input {
+    width: 20px;
+}
+
 textarea {
     border: none;
     resize: vertical;
     background: #EBEAEF;
     border-radius: 5px;
+    padding: 1rem;
+}
+
+.count {
+    text-align: end;
+    padding: 0.5rem 1rem;
 }
 
 .phone {

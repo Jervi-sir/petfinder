@@ -34,8 +34,13 @@ main .top .filter {
     color: #000000;
 }
 
+.results {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
 .card {
-    width: 16rem;
     border-radius: 2rem;
     overflow: hidden;
     background-color: var(--color-secondary);

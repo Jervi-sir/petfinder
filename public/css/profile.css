@@ -139,15 +139,29 @@ main h3 {
     padding: 0.5rem 0.7rem;
 }
 
-.gender.female {
+.gender {
     font-family: Archivo;
     font-style: normal;
     font-weight: normal;
     font-size: 10px;
     line-height: 11px;
-    color: #F364A9;
-    background: #FFD1E7;
     border-radius: 25px;
+    text-align: center;
+}
+
+.gender.male {
+    background: #D9E2F5;
+    color: #3A78E0;
+}
+
+.gender.female {
+    background: #FFD1E7;
+    color: #F364A9;
+}
+
+.gender.non {
+    background: #dddddd;
+    color: #303030;
 }
 
 .age {

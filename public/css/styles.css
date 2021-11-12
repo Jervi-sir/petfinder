@@ -168,6 +168,22 @@ header .search.active {
     color: #000000;
 }
 
+.selector a {
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.selector .item:hover {
+    background-color: #dfdfdf;
+    transition: 0.5s;
+}
+
+.selector .item:hover img {
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+
 
 /*---- end selector ---*/
 
