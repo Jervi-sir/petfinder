@@ -3,15 +3,40 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    private function getAge($date_birth)
+    {
+        $now = time(); // or your date as well
+        $your_date = strtotime($date_birth);
+        $datediff = $now - $your_date;
+        $total = $datediff / (60 * 60 * 24);
+        $age = '';
+        if($total > 360) {
+            $years = intval($total / 360);
+            $total = $total - ($years * 360);
+            $age = $years . 'y ';
+        }
+        if($total >= 30) {
+            $leftMonths = intval($total % 30);
+            $total = $total - ($leftMonths * 30);
+            $age = $age . $leftMonths . 'm';
+        }
+        else {
+            $leftDays = intval($total % 30);
+            $total = $total - ($leftDays * 1);
+            if(strpos($age, 'm') == false) {
+                $age = $age . $leftDays . 'd';
+            }
+        }
+
+        return $age;
+    }
+
+
     public function index()
     {
         //
@@ -19,6 +44,8 @@ class ProfileController extends Controller
 
     public function myprofile()
     {
+        $base1 = URL::to('/update-pet') . '/';
+
         $user = Auth()->user();
         $data['user'] = [
             'name' => $user->name,
@@ -28,24 +55,26 @@ class ProfileController extends Controller
 
         $pets = $user->pets()->get();
         //$pet = $pets->first();
-        
-        foreach ($pets as $key => $pet) {
-            $data['pets'][$key] = [
-                'id' => $pet->id,
-                'name' => $pet->name,
-                'gender' => $pet->gender,
-                'race' => $pet->race->name,
-                'subRace' => $pet->subRace->name,
-                'status' => $pet->status->name,
-                'wilaya' => $pet->wilaya->name,
-                'status' => $pet->status->name,
-                'image' => $pet->pics,
-            ];
+        if($pets->count()) {
+            foreach ($pets as $key => $pet) {
+                $data['pets'][$key] = [
+                    'url' => $base1 . $pet->id,
+                    'name' => $pet->name,
+                    'gender' => $pet->gender,
+                    'race' => $pet->race->name,
+                    'subRace' => $pet->subRace->name,
+                    'status' => $pet->status->name,
+                    'wilaya' => $pet->wilaya->name,
+                    'status' => $pet->status->name,
+                    'image' => $pet->pics,
+                    'age' => $this->getAge($pet->date_birth),
+                ];
+            }
         }
 
-        $user = (object)$data['user'];
-        $pets = (object)$data['pets'];
-        return view('profile.mine', ['pets' => $pets,'user' => $user]);
+        //$user = (object)$data['user'];
+        //$pets = (object)$data['pets'];
+        return view('profile.mine', ['pets' => $data['pets'],'user' => $user]);
     }
 
     public function edit()
@@ -74,7 +103,10 @@ class ProfileController extends Controller
         return redirect()->route('profile.myprofile');
     }
 
-
+    public function delete(Request $request)
+    {
+        dd($request);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -125,8 +157,5 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+
 }

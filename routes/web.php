@@ -27,20 +27,20 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 
-Route::get('/add-pet', [PetController::class, 'create'])->name('pet.create');
-Route::post('/add-pet', [PetController::class, 'store'])->name('pet.store');
-Route::get('/update-pet/{id}', [PetController::class, 'edit'])->name('pet.edit');
-Route::post('/update-pet/{id}', [PetController::class, 'update'])->name('pet.update');
-Route::post('/delete-pet/{id}', [PetController::class, 'delete'])->name('pet.delete');
+Route::get('/add-pet', [PetController::class, 'create'])->name('pet.create');           //done
+Route::post('/add-pet', [PetController::class, 'store'])->name('pet.store');            //done
+Route::get('/update-pet/{id}', [PetController::class, 'edit'])->name('pet.edit');          //images not yet
+Route::post('/update-pet', [PetController::class, 'update'])->name('pet.update');           //done
+Route::post('/delete-pet', [PetController::class, 'delete'])->name('pet.delete');      //done
 
-Route::get('/myprofile',[ProfileController::class, 'myprofile'])->name('profile.myprofile');
-Route::get('/profile-edit',[ProfileController::class, 'edit'])->name('profile.edit');
-Route::post('/profile-edit',[ProfileController::class, 'update'])->name('profile.update');
-Route::get('/pet-list',[ProfileController::class, 'list'])->name('profile.list');
+Route::get('/myprofile',[ProfileController::class, 'myprofile'])->name('profile.myprofile');        //done        //done
+Route::get('/profile-edit',[ProfileController::class, 'edit'])->name('profile.edit');               //done
+Route::post('/profile-edit',[ProfileController::class, 'update'])->name('profile.update');          //done
+//Route::get('/pet-list',[ProfileController::class, 'list'])->name('profile.list');
 Route::post('/saved-list',[ProfileController::class, 'saved'])->name('profile.saved');
 
-Route::get('/pets-latest', [PetController::class, 'index'])->name('pet.all');
-Route::get('/pets/{id}', [PetController::class, 'show'])->name('pet.show');
+Route::get('/pets-latest', [PetController::class, 'index'])->name('pet.all');       //done
+Route::get('/pets/{id}', [PetController::class, 'show'])->name('pet.show');         //done
 
 Route::post('/like/{id}', [ActionController::class, 'like'])->name('like');
 Route::post('/unlike/{id}', [ActionController::class, 'unlike'])->name('unlike');
@@ -55,7 +55,6 @@ Route::get('/search', [PetController::class, 'search'])->name('pet.search');
 
 
 /*
-
 
 - [z] add pet    -- images, turning id into numbers and stuffs
 - [ ] edit pet
@@ -74,4 +73,4 @@ Route::get('/search', [PetController::class, 'search'])->name('pet.search');
 - [ ] filter
 - [ ] message
 
-\*/
+*/

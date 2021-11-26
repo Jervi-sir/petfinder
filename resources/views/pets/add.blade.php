@@ -9,7 +9,7 @@
 @endsection
 
 @section('script-head')
-    
+
 @endsection
 
 
@@ -85,7 +85,7 @@
             <div class="double">
 
                 <div class="sub">
-                    <input id="birthday" name="birthday" type="date"  min="1900-01-01" max="1998-07-08" v-model="birthdate" @change='setAge()' placeholder="birthday">
+                    <input id="birthday" name="birthday" type="date"  min="1900/01/01" max="1998/07/08" v-model="birthdate" @change='setAge()' placeholder="birthday">
                 </div>
                 <div class="sub">
                     <span class="age">age: @{{ age }}</span>
@@ -106,15 +106,15 @@
         </div>
         <div class="row box-container">
             <div class="box">
-                <input type="radio" name="status" value="adoption" v-model="status" checked> 
+                <input type="radio" name="status" value="adoption" v-model="status" checked>
                 <span>adoption</span>
             </div>
             <div class="box">
-                <input type="radio" name="status" value="sell" v-model="status"> 
+                <input type="radio" name="status" value="sell" v-model="status">
                 <span>sell</span>
             </div>
             <div class="box">
-                <input type="radio" name="status" value="rent" v-model="status"> 
+                <input type="radio" name="status" value="rent" v-model="status">
                 <span>rent</span>
             </div>
         </div>
@@ -167,7 +167,7 @@
                 {
                     phone: '',
                 },
-                
+
             ]
         },
         methods: {

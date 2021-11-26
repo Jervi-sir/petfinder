@@ -22,6 +22,8 @@
         @yield('main')
         <!-- end main -->
     </div>
+    <div class="empty-space">
+    </div>
     <!-- menu -->
     @include('components.menu')
 </div>

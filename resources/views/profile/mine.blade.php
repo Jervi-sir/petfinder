@@ -9,7 +9,7 @@
 @endsection
 
 @section('script-head')
-    
+
 @endsection
 
 @section('script')
@@ -19,6 +19,7 @@
         data: {
             activesearch: false,
             pets: [],
+            user: [],
         },
         methods: {
             activeSearch: function () {
@@ -27,7 +28,9 @@
         },
         created() {
             var pets = {!! json_encode($pets) !!};
+            var user = {!! json_encode($user) !!};
             this.pets = pets;
+            this.user = user;
         }
     })
 </script>
@@ -39,9 +42,9 @@
     <div class="profile-card">
         <div class="details">
             <div class="left">
-                <span>{{ $user->name }}</span>
-                <span>{{ $user->email }}</span>
-                <span>{{ $user->phone_number }}</span>
+                <span>@{{ user.name }}</span>
+                <span>@{{ user.email }}</span>
+                <span>@{{ user.phone_number }}</span>
             </div>
             <div class="right">
                 <img src="" alt="">
@@ -52,9 +55,13 @@
         </div>
     </div>
     <div></div>
-    <h3>my pets</h3>
+
+    <div class="head-posts">
+        <h3>my pets</h3>
+        <span> @{{ pets.length }} / 7 <small>pets</small></span>
+    </div>
     <div class="posts">
-        <div class="card"  v-for="(pet, index) in pets">
+        <a class="card" :href='pet.url' v-for="(pet, index) in pets">
             <div class="left">
                 <img src="" alt="">
             </div>
@@ -66,11 +73,12 @@
             </div>
             <div class="right">
                 <span class="gender" :class="pet.gender">@{{ pet.gender }}</span>
-                <span class="age">20 years</span>
+                <span class="age">@{{ pet.age }}</span>
             </div>
+        </a>
+        <div class="add-pets">
+            <a href="{{ route('pet.create') }}">add pets</a>
         </div>
-        
     </div>
-
 </main>
 @endsection

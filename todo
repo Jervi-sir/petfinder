@@ -1,8 +1,15 @@
 [x] index
 [x] pet detials
-x[x] add pet
-[] edit pet
+[x] add pet
 [x] profile
 [x] edit profile
 [x] login
-[] register
+[x] pet view
+[x] edit pet
+[x] delete pet
+
+[x] register
+[] upload images
+[] middleware
+[] add pet limits
+[] delete confirmation

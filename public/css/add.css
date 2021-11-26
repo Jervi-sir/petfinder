@@ -174,3 +174,27 @@ textarea {
     line-height: 16px;
     color: #333A59;
 }
+
+form.delete {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.delete .btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.delete button {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    font-family: Archivo;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    color: #D11414;
+}

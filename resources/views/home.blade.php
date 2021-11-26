@@ -9,7 +9,7 @@
 @endsection
 
 @section('script-head')
-    
+
 @endsection
 
 @section('script')
@@ -49,9 +49,9 @@
                 <div class="save">
                     <img src="../images/heart_empty.svg" alt="">
                 </div>
-                <div class="images">
-                    <img src="../images/dog.png" alt="">
-                </div>
+                <a :href='result.url' class="images">
+                    <img src="../images/cat.png" alt="">
+                </a>
                 <div class="name">
                     <span>@{{ result.name }}</span>
                 </div>
@@ -69,4 +69,5 @@
         </div>
     </div>
 </main>
+
 @endsection

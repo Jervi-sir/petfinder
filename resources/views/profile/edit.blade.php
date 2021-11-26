@@ -9,7 +9,7 @@
 @endsection
 
 @section('script-head')
-    
+
 @endsection
 
 
@@ -25,7 +25,7 @@
                 <div class="img">
                     @if($user->image== NULL)
                     <img :src='imageUrl'  alt="">
-                    @else 
+                    @else
                     <img src="{{ $user->image }}" :src='imageUrl' alt="">
                     @endif
                 </div>

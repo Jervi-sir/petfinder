@@ -14,6 +14,24 @@ class Pet extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'user_id',
+        'race_id',
+        'sub_race_id',
+        'status_id',
+        'wilaya_id',
+        'gender',
+        'color',
+        'date_birth',
+        'size',
+        'pics',
+        'description',
+        'phone_number',
+
+    ];
+
+
     public function user()
     {
         return $this->belongsTo(User::class);

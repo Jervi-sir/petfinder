@@ -9,7 +9,7 @@
 @endsection
 
 @section('script-head')
-    
+
 @endsection
 
 @section('script')
@@ -18,11 +18,17 @@
     el: '#app',
         data: {
             activesearch: false,
+            result: [],
+
         },
         methods: {
             activeSearch: function () {
                 this.activesearch = true;
             }
+        },
+        created() {
+            var pets = {!! json_encode($pet) !!};
+            this.result = pets;
         }
     })
 </script>
@@ -32,32 +38,34 @@
 <main>
     <!-- pets -->
     <div class="image">
-        <div class="back">
+        <div class="back" onclick="window.history.back();">
             <img src="../images/back.svg" alt="">
         </div>
         <img class="pic" src="../images/cat.png" alt="">
     </div>
     <div class="details">
-        <h2>pet name</h2>
-        <h3>race</h3>
-        <h4><img src="../images/location.svg" alt=""> location</h4>
+        <h2>@{{ result.name }}</h2>
+        <h3>@{{ result.race }}</h3>
+        <h4><img src="../images/location_empty.svg" alt=""> @{{ result.location }}</h4>
         <div class="bubbles">
-            <span class="age">2Years</span>
-            <span class="gender">male</span>
-            <span class="weight">2kg</span>
-            <span class="color">black</span>
+            <span class="age">@{{ result.date_birth }}</span>
+            <span class="gender">@{{ result.gender }}</span>
+            <span class="weight">@{{ result.weight }}</span>
+            <span class="color">@{{ result.color }}</span>
         </div>
         <div class="bio">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta autem provident nisi ipsa natus odit minus quos accusamus excepturi. Quod explicabo amet quam tenetur consequatur, suscipit nostrum architecto eius sit.
+            @{{ result.description }}
         </div>
         <div class="contact">
-            <span>Owner number</span>
+            <img src="../images/phone.svg" alt="">
+            <span>@{{ result.phone_number }}</span>
         </div>
         <div class="actions">
             <div class="like">
                 <img src="../images/heart_empty.svg" alt="">
             </div>
             <div class="message">
+                <button><img src="../images/phone.svg" alt=""></button>
                 <button>Send message</button>
             </div>
         </div>
