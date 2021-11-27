@@ -10,6 +10,7 @@ use App\Models\Color;
 use App\Models\Status;
 use App\Models\Wilaya;
 use App\Models\SubRace;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 
@@ -44,6 +45,14 @@ class PetController extends Controller
         return $age;
     }
 
+    private function uniqueUuid($race, $name)
+    {
+        $uuidString = (string) Str::uuid();
+        $uuidFirst = substr($uuidString, 0, 5);
+        $uuid = $uuidFirst . '-' . $race. '-' . str_replace(" ", "", $name);
+        return $uuid;
+    }
+
     public function index()
     {
         $base1 = URL::to('/pets') . '/';
@@ -54,7 +63,7 @@ class PetController extends Controller
         $races = Race::all();
         foreach ($pets as $key => $pet) {
             $data['pets'][$key] = [
-                'url' => $base1 . $pet->id,
+                'url' => $base1 . $pet->id,             //use uuid
                 'name' => $pet->name,
                 'gender' => $pet->gender,
                 'race' => $pet->race->name,
@@ -121,6 +130,8 @@ class PetController extends Controller
         if($status == 'rent' ){$status = 3;}
 
         $pet = new Pet();
+
+        $pet->uuid = $this->uniqueUuid($request->race ,$request->name);
         $pet->name = $request->name;
         $pet->user_id = Auth()->user()->id;
         $pet->race_id = $request->race;
@@ -161,6 +172,7 @@ class PetController extends Controller
         $age = $this->getAge($pet->date_birth);
 
         $data['pet'] = [
+            'uuid' => $pet->uuid,
             'name' => $pet->name,
             'gender' => $pet->gender,
             'race' => $pet->race->name,
@@ -188,6 +200,7 @@ class PetController extends Controller
     {
         $pet = Pet::find($id);
         $data['pet'] = [
+            'uuid' => $pet->uuid,
             'id' => $pet->id,
             'name' => $pet->name,
             'gender' => $pet->gender,

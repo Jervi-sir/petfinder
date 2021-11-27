@@ -15,6 +15,6 @@
 [x] middleware
 [x] error handler login, register in
 [x] logout
+[x] pets with uuid
 
-[] pets with uuid
 [] upload images
