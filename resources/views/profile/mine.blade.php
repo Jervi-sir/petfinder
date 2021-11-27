@@ -58,9 +58,10 @@
 
     <div class="head-posts">
         <h3>my pets</h3>
-        <span> @{{ pets.length }} / 7 <small>pets</small></span>
+        <span> {{ $count }} / 7 <small>pets</small></span>
     </div>
     <div class="posts">
+        @if($count)
         <a class="card" :href='pet.url' v-for="(pet, index) in pets">
             <div class="left">
                 <img src="" alt="">
@@ -76,8 +77,22 @@
                 <span class="age">@{{ pet.age }}</span>
             </div>
         </a>
+        @endif
         <div class="add-pets">
+            @if($count > 7)
+            <a href="#" disabled>add pets</a>
+            @else
             <a href="{{ route('pet.create') }}">add pets</a>
+            @endif
+        </div>
+
+        <div class="logout">
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <div class="action">
+                    <button type="submit">Logout</button>
+                </div>
+            </form>
         </div>
     </div>
 </main>

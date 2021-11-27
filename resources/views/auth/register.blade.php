@@ -42,14 +42,24 @@
             <form class="main" method="POST" action="{{ route('register') }}">
                 @csrf
                 <div class="row">
-                    <input name="name" type="text" placeholder="Name">
+                    <input name="name" type="text" placeholder="Name" value="{{ old('name') }}">
                 </div>
                 <div class="row">
-                    <input name="email" type="text" placeholder="Email">
+                    <input class="@error('email') error @enderror" name="email" type="text" placeholder="Email" value="{{ old('email') }}">
                 </div>
                 <div class="row">
-                    <input name="password" type="password" placeholder="Password">
+                    <input class="@error('password') error @enderror"  @keyup="takeOfError" name="password" type="password" placeholder="Password">
                 </div>
+                @error('password')
+                <ul>
+                    <li>{{ $message }}</li>
+                </ul>
+                @enderror
+                @error('email')
+                <ul>
+                    <li>{{ $message }}</li>
+                </ul>
+                @enderror
                 <div class="actions">
                     <button class="login" type="submit">create</button>
                 </div>

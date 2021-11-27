@@ -193,6 +193,11 @@ form.main {
     color: #323958;
 }
 
+.row input.error {
+    border: 1px solid crimson;
+}
+
+
 .actions {
     display: flex;
     justify-content: space-between;
@@ -240,6 +245,23 @@ form.main {
 
 /*---- end menu ---*/
 
+
+/*------
+    errors
+    -------*/
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        margin-bottom: 1rem;
+    }
+
+    ul li {
+        color:crimson;
+        font-family: inherit;
+        font-size: 1.2rem;
+    }
 
 
 

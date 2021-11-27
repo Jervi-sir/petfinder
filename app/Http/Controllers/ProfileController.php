@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
@@ -56,6 +57,7 @@ class ProfileController extends Controller
         $pets = $user->pets()->get();
         //$pet = $pets->first();
         if($pets->count()) {
+            $count = $pets->count();
             foreach ($pets as $key => $pet) {
                 $data['pets'][$key] = [
                     'url' => $base1 . $pet->id,
@@ -71,10 +73,17 @@ class ProfileController extends Controller
                 ];
             }
         }
+        else {
+            $data['pets'][0] = '';
+            $count = 0;
+        }
 
         //$user = (object)$data['user'];
         //$pets = (object)$data['pets'];
-        return view('profile.mine', ['pets' => $data['pets'],'user' => $user]);
+        return view('profile.mine', ['pets' => $data['pets'],
+                                    'user' => $user,
+                                    'count' => $count
+                                ]);
     }
 
     public function edit()
@@ -100,6 +109,10 @@ class ProfileController extends Controller
         $user->pic = $request->image;
         $user->save();
 
+        toastr('Profile updated successfully ', $type = 'success', $title = '', $options = [
+            'positionClass' => 'toast-top-center',
+            'timeOut'           => 3000,
+        ]);
         return redirect()->route('profile.myprofile');
     }
 

@@ -80,6 +80,14 @@ class PetController extends Controller
     {
         //check if user hits the limit of 7
         if(Auth()->user()->pets()->count() > 2) {
+            toastr('You have reached the limit of 7pets ', $type = 'warning', $title = '', $options = [
+                'positionClass' => 'toast-top-center',
+                'timeOut'           => 3000,
+            ]);
+            toastr('Please delete some of your record ', $type = 'info', $title = '', $options = [
+                'positionClass' => 'toast-top-center',
+                'timeOut'           => 3000,
+            ]);
             return back();
         }
         $races = Race::all();
@@ -133,6 +141,10 @@ class PetController extends Controller
         $pet->description = $request->description;
         $pet->phone_number = json_encode($request->phone);
         $pet->save();
+        toastr('Pet added successfully ', $type = 'success', $title = '', $options = [
+            'positionClass' => 'toast-top-center',
+            'timeOut'           => 3000,
+        ]);
         return back();
     }
 
@@ -198,6 +210,8 @@ class PetController extends Controller
         $colors = Color::all();
         $statuses = Status::all();
 
+
+
         return view('pets.edit', [
             'pet' => $data['pet'],
             'races' => $races,
@@ -243,6 +257,10 @@ class PetController extends Controller
         $pet->description = $request->description;
         $pet->phone_number = json_encode($request->phone);
         $pet->save();
+        toastr('Pet updated successfully ', $type = 'success', $title = '', $options = [
+            'positionClass' => 'toast-top-center',
+            'timeOut'           => 3000,
+        ]);
         return back();
 
     }
@@ -261,5 +279,9 @@ class PetController extends Controller
     public function delete(Request $request)
     {
         dd($request);
+        toastr('Pet deleted successfully ', $type = 'success', $title = '', $options = [
+            'positionClass' => 'toast-top-center',
+            'timeOut'           => 3000,
+        ]);
     }
 }

@@ -7,9 +7,14 @@
 [x] pet view
 [x] edit pet
 [x] delete pet
-
+[x] add pet limits
 [x] register
+[x] toastr in errors : [x] limit pets, [x] added successfully, [x] deleted succ, [x] updated succ
+[x] toastr
+[x] delete confirmation
+[x] middleware
+[x] error handler login, register in
+[x] logout
+
+[] pets with uuid
 [] upload images
-[] middleware
-[] add pet limits
-[] delete confirmation

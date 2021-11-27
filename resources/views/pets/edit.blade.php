@@ -144,13 +144,24 @@
             <button class="preview" type="button">preview</button>
         </div>
     </form>
-    <form class="delete" action="{{ route('pet.delete') }}" method="POST">
-        @csrf
-        <input type="text" name="id" :value="pet.id" hidden>
-        <div class="btn">
-            <button type="submit">Delete announcement</button>
+    <div class="delete btn">
+        <button type="submit" @click="showModal=true">Delete announcement</button>
+    </div>
+
+    <div class="modal" v-if="showModal">
+        <div class="layer"  @click="showModal=false"></div>
+        <div class="container">
+            <h1> Are u sure u want to delete</h1>
+            <p>Please type <span>@{{ pet.name }}</span>  to confirm.</p>
+            <input type="text" v-model="confirmDelete" @keyup="verifyDelete">
+            <form action="{{ route('pet.delete') }}" method="POST">
+                @csrf
+                <input type="text" name="id" :value="pet.id" hidden>
+                <button type="button" @click="showModal=false">Cancel</button>
+                <button type="submit" :disabled="!deleteBtn">Delete</button>
+            </form>
         </div>
-    </form>
+    </div>
 </main>
 @endsection
 
@@ -181,6 +192,10 @@
             ],
             pet: [],
             description: '',
+            uuid: '',
+            confirmDelete: '',
+            deleteBtn: false,
+            showModal: false,
         },
         created() {
             var pet = {!! json_encode($pet) !!};
@@ -188,6 +203,13 @@
             this.description = this.pet.description;
         },
         methods: {
+            verifyDelete: function() {
+                if(this.confirmDelete == this.pet.name) {
+                    this.deleteBtn = true;
+                } else {
+                    this.deleteBtn = false;
+                }
+            },
             activeSearch: function () {
                 this.activesearch = true;
             },

@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 
+    @toastr_css
+    <link rel="stylesheet" href="../css/styles.css">
     @yield('style-head')
     @yield('script-head')
-    <link rel="stylesheet" href="../css/styles.css">
     @yield('title')
 </head>
 <body >
@@ -41,4 +42,7 @@ document.querySelector('.body').addEventListener('touchmove', function (event) {
 }, false)
 </script>
 </body>
+@jquery
+@toastr_js
+@toastr_render
 </html>

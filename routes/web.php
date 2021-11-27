@@ -16,10 +16,6 @@ use App\Http\Controllers\ProfileController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
@@ -27,18 +23,8 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 
-Route::get('/add-pet', [PetController::class, 'create'])->name('pet.create');           //done
-Route::post('/add-pet', [PetController::class, 'store'])->name('pet.store');            //done
-Route::get('/update-pet/{id}', [PetController::class, 'edit'])->name('pet.edit');          //images not yet
-Route::post('/update-pet', [PetController::class, 'update'])->name('pet.update');           //done
-Route::post('/delete-pet', [PetController::class, 'delete'])->name('pet.delete');      //done
 
-Route::get('/myprofile',[ProfileController::class, 'myprofile'])->name('profile.myprofile');        //done        //done
-Route::get('/profile-edit',[ProfileController::class, 'edit'])->name('profile.edit');               //done
-Route::post('/profile-edit',[ProfileController::class, 'update'])->name('profile.update');          //done
-//Route::get('/pet-list',[ProfileController::class, 'list'])->name('profile.list');
-Route::post('/saved-list',[ProfileController::class, 'saved'])->name('profile.saved');
-
+Route::get('/', [PetController::class, 'index'])->name('pet.all');       //done
 Route::get('/pets-latest', [PetController::class, 'index'])->name('pet.all');       //done
 Route::get('/pets/{id}', [PetController::class, 'show'])->name('pet.show');         //done
 
@@ -53,6 +39,25 @@ Route::post('/uncomment/{id}', [ActionController::class, 'uncomment'])->name('un
 Route::get('/pets-latest/filter={filter}', [PetController::class, 'filter'])->name('pet.filter');
 Route::get('/search', [PetController::class, 'search'])->name('pet.search');
 
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/add-pet', [PetController::class, 'create'])->name('pet.create');           //done
+    Route::post('/add-pet', [PetController::class, 'store'])->name('pet.store');            //done
+    Route::get('/update-pet/{id}', [PetController::class, 'edit'])->name('pet.edit');       //images not yet
+    Route::post('/update-pet', [PetController::class, 'update'])->name('pet.update');       //done
+    Route::post('/delete-pet', [PetController::class, 'delete'])->name('pet.delete');       //done
+
+    Route::get('/myprofile',[ProfileController::class, 'myprofile'])->name('profile.myprofile');        //done        //done
+    Route::get('/profile-edit',[ProfileController::class, 'edit'])->name('profile.edit');               //done
+    Route::post('/profile-edit',[ProfileController::class, 'update'])->name('profile.update');          //done
+    //Route::get('/pet-list',[ProfileController::class, 'list'])->name('profile.list');
+    Route::post('/saved-list',[ProfileController::class, 'saved'])->name('profile.saved');
+});
+
+
+Route::middleware(['auth', 'roleAdmin'])->group(function () {
+
+});
 
 /*
 

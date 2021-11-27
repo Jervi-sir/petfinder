@@ -39,14 +39,23 @@
                 <img src="../images/cat.png" alt="">
             </div>
             <!-- pets -->
+
+
             <form class="main" action="{{ route('login') }}" method="POST">
                 @csrf
-                <div class="row">
-                    <input name="email" type="text" placeholder="Email">
+                <div class="row ">
+                    <input class="{{ $errors->any() ? 'error' : '' }}"  @keyup="takeOfError" name="email" type="text" placeholder="Email" value="{{ old('email') }}">
                 </div>
-                <div class="row">
-                    <input name="password" type="password" placeholder="Password">
+                <div class="row ">
+                    <input class="{{ $errors->any() ? 'error' : '' }}"  @keyup="takeOfError" name="password" type="password" placeholder="Password">
                 </div>
+                @if($errors->any())
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                @endif
                 <div class="actions">
                     <a href="#">Forgot my password</a>
                     <button class="login" type="submit">Login</button>
@@ -87,6 +96,9 @@
         methods: {
             activeSearch: function () {
                 this.activesearch = true;
+            },
+            takeOfError: function(event) {
+                event.target.classList.remove("error");
             }
         }
     })

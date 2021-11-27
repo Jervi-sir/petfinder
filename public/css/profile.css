@@ -112,6 +112,7 @@ a.card {
 }
 
 .card {
+    width: 100%;
     display: flex;
     flex-direction: row;
     background-color: #fff;
@@ -169,6 +170,7 @@ a.card {
 
 .card .right span {
     padding: 0.5rem 0.7rem;
+    text-align: center;
 }
 
 .gender {
@@ -200,4 +202,43 @@ a.card {
     background: #F4F6F6;
     border-radius: 25px;
     color: black;
+}
+
+
+.logout {
+    display: flex;
+    width: 100%;
+}
+
+.logout form{
+    display: flex;
+    width: 100%;
+}
+
+.logout .action {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.logout button {
+    background-color: #d92f2f;
+    border: none;
+    border-radius: 15px;
+    padding: 0.5rem 4rem;
+    font-family: Archivo;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 16px;
+    text-decoration: none;
+    color: #FFFFFF;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.add-pets a {
+    align-content: center;
+    justify-content: center;
+
 }

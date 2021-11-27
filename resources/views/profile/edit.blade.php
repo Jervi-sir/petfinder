@@ -38,8 +38,23 @@
         <button type="submit">save</button>
     </form>
 
-    <a href="" class="reset">reset password</a>
-    <a href="" class="delete">delete account</a>
+    <button class="reset">reset password</button>
+    <button class="delete" @click="showModal=true">delete account</button>
+
+    <div class="modal" v-if="showModal">
+        <div class="layer"  @click="showModal=false"></div>
+        <div class="container">
+            <h1> Are u sure u want to delete</h1>
+            <p>Please type <span>{{$user->email}}</span>  to confirm.</p>
+            <input type="text" v-model="confirmDelete" @keyup="verifyDelete">
+            <form action="{{ route('pet.delete') }}" method="POST">
+                @csrf
+                <input type="text" name="id" value="{{ $user->email }}" hidden>
+                <button type="button" @click="showModal=false">Cancel</button>
+                <button type="submit" :disabled="!deleteBtn">Delete</button>
+            </form>
+        </div>
+    </div>
 
 </main>
 @endsection
@@ -51,6 +66,9 @@
         data: {
             activesearch: false,
             imageUrl: '',
+            confirmDelete: '',
+            deleteBtn: false,
+            showModal: false,
         },
         methods: {
             activeSearch: function () {
@@ -58,7 +76,14 @@
             },
             setImage: function(event) {
                 this.imageUrl = URL.createObjectURL(event.files[0]);
-            }
+            },
+            verifyDelete: function() {
+                if(this.confirmDelete == this.pet.name) {
+                    this.deleteBtn = true;
+                } else {
+                    this.deleteBtn = false;
+                }
+            },
         }
     })
 </script>

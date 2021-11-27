@@ -175,7 +175,7 @@ textarea {
     color: #333A59;
 }
 
-form.delete {
+.delete {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -197,4 +197,100 @@ form.delete {
     font-weight: 600;
     font-size: 15px;
     color: #D11414;
+}
+
+/*---------
+        modal
+        --------*/
+
+.modal {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.modal {
+    width: 100%;
+    height: 100%;
+    background-color: #0000007d;
+    top: 0;
+    left: 0;
+    backdrop-filter: blur(2px);
+}
+
+.modal .layer {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.modal .container {
+    background-color: #EBEAEF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 5px 16px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    padding: 2rem;
+    width: 80%;
+    margin: auto;
+    z-index: 99;
+}
+
+
+.modal form {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: 2rem;
+}
+
+.modal form button {
+    margin-left: 2rem;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    color: white;
+    font-family: inherit;
+}
+
+.modal button[type="submit"] {
+    background-color: crimson;
+}
+
+.modal button[type="submit"]:disabled {
+    background-color: rgb(90, 22, 35);
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.modal button[type="button"] {
+    background-color: #333A59;
+}
+
+
+.modal p {
+    font-size: 1.2rem;
+    margin-top: 2rem;
+}
+
+.modal span {
+    background-color: khaki;
+    color: #333A59;
+    padding: 0.1rem 0.5rem;
+    border-radius: 2px;
+}
+
+.modal input {
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    font-family: inherit;
 }
