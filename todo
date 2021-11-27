@@ -16,5 +16,7 @@
 [x] error handler login, register in
 [x] logout
 [x] pets with uuid
+[x] upload 1 image
 
-[] upload images
+[] compress image
+[] updload multiple images

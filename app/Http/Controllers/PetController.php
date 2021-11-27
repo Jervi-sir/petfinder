@@ -13,6 +13,7 @@ use App\Models\SubRace;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 
 class PetController extends Controller
@@ -88,7 +89,7 @@ class PetController extends Controller
     public function create()
     {
         //check if user hits the limit of 7
-        if(Auth()->user()->pets()->count() > 2) {
+        if(Auth()->user()->pets()->count() > 7) {
             toastr('You have reached the limit of 7pets ', $type = 'warning', $title = '', $options = [
                 'positionClass' => 'toast-top-center',
                 'timeOut'           => 3000,
@@ -125,9 +126,11 @@ class PetController extends Controller
         $images = array_slice($request->file('images'), 0, 4);
         $status = $request->status;
 
-        if($status == 'sell' ){$status = 1;}
-        if($status == 'adoption' ){$status = 2;}
-        if($status == 'rent' ){$status = 3;}
+        $uploadedFileUrl = Cloudinary::upload($request->file('images')[0]->getRealPath())->getSecurePath();
+
+        if($status == 'sell'){$status = 1;}
+        if($status == 'adoption'){$status = 2;}
+        if($status == 'rent'){$status = 3;}
 
         $pet = new Pet();
 
@@ -137,7 +140,7 @@ class PetController extends Controller
         $pet->race_id = $request->race;
         $pet->sub_race_id = $request->sub;
 
-        $pet->status_id = $status;      //not setted
+        $pet->status_id = $status;              //not setted
 
         $pet->wilaya_id = $request->wilaya;
         $pet->gender = $request->gender;
@@ -148,7 +151,7 @@ class PetController extends Controller
         //$request->birthday; sdate("Y/m/d")
         $pet->size = $request->size;            //not setted
         //$pet->pics = $request->file('images');
-        $pet->pics = ('s');
+        $pet->pics = $uploadedFileUrl;
         $pet->description = $request->description;
         $pet->phone_number = json_encode($request->phone);
         $pet->save();
