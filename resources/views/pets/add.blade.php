@@ -134,11 +134,13 @@
             <button type="button"  v-on:click="addItem" v-if="items.length - 1 <= index" v-bind:class="{ disabled: item.phone.length == 0 }"><img src="../images/plus.svg" alt=""></button>
             <button type="button" v-on:click="removeItem(index);" v-if="(items.length - 1 >= index) && (items.length -1 != index)"><img src="../images/minus.svg" alt=""></a>
         </div>
+        <div id="output"></div>
         <div class="actions">
             <button class="publish" type="submit">publish</button>
             <button class="preview" type="button">preview</button>
         </div>
     </form>
+
 </main>
 @endsection
 
@@ -159,6 +161,7 @@
         data: {
             activesearch: false,
             images: [],
+            compressed: [],
             description: '',
             birthdate: '',
             age: '',
@@ -184,14 +187,18 @@
             },
             addImage: function(event) {
                 let max = 4;
-                this.images = [];
-                for (let i = 0; i < event.files.length; i++) {
-                    this.images.push(URL.createObjectURL(event.files[i]));
-                }
-                if(event.files.length > max) {
-                    console.log('only max are allowed');
-                    this.images = this.images.slice(0, max);
-                    console.log(this.images);
+
+                //preview images
+                this.previewImages(event, max);
+
+                //compress images
+                document.querySelector("#output").innerHTML = "";
+                const countImage = event.files.length;
+                for(var i = 0; i < countImage; i++) {
+                    if(i > max) {
+                        return;
+                    }
+                    this.comporessImage(event.files[i]);
                 }
             },
             validateNumber: function(event) {
@@ -203,15 +210,12 @@
             setAge: function() {
                 var birthDate = new Date(this.birthdate);
                 var todayObj = new Date(today);
-
                 var total = birthDate - todayObj;
                 var totalDays = Math.abs(total / (1000 * 60 * 60 * 24))
-
                 var totalMonths = Math.floor(totalDays / 30);
                 var leftDays = totalDays % 30;
                 var totalYears = Math.floor(totalMonths / 12);
                 var leftMonths = totalMonths % 12;
-
                 if(totalYears == 0) {
                     if(leftMonths == 0) {
                         this.age = leftDays + 'days';
@@ -221,7 +225,53 @@
                 } else {
                     this.age = totalYears + 'y ' + leftMonths + 'm ' + leftDays + 'd';
                 }
+            },
+
+            // helpers
+            previewImages: function(event, max) {
+                this.images = [];
+                for (let i = 0; i < event.files.length; i++) {
+                    this.images.push(URL.createObjectURL(event.files[i]));
+                }
+                if(event.files.length > max) {
+                    console.log('only max are allowed');
+                    this.images = this.images.slice(0, max);
+                    console.log(this.images);
+                }
+            },
+
+            comporessImage: function(file) {
+
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+
+                reader.onload = function (event) {
+                    const imgElement = document.createElement("img");
+                    imgElement.src = event.target.result;
+                    imgElement.onload = function (e) {
+                        const canvas = document.createElement("canvas");
+                        const MAX_WIDTH = 200;
+                        const scaleSize = MAX_WIDTH / e.target.width;
+                        canvas.width = MAX_WIDTH;
+                        canvas.height = e.target.height * scaleSize;
+                        const ctx = canvas.getContext("2d");
+                        ctx.drawImage(e.target, 0, 0, canvas.width, canvas.height);
+                        // you can send srcEncoded to the server
+                        const srcEncoded = ctx.canvas.toDataURL("image/jpeg", 0.9);
+
+                        //push into HTML
+                        const output = document.querySelector("#output");
+                        const imageOutput = document.createElement('input');
+                        imageOutput.name = "imageCompressed[]";
+                        imageOutput.type = "text";
+                        imageOutput.hidden = true;
+                        imageOutput.value = srcEncoded;
+                        console.log(srcEncoded);
+                        output.appendChild(imageOutput);
+                    };
+                };
             }
+
         }
     })
 

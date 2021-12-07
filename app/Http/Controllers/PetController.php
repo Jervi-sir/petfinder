@@ -122,11 +122,16 @@ class PetController extends Controller
      */
     public function store(Request $request)
     {
-        $dt = Carbon::createFromFormat('Y-m-d', $request->birthday)->format('Y-m-d');
-        $images = array_slice($request->file('images'), 0, 4);
-        $status = $request->status;
 
-        $uploadedFileUrl = Cloudinary::upload($request->file('images')[0]->getRealPath())->getSecurePath();
+        $uploadedFileUrl = [];
+        $manyImages = count($request->imageCompressed);
+
+        $dt = Carbon::createFromFormat('Y-m-d', $request->birthday)->format('Y-m-d');
+        //$images = array_slice($request->file('images'), 0, 4);
+        $status = $request->status;
+        for($i = 0; $i < $manyImages; $i++) {
+            $uploadedFileUrl[$i] = Cloudinary::upload($request->imageCompressed[$i])->getSecurePath();
+        }
 
         if($status == 'sell'){$status = 1;}
         if($status == 'adoption'){$status = 2;}
@@ -151,7 +156,7 @@ class PetController extends Controller
         //$request->birthday; sdate("Y/m/d")
         $pet->size = $request->size;            //not setted
         //$pet->pics = $request->file('images');
-        $pet->pics = $uploadedFileUrl;
+        $pet->pics = json_encode($uploadedFileUrl);
         $pet->description = $request->description;
         $pet->phone_number = json_encode($request->phone);
         $pet->save();
