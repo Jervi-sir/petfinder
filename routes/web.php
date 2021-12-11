@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PetController;
 use App\Http\Controllers\ActionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +38,7 @@ Route::post('/comment/{id}', [ActionController::class, 'comment'])->name('commen
 Route::post('/uncomment/{id}', [ActionController::class, 'uncomment'])->name('uncomment');
 
 Route::get('/pets-latest/filter={filter}', [PetController::class, 'filter'])->name('pet.filter');
-Route::get('/search', [PetController::class, 'search'])->name('pet.search');
+Route::post('/search', [SearchController::class, 'search'])->name('pet.search');
 
 
 Route::middleware(['auth'])->group(function () {

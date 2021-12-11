@@ -130,36 +130,51 @@ class PetController extends Controller
         //$images = array_slice($request->file('images'), 0, 4);
         $status = $request->status;
         for($i = 0; $i < $manyImages; $i++) {
-            $uploadedFileUrl[$i] = Cloudinary::upload($request->imageCompressed[$i])->getSecurePath();
+            //$uploadedFileUrl[$i] = Cloudinary::upload($request->imageCompressed[$i])->getSecurePath();
         }
 
         if($status == 'sell'){$status = 1;}
         if($status == 'adoption'){$status = 2;}
         if($status == 'rent'){$status = 3;}
 
+
+        $raceName = Race::find($request->race)->name;
+        $sub_raceName = SubRace::find($request->sub)->name;
+        $wilayaName = Wilaya::find($request->wilaya)->name;
+        $color = Color::find($request->color)->name;
+
         $pet = new Pet();
 
         $pet->uuid = $this->uniqueUuid($request->race ,$request->name);
         $pet->name = $request->name;
+
         $pet->user_id = Auth()->user()->id;
         $pet->race_id = $request->race;
         $pet->sub_race_id = $request->sub;
-
         $pet->status_id = $status;              //not setted
-
         $pet->wilaya_id = $request->wilaya;
-        $pet->gender = $request->gender;
 
-        $color = Color::find($request->color)->first()->name;
+        $pet->raceName = $raceName;
+        $pet->sub_raceName = $sub_raceName;
+        $pet->wilayaName = $wilayaName;
+        $pet->gender = $request->gender;
         $pet->color = $color;
         $pet->date_birth = Carbon::parse("2021-11-01")->format('Y/m/d');
-        //$request->birthday; sdate("Y/m/d")
         $pet->size = $request->size;            //not setted
-        //$pet->pics = $request->file('images');
         $pet->pics = json_encode($uploadedFileUrl);
         $pet->description = $request->description;
         $pet->phone_number = json_encode($request->phone);
+
+        $pet->tags = Race::find($request->race)->name . ', '
+                    . SubRace::find($request->sub)->name . ', '
+                    . Wilaya::find($request->wilaya)->name . ', '
+                    . $request->gender . ', '
+                    . $color . ', '
+                    . $request->size . ', '
+                    . $request->description ;
+
         $pet->save();
+
         toastr('Pet added successfully ', $type = 'success', $title = '', $options = [
             'positionClass' => 'toast-top-center',
             'timeOut'           => 3000,
@@ -283,18 +298,6 @@ class PetController extends Controller
             'timeOut'           => 3000,
         ]);
         return back();
-
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function search(Request $request)
-    {
-        dd($request);
     }
 
     public function delete(Request $request)
@@ -305,4 +308,6 @@ class PetController extends Controller
             'timeOut'           => 3000,
         ]);
     }
+
+
 }

@@ -22,12 +22,20 @@ class CreatePetsTable extends Migration
             $table->foreignId('sub_race_id')->constrained('sub_races');
             $table->foreignId('status_id')->constrained('statuses');
             $table->foreignId('wilaya_id')->constrained('wilayas');
+
+            $table->string('raceName');
+            $table->string('sub_raceName');
+            $table->string('wilayaName');
+
             $table->string('gender');
             $table->string('color')->nullable();
             $table->date('date_birth')->nullable();
             $table->string('size')->nullable();
             $table->longText('pics')->nullable();
             $table->longText('description')->nullable();
+
+            $table->longText('tags')->nullable();
+
             $table->string('phone_number')->nullable();
 
             $table->timestamps();

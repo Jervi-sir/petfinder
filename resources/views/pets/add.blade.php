@@ -8,8 +8,8 @@
 <link rel="stylesheet" href="../css/add.css">
 @endsection
 
-@section('script-head')
-
+@section('header')
+@include('components.header')
 @endsection
 
 

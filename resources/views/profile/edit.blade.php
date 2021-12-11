@@ -8,9 +8,10 @@
 <link rel="stylesheet" href="../css/editProfile.css">
 @endsection
 
-@section('script-head')
-
+@section('header')
+@include('components.header')
 @endsection
+
 
 
 @section('main')

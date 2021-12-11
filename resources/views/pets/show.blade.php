@@ -8,9 +8,10 @@
 <link rel="stylesheet" href="../css/pet.css">
 @endsection
 
-@section('script-head')
-
+@section('header')
+@include('components.header')
 @endsection
+
 
 @section('script')
 <script>

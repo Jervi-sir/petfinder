@@ -17,6 +17,18 @@
 [x] logout
 [x] pets with uuid
 [x] upload 1 image
+[x] compress image
+[x] updload multiple images
+[x] search
+[x] search algorithm
+[x] search json response
 
-[] compress image
-[] updload multiple images
+[] check if came from search url then change search title
+
+[] loading screen
+[] filter in home
+
+[] desktop front
+
+[] save
+

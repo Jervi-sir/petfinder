@@ -11,14 +11,12 @@
         <h1>Find your favorite pet</h1>
     </div>
     <div :class="activesearch == true ? 'search active' : 'search'">
-        <form class="formHeader" action="{{ route('pet.search') }}" method="POST">
-            @csrf
-            <input hidden name="resultNeeded" value="view">
-            <input type="text" placeholder="Search" v-model="keyword" @keyup="activeSearch">
-            <button type="submit">
+        <div class="formHeader">
+            <input type="text" placeholder="Search" v-model="keyword" @keyup.enter="search" @keyup="activeSearch">
+            <button type="submit" @click.prevent="search">
                 <img src="../images/search.svg" alt="">
             </button>
-        </form>
+        </div>
     </div>
 </header>
 @else
@@ -29,14 +27,12 @@
         </a>
     </div>
     <div class="search active">
-        <form class="formHeader" action="{{ route('pet.search') }}" method="POST">
-            @csrf
-            <input hidden name="resultNeeded" value="view">
-            <input name="keyword" type="text" placeholder="Search" v-model="keyword" @keyup="activeSearch">
-            <button type="submit" >
+        <div class="formHeader">
+            <input name="keyword" type="text" placeholder="Search" v-model="keyword" @keyup.enter="search" @keyup="activeSearch">
+            <button type="submit" @click.prevent="search">
                 <img src="../images/search.svg" alt="">
             </button>
-        </form>
+        </div>
     </div>
 </header>
 @endif

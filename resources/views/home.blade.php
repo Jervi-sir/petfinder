@@ -8,8 +8,8 @@
 <link rel="stylesheet" href="../css/home.css">
 @endsection
 
-@section('script-head')
-
+@section('header')
+@include('components.headerJson')
 @endsection
 
 @section('script')
@@ -19,15 +19,39 @@
         data: {
             activesearch: false,
             results: [],
+            keyword: '',
+            token: '',
+            searchTitle: 'New Pets',
         },
         methods: {
             activeSearch: function() {
                 this.activesearch = true;
+            },
+            search:async function() {
+                const requestOptions = {
+                    method: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': this.token,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        resultNeeded: 'json',
+                        keyword: this.keyword
+                     })
+                };
+                fetch("/search", requestOptions)
+                    .then(response => response.json())
+                    .then(data => (this.results = data))
+                    .then(() => (this.searchTitle = this.keyword + ' result' ))
             }
         },
         created() {
             var pets = {!! json_encode($pets) !!};
             this.results = pets;
+            this.token = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+            console.log(this.results);
+            console.log(this.token);
         }
     })
 </script>
@@ -38,7 +62,7 @@
 
 <main>
     <div class="top">
-        <h5>New Pets</h5>
+        <h5>@{{ searchTitle }}</h5>
         <div class="filter">...</div>
     </div>
     <!-- pets -->

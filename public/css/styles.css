@@ -98,7 +98,7 @@ header h1 {
     color: var(--color-primary);
 }
 
-header .search form {
+header .search .formHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -107,7 +107,7 @@ header .search form {
     border-radius: 11px;
 }
 
-header .search form input {
+header .search .formHeader input {
     border: none;
     flex: auto;
     font-family: var(--ff-secondary);
@@ -118,11 +118,11 @@ header .search form input {
     color: #8F8989;
 }
 
-header .search form input:focus {
+header .search .formHeader input:focus {
     outline: none;
 }
 
-header .search form button {
+header .search .formHeader button {
     display: flex;
     cursor: pointer;
     background-color: transparent;
