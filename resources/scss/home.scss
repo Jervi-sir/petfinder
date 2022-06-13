@@ -1,0 +1,167 @@
+/*---------
+    main
+    ----------*/
+
+main {
+    /*padding: calc(var(--gap) - 1rem);*/
+    padding: var(--padding-layout);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+
+    .top {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h5 {
+            font-style: normal;
+            font-weight: normal;
+            font-size: 30px;
+            line-height: 33px;
+            color: #31334E;
+        }
+
+        .filter {
+            font-style: normal;
+            font-weight: 600;
+            font-size: 30px;
+            line-height: 33px;
+            color: #000000;
+        }
+    }
+}
+
+.results {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    width: 100%;
+}
+
+
+
+
+.card.dog .card-top {
+    background: #E3EADF;
+}
+
+.card.cat .card-top {
+    background: #F9E3D2;
+}
+
+.card-top {
+    position: relative;
+    border-radius: 2rem;
+
+    .save {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+
+    .images {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        width: 100%;
+        height: 14rem;
+    }
+
+    .name {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        padding: 0.5rem;
+        background: rgba(51, 58, 90, 0.5);
+        border-radius: 0px 0px 100px 100px;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 15px;
+        color: #FFFFFF;
+    }
+}
+
+
+.gender {
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 11px;
+
+    &.male {
+        background: #D9E2F5;
+        color: #3A78E0;
+    }
+
+    &.female {
+        background: #FFD1E7;
+        color: #F364A9;
+    }
+
+    &.non {
+        background: #dddddd;
+        color: #303030;
+    }
+
+}
+
+
+.card {
+    border-radius: 2rem;
+    overflow: hidden;
+    background-color: var(--color-secondary);
+
+    .details {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 1rem 1.5rem;
+
+        .breed {
+            flex: auto;
+            font-family: var(--ff-secondary);
+            font-style: normal;
+            font-weight: normal;
+            font-size: 10px;
+            color: #8F8989;
+        }
+
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: 100%;
+            font-family: var(--ff-secondary);
+            font-style: normal;
+            font-weight: 300;
+            font-size: 10px;
+            line-height: 13px;
+            color: rgba(0, 0, 0, 0.7);
+        }
+
+        .age {
+            font-family: var(--ff-secondary);
+            font-style: normal;
+            font-weight: normal;
+            font-size: 10px;
+            color: #000000;
+        }
+
+        .price {
+            font-family: var(--ff-secondary);
+            font-style: normal;
+            font-weight: normal;
+            font-size: 10px;
+            color: #000000;
+        }
+    }
+}

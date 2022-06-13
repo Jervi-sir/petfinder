@@ -1,4 +1,11 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/login.css": "/css/login.css",
+    "/css/styles.css": "/css/styles.css",
+    "/css/register.css": "/css/register.css",
+    "/css/pet.css": "/css/pet.css",
+    "/css/home.css": "/css/home.css",
+    "/css/editProfile.css": "/css/editProfile.css",
+    "/css/add.css": "/css/add.css",
+    "/css/profile.css": "/css/profile.css"
 }

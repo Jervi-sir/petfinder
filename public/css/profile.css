@@ -1,244 +1,214 @@
 /*---------
     main
     ----------*/
-
 main {
-    padding: var(--padding-layout);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: space-between;
-    margin-top: 2rem;
-    display: flex;
-    flex-direction: column;
+  padding: var(--padding-layout);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
 }
-
 main h3 {
-    font-family: Archivo;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 15px;
-    line-height: 16px;
-    color: #333A5A;
+  font-family: Archivo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 16px;
+  color: #333A5A;
 }
 
 .profile-card {
-    display: flex;
-    flex-direction: column;
-    background: #FFFFFF;
-    border-radius: 20px;
-    overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #FFFFFF;
+  border-radius: 20px;
+  overflow: hidden;
 }
-
 .profile-card .details {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 2rem;
 }
-
 .profile-card .details .left {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
-
 .profile-card .details .right {
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
-    background-color: orange;
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: orange;
 }
-
-
 .profile-card .edit a {
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    background: #333A5A;
-    padding: 0.5rem;
-    font-family: Archivo;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 15px;
-    line-height: 16px;
-    text-decoration: none;
-    color: #FFFFFF;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  background: #333A5A;
+  padding: 0.5rem;
+  font-family: Archivo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 16px;
+  text-decoration: none;
+  color: #FFFFFF;
 }
-
 
 /*--------------
-        posts
-        ------------*/
-
-
+    posts
+    ------------*/
 .head-posts {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
-
 .head-posts span {
-    margin-right: 2rem;
-    font-size: 1.5rem;
+  margin-right: 2rem;
+  font-size: 1.5rem;
 }
 
 .add-pets a {
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    width: 100%;
-    background-color: #333A5A;
-    text-align: center;
-    padding: 0.5rem 1rem;
-    border-radius: 0 0 15px 15px;
-    font-family: Archivo;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 15px;
-    line-height: 16px;
-    text-decoration: none;
-    color: #FFFFFF;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  width: 100%;
+  background-color: #333A5A;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  border-radius: 0 0 15px 15px;
+  font-family: Archivo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 16px;
+  text-decoration: none;
+  color: #FFFFFF;
 }
+
 .posts {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 a.card {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .card {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    background-color: #fff;
-    border-radius: 15px;
-    padding: 1rem;
-    gap: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 1rem;
+  gap: 1rem;
 }
-
 .card .left {
-    width: 80px;
-    height: 80px;
-    background-color: orange;
-    border-radius: 10px;
+  width: 80px;
+  height: 80px;
+  background-color: orange;
+  border-radius: 10px;
 }
-
 .card .middle {
-    display: flex;
-    flex-direction: column;
-    gap: .7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
 }
-
 .card h4 {
-    font-family: Archivo;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 20px;
-    line-height: 22px;
-    color: #000000;
+  font-family: Archivo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 22px;
+  color: #000000;
 }
-
 .card h6 {
-    font-family: Archivo;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 10px;
-    line-height: 11px;
-    color: #8F8989;
+  font-family: Archivo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 11px;
+  color: #8F8989;
 }
-
 .card h5 {
-    font-family: Archivo;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 10px;
-    line-height: 11px;
-    color: #000000;
+  font-family: Archivo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 11px;
+  color: #000000;
 }
-
 .card .right {
-    margin-left: auto;
-    display: flex;
-    gap: 1rem;
-    flex-direction: column;
+  margin-left: auto;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
 }
-
 .card .right span {
-    padding: 0.5rem 0.7rem;
-    text-align: center;
+  padding: 0.5rem 0.7rem;
+  text-align: center;
 }
 
 .gender {
-    font-family: Archivo;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 10px;
-    line-height: 11px;
-    border-radius: 25px;
-    text-align: center;
+  font-family: Archivo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 11px;
+  border-radius: 25px;
+  text-align: center;
 }
-
 .gender.male {
-    background: #D9E2F5;
-    color: #3A78E0;
+  background: #D9E2F5;
+  color: #3A78E0;
 }
-
 .gender.female {
-    background: #FFD1E7;
-    color: #F364A9;
+  background: #FFD1E7;
+  color: #F364A9;
 }
-
 .gender.non {
-    background: #dddddd;
-    color: #303030;
+  background: #dddddd;
+  color: #303030;
 }
 
 .age {
-    background: #F4F6F6;
-    border-radius: 25px;
-    color: black;
+  background: #F4F6F6;
+  border-radius: 25px;
+  color: black;
 }
-
 
 .logout {
-    display: flex;
-    width: 100%;
+  display: flex;
+  width: 100%;
 }
-
-.logout form{
-    display: flex;
-    width: 100%;
+.logout form {
+  display: flex;
+  width: 100%;
 }
-
 .logout .action {
-    display: flex;
-    width: 100%;
-    justify-content: center;
+  display: flex;
+  width: 100%;
+  justify-content: center;
 }
-
 .logout button {
-    background-color: #d92f2f;
-    border: none;
-    border-radius: 15px;
-    padding: 0.5rem 4rem;
-    font-family: Archivo;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 15px;
-    line-height: 16px;
-    text-decoration: none;
-    color: #FFFFFF;
-    text-align: center;
-    margin-top: 2rem;
-}
-
-.add-pets a {
-    align-content: center;
-    justify-content: center;
-
+  background-color: #d92f2f;
+  border: none;
+  border-radius: 15px;
+  padding: 0.5rem 4rem;
+  font-family: Archivo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 16px;
+  text-decoration: none;
+  color: #FFFFFF;
+  text-align: center;
+  margin-top: 2rem;
 }

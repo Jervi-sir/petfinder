@@ -22,13 +22,15 @@
 [x] search
 [x] search algorithm
 [x] search json response
+[x] css to scss
+[x] linked menu
+[x] menu filter in home
 
+[] images
 [] check if came from search url then change search title
-
 [] loading screen
 [] filter in home
-
 [] desktop front
-
 [] save
-
+[] add no offer found in home page
+[] 7days timer for each post

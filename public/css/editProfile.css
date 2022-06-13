@@ -1,239 +1,205 @@
 /*---------
     main
     ----------*/
-
 main {
-    padding: var(--padding-layout);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: space-between;
-    margin-top: 2rem;
-    display: flex;
-    flex-direction: column;
+  padding: var(--padding-layout);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+main .top {
+  align-items: unset;
+}
+main a {
+  text-decoration: none;
+  text-align: center;
 }
 
 h3 {
-    font-family: Archivo;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 15px;
-    line-height: 16px;
-    color: #333A5A;
+  font-family: Archivo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 16px;
+  color: #333A5A;
 }
 
 form {
-    background-color: #fff;
-    border-radius: 10px;
+  background-color: #fff;
+  border-radius: 10px;
 }
-
 form .top {
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
-
-main form input {
-    border: 1px solid #323958;
-    box-sizing: border-box;
-    border-radius: 5px;
-    padding: 0.5rem 1rem;
+form input {
+  border: 1px solid #323958;
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
 }
-
-main .top {
-    align-items: unset;
-}
-
 form .input {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
 }
-
 form .input input {
-    width: 100%;
+  width: 100%;
 }
-
 form .image {
-    display: flex;
-    flex-direction: row;
-    align-content: center;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-content: space-between;
 }
-
 form .image label {
-    background: #333A5A;
-    border-radius: 5px;
-    color: white;
-    font-family: Archivo;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 10px;
-    line-height: 11px;
-    color: #FFFFFF;
-    padding: 0.5rem 1rem;
+  background: #333A5A;
+  border-radius: 5px;
+  color: white;
+  font-family: Archivo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 11px;
+  color: #FFFFFF;
+  padding: 0.5rem 1rem;
 }
-
 form .img {
-    width: 50px;
-    height: 50px;
-    max-width: 50px;
-    max-height: 50px;
-    background-color: orange;
-    border-radius: 10px;
-    overflow: hidden;
+  width: 50px;
+  height: 50px;
+  max-width: 50px;
+  max-height: 50px;
+  background-color: orange;
+  border-radius: 10px;
+  overflow: hidden;
 }
-
-.img img {
-    width: 100%;
+form .img img {
+  width: 100%;
 }
-
 form #image {
-    border: none;
+  border: none;
 }
-
-main form button {
-    background: #333A5A;
-    border-radius: 0px 0px 15px 15px;
-    font-family: Archivo;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 15px;
-    line-height: 16px;
-    width: 100%;
-    border: none;
-    margin-top: 2rem;
-    padding: 0.5rem 1rem;
-    color: #FFFFFF;
-}
-
-main a {
-    text-decoration: none;
-    text-align: center;
+form button {
+  background: #333A5A;
+  border-radius: 0px 0px 15px 15px;
+  font-family: Archivo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 16px;
+  width: 100%;
+  border: none;
+  margin-top: 2rem;
+  padding: 0.5rem 1rem;
+  color: #FFFFFF;
 }
 
 .reset {
-    font-family: Archivo;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 15px;
-    line-height: 16px;
-    color: #333A5A;
-    margin-top: 3rem;
-    margin-bottom: 3rem;
-    border: none;
-    background-color: transparent;
+  font-family: Archivo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 16px;
+  color: #333A5A;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  border: none;
+  background-color: transparent;
 }
 
 .delete {
-    font-family: Archivo;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 15px;
-    line-height: 16px;
-    color: #D11414;
-    border: none;
-    background-color: transparent;
+  font-family: Archivo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 16px;
+  color: #D11414;
+  border: none;
+  background-color: transparent;
 }
-
 
 /*---------
-        modal
-        --------*/
-
+    modal
+    --------*/
 .modal {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4901960784);
+  top: 0;
+  left: 0;
+  -webkit-backdrop-filter: blur(2px);
+          backdrop-filter: blur(2px);
 }
-
-.modal {
-    width: 100%;
-    height: 100%;
-    background-color: #0000007d;
-    top: 0;
-    left: 0;
-    backdrop-filter: blur(2px);
-}
-
 .modal .layer {
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    position: absolute;
-    top: 0;
-    left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
-
 .modal .container {
-    background-color: #EBEAEF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 5px 16px rgba(0, 0, 0, 0.25);
-    border-radius: 15px;
-    padding: 2rem;
-    width: 80%;
-    margin: auto;
+  background-color: #EBEAEF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 5px 16px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  padding: 2rem;
+  width: 80%;
+  margin: auto;
 }
-
-
 .modal form {
-    display: flex;
-    flex-direction: row-reverse;
-    margin-top: 2rem;
-    background-color: transparent;
-
+  display: flex;
+  flex-direction: row-reverse;
+  margin-top: 2rem;
+  background-color: transparent;
 }
-
 .modal form button {
-    margin-left: 2rem;
-    border: none;
-    border-radius: 5px;
-    padding: 0.5rem 1rem;
-    color: white;
-    font-family: inherit;
+  margin-left: 2rem;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  color: white;
+  font-family: inherit;
 }
-
-.modal button[type="submit"] {
-    background-color: crimson;
+.modal form button[type=submit] {
+  background-color: crimson;
 }
-
-.modal button[type="submit"]:disabled {
-    background-color: rgb(90, 22, 35);
-    color: rgba(255, 255, 255, 0.3);
+.modal form button[type=submit]:disabled {
+  background-color: rgb(90, 22, 35);
+  color: rgba(255, 255, 255, 0.3);
 }
-
-.modal button[type="button"] {
-    background-color: #333A59;
+.modal form button[type=button] {
+  background-color: #333A59;
 }
-
-
 .modal p {
-    font-size: 1.2rem;
-    margin-top: 2rem;
+  font-size: 1.2rem;
+  margin-top: 2rem;
 }
-
 .modal span {
-    background-color: khaki;
-    color: #333A59;
-    padding: 0.1rem 0.5rem;
-    border-radius: 2px;
+  background-color: khaki;
+  color: #333A59;
+  padding: 0.1rem 0.5rem;
+  border-radius: 2px;
 }
-
 .modal input {
-    border: none;
-    border-radius: 5px;
-    width: 100%;
-    font-size: 1.5rem;
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    font-family: inherit;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  font-family: inherit;
 }
-

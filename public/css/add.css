@@ -1,296 +1,263 @@
 /*---------
     main
     ----------*/
-
 main {
-    padding: var(--padding-layout);
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--gap);
-    justify-content: space-between;
+  padding: var(--padding-layout);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+  justify-content: space-between;
 }
 
 .form {
-    background: #FFFFFF;
-    border-radius: 20px;
-    padding: 2rem;
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    gap: 1.5rem;
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 2rem;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .image {
-    display: flex;
-    height: 6rem;
-    gap: 1rem;
+  display: flex;
+  height: 6rem;
+  gap: 1rem;
 }
 
 .show {
-    width: 5rem;
-    border-radius: 10px;
-    text-align: center;
-    background-color: black;
-    color: wheat;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 5rem;
+  border-radius: 10px;
+  text-align: center;
+  background-color: black;
+  color: wheat;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
 .show img {
-    height: 100%;
+  height: 100%;
 }
 
 .add-img {
-    width: 5rem;
-    padding: 0;
-    border-radius: 10px;
-    background-color: rgba(0, 0, 0, 0.356);
-    color: wheat;
-    color: rgb(255, 255, 255);
-    font-size: 5rem;
-    display: flex;
-    justify-content: center;
-    text-align: center;
+  width: 5rem;
+  padding: 0;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.356);
+  color: wheat;
+  color: rgb(255, 255, 255);
+  font-size: 5rem;
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }
 
 .row {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
-
 .row label {
-    margin: 0rem 1rem;
-    font-family: Archivo;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 10px;
-    line-height: 16px;
-    color: #000000;
+  margin: 0rem 1rem;
+  font-family: Archivo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 16px;
+  color: #000000;
 }
-
-.row input,
-.row select {
-    background: #EBEAEF;
-    border-radius: 5px;
-    width: 100%;
-    border: none;
-    padding: 1rem;
+.row input, .row select {
+  background: #EBEAEF;
+  border-radius: 5px;
+  width: 100%;
+  border: none;
+  padding: 1rem;
 }
 
 .double {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 2rem;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 2rem;
+  align-items: center;
 }
 
 .row .sub {
-    width: 100%;
+  width: 100%;
 }
-
 .row .age {
-    font-family: Archivo;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 15px;
-    line-height: 16px;
-    color: #000000;
+  font-family: Archivo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 16px;
+  color: #000000;
+}
+.row .box {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+.row .box input {
+  width: 20px;
 }
 
 .box-container {
-    display: flex;
-    justify-content: space-between;
-    padding-right: 1rem;
-    flex-direction: row;
-}
-
-.row .box {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-}
-
-.row .box input {
-    width: 20px;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 1rem;
+  flex-direction: row;
 }
 
 textarea {
-    border: none;
-    resize: vertical;
-    background: #EBEAEF;
-    border-radius: 5px;
-    padding: 1rem;
+  border: none;
+  resize: vertical;
+  background: #EBEAEF;
+  border-radius: 5px;
+  padding: 1rem;
 }
 
 .count {
-    text-align: end;
-    padding: 0.5rem 1rem;
+  text-align: end;
+  padding: 0.5rem 1rem;
 }
 
 .phone {
-    display: flex;
-    flex-direction: row;
-    background: #EBEAEF;
-    border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  background: #EBEAEF;
+  border-radius: 5px;
 }
-
 .phone button {
-    border-radius: 5px;
-    border: none;
-    display: flex;
-    align-items: center;
-    padding: 5px;
+  border-radius: 5px;
+  border: none;
+  display: flex;
+  align-items: center;
+  padding: 5px;
 }
 
 .actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-
 .actions button.publish {
-    border: none;
-    padding: 0.5rem 2rem;
-    font-family: Archivo;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 15px;
-    line-height: 16px;
-    color: #FFFFFF;
-    background: #333A59;
-    border-radius: 5px;
+  border: none;
+  padding: 0.5rem 2rem;
+  font-family: Archivo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 16px;
+  color: #FFFFFF;
+  background: #333A59;
+  border-radius: 5px;
 }
-
 .actions button.preview {
-    background-color: transparent;
-    border: none;
-    font-family: Archivo;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 15px;
-    line-height: 16px;
-    color: #333A59;
+  background-color: transparent;
+  border: none;
+  font-family: Archivo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 16px;
+  color: #333A59;
 }
 
 .delete {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
-
 .delete .btn {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
-
 .delete button {
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-    font-family: Archivo;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 15px;
-    color: #D11414;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  font-family: Archivo;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 15px;
+  color: #D11414;
 }
 
 /*---------
-        modal
-        --------*/
-
+    modal
+    --------*/
 .modal {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4901960784);
+  top: 0;
+  left: 0;
+  -webkit-backdrop-filter: blur(2px);
+          backdrop-filter: blur(2px);
 }
-
-.modal {
-    width: 100%;
-    height: 100%;
-    background-color: #0000007d;
-    top: 0;
-    left: 0;
-    backdrop-filter: blur(2px);
-}
-
 .modal .layer {
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    position: absolute;
-    top: 0;
-    left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
-
 .modal .container {
-    background-color: #EBEAEF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 5px 16px rgba(0, 0, 0, 0.25);
-    border-radius: 15px;
-    padding: 2rem;
-    width: 80%;
-    margin: auto;
-    z-index: 99;
+  background-color: #EBEAEF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 5px 16px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  padding: 2rem;
+  width: 80%;
+  margin: auto;
+  z-index: 99;
 }
-
-
 .modal form {
-    display: flex;
-    flex-direction: row-reverse;
-    margin-top: 2rem;
+  display: flex;
+  flex-direction: row-reverse;
+  margin-top: 2rem;
 }
-
 .modal form button {
-    margin-left: 2rem;
-    border: none;
-    border-radius: 5px;
-    padding: 0.5rem 1rem;
-    color: white;
-    font-family: inherit;
+  margin-left: 2rem;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  color: white;
+  font-family: inherit;
 }
-
-.modal button[type="submit"] {
-    background-color: crimson;
+.modal button[type=submit] {
+  background-color: crimson;
 }
-
-.modal button[type="submit"]:disabled {
-    background-color: rgb(90, 22, 35);
-    color: rgba(255, 255, 255, 0.3);
+.modal button[type=submit]:disabled {
+  background-color: rgb(90, 22, 35);
+  color: rgba(255, 255, 255, 0.3);
 }
-
-.modal button[type="button"] {
-    background-color: #333A59;
+.modal button[type=button] {
+  background-color: #333A59;
 }
-
-
 .modal p {
-    font-size: 1.2rem;
-    margin-top: 2rem;
+  font-size: 1.2rem;
+  margin-top: 2rem;
 }
-
 .modal span {
-    background-color: khaki;
-    color: #333A59;
-    padding: 0.1rem 0.5rem;
-    border-radius: 2px;
+  background-color: khaki;
+  color: #333A59;
+  padding: 0.1rem 0.5rem;
+  border-radius: 2px;
 }
-
 .modal input {
-    border: none;
-    border-radius: 5px;
-    width: 100%;
-    font-size: 1.5rem;
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    font-family: inherit;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  font-family: inherit;
 }

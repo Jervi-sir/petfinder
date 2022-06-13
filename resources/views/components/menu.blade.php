@@ -12,7 +12,7 @@
         </div>
         <div class="item">
             <a href="#">
-                <img src="../images/bookmark.svg" alt="">
+                <img src="../images/circle_empty.svg" alt="">
             </a>
         </div>
         <div class="item">

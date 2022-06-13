@@ -1,144 +1,129 @@
 /*---------
     main
     ----------*/
-
 main {
-    padding: calc(var(--padding-layout) - 1rem);
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--gap);
-    justify-content: space-between;
-    padding: 1rem;
-    border-radius: 25px;
+  padding: calc(var(--padding-layout) - 1rem);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+  justify-content: space-between;
+  padding: 1rem;
+  border-radius: 25px;
+  min-height: 100%;
+  padding-bottom: 4rem;
 }
-
 main .image {
-    position: relative;
-    width: 100%;
-    background: #F9E3D2;
-    border-radius: 15px;
+  position: relative;
+  width: 100%;
+  background: #F9E3D2;
+  border-radius: 15px;
 }
-
 main .image .back {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
 }
-
 main .image .pic {
-    width: 100%;
+  width: 100%;
 }
-
-
 main .details {
-    padding: 1rem 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    width: 100%;
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
 }
-
 main .details h2 {
-    font-family: Archivo;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 20px;
-    letter-spacing: 0.135em;
-    color: #000000;
-    mix-blend-mode: normal;
+  font-family: Archivo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  letter-spacing: 0.135em;
+  color: #000000;
+  mix-blend-mode: normal;
 }
-
 main .details h3 {
-    font-family: Josefin Sans;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 12px;
-    letter-spacing: 0.135em;
-    color: #000000;
-    mix-blend-mode: normal;
+  font-family: Josefin Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  letter-spacing: 0.135em;
+  color: #000000;
+  mix-blend-mode: normal;
 }
-
 main .details h4 {
-    font-family: Archivo;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    color: #000000;
+  font-family: Archivo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: #000000;
 }
-
+main .details .bio {
+  font-family: Archivo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: #000000;
+}
+main .details .contact {
+  font-family: Josefin Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 9px;
+  color: #000000;
+  display: flex;
+  align-items: center;
+}
 main .bubbles {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
-
 main .bubbles span {
-    padding: 0.5em 2em;
-    border-radius: 5px;
-    font-family: Archivo;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 11px;
+  padding: 0.5em 2em;
+  border-radius: 5px;
+  font-family: Archivo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 11px;
 }
-
-.bubbles .age,
-.bubbles .weight,
-.bubbles .color {
-    background: #000000;
-    color: #FFFFFF;
+main .bubbles .age, main .bubbles .weight, main .bubbles .color {
+  background: #000000;
+  color: #FFFFFF;
 }
-
-.bubbles .gender {
-    background: #D9E2F5;
-    color: #3A78E0;
+main .bubbles .gender {
+  background: #D9E2F5;
+  color: #3A78E0;
 }
-
-.details .bio {
-    font-family: Archivo;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    color: #000000;
-}
-
-.details .contact {
-    font-family: Josefin Sans;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 9px;
-    color: #000000;
-    display: flex;
-    align-items: center;
-
-}
-
 main .actions {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-
 main .actions .message {
-    display: flex;
-    gap: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
 }
-
 main .actions .message img {
-    filter: invert(100%) ;
+  filter: invert(100%);
 }
-
 main .actions .message button {
-    padding: 1rem;
-    border: none;
-    background: #333A5A;
-    border-radius: 5px;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 9px;
-    color: #FFFFFF;
+  padding: 1rem;
+  border: none;
+  background: #333A5A;
+  border-radius: 5px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 9px;
+  color: #FFFFFF;
+}
+main .actions .message button:last-of-type {
+  padding: 1rem 3rem;
 }
 
-main .actions .message button:last-of-type {
-    padding: 1rem 3rem;
+.pet-container {
+  background-color: white;
+  border-radius: 15px;
+  padding: 5px;
 }

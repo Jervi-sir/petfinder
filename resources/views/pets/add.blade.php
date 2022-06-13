@@ -25,14 +25,7 @@
             <label class="add-img" for="add-image"><span>+</span></label>
             <input hidden name="images[]" type="file" id="add-image"  accept="image/png, image/jpeg"  multiple @change='addImage($event.target)'>
         </div>
-        <div class="row">
-            <label for="">status</label>
-            <select name="status" id="">
-                @foreach ($statuses as $status)
-                <option value="{{ $status->id }}">{{ $status->name }}</option>
-                @endforeach
-            </select>
-        </div>
+
         <div class="row">
             <label for="">name</label>
             <input name="name" type="text">
@@ -104,24 +97,17 @@
             <label for="">weight</label>
             <input name="weight" type="text" @keypress="validateNumber">
         </div>
-        <div class="row box-container">
-            <div class="box">
-                <input type="radio" name="status" value="adoption" v-model="status" checked>
-                <span>adoption</span>
-            </div>
-            <div class="box">
-                <input type="radio" name="status" value="sell" v-model="status">
-                <span>sell</span>
-            </div>
-            <div class="box">
-                <input type="radio" name="status" value="rent" v-model="status">
-                <span>rent</span>
-            </div>
+        <div class="row">
+            <label for="">status</label>
+            <select name="status" id="" v-model="statusValue">
+                @foreach ($statuses as $status)
+                <option value="{{ $status->id }}">{{ $status->name }}</option>
+                @endforeach
+            </select>
         </div>
-
         <div class="row">
             <label for="">price</label>
-            <input name="price" type="text" :disabled="status == 'adoption'" @keypress="validateNumber">
+            <input name="price" type="text" :disabled="statusValue == 2" @keypress="validateNumber">
         </div>
 
         <div class="row">
@@ -166,6 +152,7 @@
             birthdate: '',
             age: '',
             status: 'adoption',
+            statusValue: '',
             items: [
                 {
                     phone: '',
