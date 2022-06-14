@@ -146,11 +146,11 @@ class PetController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($uuid)
     {
-        $pet = Pet::find($id);
+        $pet = Pet::where('uuid', $uuid)->first();
 
-        $age = getAge($pet->date_birth);
+        $age = $pet->date_birth != null ? getAge($pet->date_birth) : '';
 
         $data['pet'] = [
             'uuid' => $pet->uuid,
@@ -161,10 +161,11 @@ class PetController extends Controller {
             'status' => $pet->status->name,
             'wilaya' => $pet->wilaya->name,
             'status' => $pet->status->name,
+            'weight' => $pet->weight,
             'date_birth' => $age,
             'size' => $pet->size,
             'color' => $pet->color,
-            'image' => $pet->pics,
+            'images' => imagesToUrl($pet->pics),
             'description' => $pet->description,
             'phone_number' => json_decode($pet->phone_number)
         ];

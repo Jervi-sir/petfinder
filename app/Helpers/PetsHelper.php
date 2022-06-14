@@ -86,7 +86,7 @@ use Illuminate\Support\Facades\URL;
     {
         $uuidString = (string) Str::uuid();
         $uuidFirst = substr($uuidString, 0, 5);
-        $uuid = $uuidFirst . '-' . $race. '-' . str_replace(" ", "", $name);
+        $uuid = $uuidFirst . '_' . $race. '_' . str_replace(" ", "", $name);
         return $uuid;
     }
 

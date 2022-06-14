@@ -27,7 +27,7 @@ require __DIR__.'/auth.php';
 Route::get('/', [PetController::class, 'index'])->name('pet.all');       //done
 Route::get('race/{race}', [PetController::class, 'race'])->name('pet.race');       //done
 Route::get('/pets-latest', [PetController::class, 'index'])->name('pet.all');       //done
-Route::get('/pets/{id}', [PetController::class, 'show'])->name('pet.show');         //done
+Route::get('/pets/{uuid}', [PetController::class, 'show'])->name('pet.show');         //done
 
 Route::post('/like/{id}', [ActionController::class, 'like'])->name('like');
 Route::post('/unlike/{id}', [ActionController::class, 'unlike'])->name('unlike');
