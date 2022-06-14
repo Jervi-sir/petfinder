@@ -35,6 +35,13 @@ return [
             'root' => storage_path('app'),
         ],
 
+        'saveImages' => [
+            'driver' => 'local',
+            'root' => public_path('clientImages'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

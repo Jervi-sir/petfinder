@@ -26,7 +26,7 @@
     <div class="empty-space">
     </div>
     <!-- menu -->
-    @include('components.menu')
+    @include('components._menu')
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>

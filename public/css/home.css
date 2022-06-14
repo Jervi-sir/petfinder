@@ -40,7 +40,6 @@ main .top .filter {
 .card.dog .card-top {
   background: #E3EADF;
 }
-
 .card.cat .card-top {
   background: #F9E3D2;
 }
@@ -60,6 +59,9 @@ main .top .filter {
   justify-content: center;
   width: 100%;
   height: 14rem;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 20px;
 }
 .card-top .name {
   position: absolute;

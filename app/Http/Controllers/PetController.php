@@ -2,70 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\PetHelpers;
 use Carbon\Carbon;
 
 use App\Models\Pet;
+use App\Models\Tag;
 use App\Models\Race;
 use App\Models\Color;
 use App\Models\Status;
 use App\Models\Wilaya;
 use App\Models\SubRace;
-use App\Models\Tag;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
-use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+
 
 class PetController extends Controller
 {
-    private function getAge($date_birth)
-    {
-        $now = time(); // or your date as well
-        $your_date = strtotime($date_birth);
-        $datediff = $now - $your_date;
-        $total = $datediff / (60 * 60 * 24);
-        $age = '';
-        if($total > 360) {
-            $years = intval($total / 360);
-            $total = $total - ($years * 360);
-            $age = $years . 'y ';
-        }
-        if($total >= 30) {
-            $leftMonths = intval($total % 30);
-            $total = $total - ($leftMonths * 30);
-            $age = $age . $leftMonths . 'm';
-        }
-        else {
-            $leftDays = intval($total % 30);
-            $total = $total - ($leftDays * 1);
-            if(strpos($age, 'm') == false) {
-                $age = $age . $leftDays . 'd';
-            }
-        }
 
-        return $age;
-    }
-
-    private function uniqueUuid($race, $name)
-    {
-        $uuidString = (string) Str::uuid();
-        $uuidFirst = substr($uuidString, 0, 5);
-        $uuid = $uuidFirst . '-' . $race. '-' . str_replace(" ", "", $name);
-        return $uuid;
-    }
-
+    //must be refactored
     public function index()
     {
-        $base1 = URL::to('/pets') . '/';
+        $base_pet = URL::to('/pets') . '/';
+
         //$base = env('APP_URL');
         $data['pets'] = [];
         $pets = Pet::all();
         //$pet = $pets->first();
         $races = Race::all();
+
         foreach ($pets as $key => $pet) {
+
             $data['pets'][$key] = [
-                'url' => $base1 . $pet->id,             //use uuid
+                'url' => $base_pet . $pet->id,             //use uuid
                 'name' => $pet->name,
                 'gender' => $pet->gender,
                 'race' => $pet->race->name,
@@ -73,15 +45,16 @@ class PetController extends Controller
                 'status' => $pet->status->name,
                 'wilaya' => $pet->wilaya->name,
                 'status' => $pet->status->name,
-                'image' => $pet->pics,
+                'image' => getFirstImage($pet->pics)
             ];
         }
         $data_obj = (object)$data['pets'];
-        //return response()->json($data['pets'], 201);
 
+        //return response()->json($data['pets'], 201);
         return view('home', ['pets' => $data_obj, 'races' => $races]);
     }
 
+    //inject images url + refactor
     public function race($race) {
 
         $selected_race = Race::where('name', strtolower($race))->first();
@@ -102,7 +75,7 @@ class PetController extends Controller
                 'status' => $pet->status->name,
                 'wilaya' => $pet->wilaya->name,
                 'status' => $pet->status->name,
-                'image' => $pet->pics,
+                'image' => getFirstImage($pet->pics)
             ];
         }
         $data_obj = (object)$data['pets'];
@@ -151,14 +124,22 @@ class PetController extends Controller
      */
     public function store(Request $request)
     {
+        $user = Auth()->user();
+        $uuid = uniqueUuid($request->race ,$request->name);
         $uploadedFileUrl = [];
-        $manyImages = count($request->imageCompressed);
 
-        $dt = Carbon::createFromFormat('Y-m-d', $request->birthday)->format('Y-m-d');
         //$images = array_slice($request->file('images'), 0, 4);
         $status = $request->status;
-        for($i = 0; $i < $manyImages; $i++) {
+
+        foreach ($request->imageCompressed as $image) {
             //$uploadedFileUrl[$i] = Cloudinary::upload($request->imageCompressed[$i])->getSecurePath();
+            $file = explode( ',', $image )[1];
+
+            $filename= str_replace("-", "", Str::uuid()->toString()).'.png';
+
+            Storage::disk('saveImages')->put($filename, base64_decode($file));
+
+            array_push($uploadedFileUrl, $filename);
         }
 
         if($status == 'sell'){$status = 1;}
@@ -171,9 +152,9 @@ class PetController extends Controller
         $color = Color::find($request->color)->name;
 
         $pet = new Pet();
-        $pet->uuid = $this->uniqueUuid($request->race ,$request->name);
+        $pet->uuid = $uuid;
         $pet->name = $request->name;
-        $pet->user_id = Auth()->user()->id;
+        $pet->user_id = $user->id;
         $pet->race_id = $request->race;
         $pet->sub_race_id = $request->sub;
         $pet->status_id = $status;              //not setted
@@ -216,7 +197,7 @@ class PetController extends Controller
     {
         $pet = Pet::find($id);
 
-        $age = $this->getAge($pet->date_birth);
+        $age = getAge($pet->date_birth);
 
         $data['pet'] = [
             'uuid' => $pet->uuid,

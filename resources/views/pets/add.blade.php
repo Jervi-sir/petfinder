@@ -9,7 +9,7 @@
 @endsection
 
 @section('header')
-@include('components.header')
+@include('components._header')
 @endsection
 
 
@@ -145,7 +145,7 @@
 
     el: '#app',
         data: {
-            activesearch: false,
+            activeSearch: false,
             images: [],
             compressed: [],
             description: '',
@@ -153,6 +153,7 @@
             age: '',
             status: 'adoption',
             statusValue: '',
+            keyword: '',
             items: [
                 {
                     phone: '',
@@ -161,9 +162,6 @@
             ]
         },
         methods: {
-            activeSearch: function () {
-                this.activesearch = true;
-            },
             addItem: function() {
                 this.items.push({
                     phone: '',
@@ -228,10 +226,8 @@
             },
 
             comporessImage: function(file) {
-
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
-
                 reader.onload = function (event) {
                     const imgElement = document.createElement("img");
                     imgElement.src = event.target.result;
@@ -244,7 +240,7 @@
                         const ctx = canvas.getContext("2d");
                         ctx.drawImage(e.target, 0, 0, canvas.width, canvas.height);
                         // you can send srcEncoded to the server
-                        const srcEncoded = ctx.canvas.toDataURL("image/jpeg", 0.9);
+                        const srcEncoded = ctx.canvas.toDataURL("image/png", 0.9);
 
                         //push into HTML
                         const output = document.querySelector("#output");
@@ -253,7 +249,7 @@
                         imageOutput.type = "text";
                         imageOutput.hidden = true;
                         imageOutput.value = srcEncoded;
-                        console.log(srcEncoded);
+                        //console.log(srcEncoded);
                         output.appendChild(imageOutput);
                     };
                 };

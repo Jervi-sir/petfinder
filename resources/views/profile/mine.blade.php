@@ -9,7 +9,7 @@
 @endsection
 
 @section('header')
-@include('components.header')
+@include('components._header')
 @endsection
 
 

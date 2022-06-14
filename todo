@@ -25,8 +25,10 @@
 [x] css to scss
 [x] linked menu
 [x] menu filter in home
+[x] upload images
 
-[] images
+[] display images
+[] crop images
 [] check if came from search url then change search title
 [] loading screen
 [] filter in home
