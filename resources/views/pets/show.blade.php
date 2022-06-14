@@ -51,12 +51,16 @@
                     </div>
                     @endforeach
 
-                    <label for="carousel-3" class=" prev control-1"></label>
+                    <label for="carousel-4" class=" prev control-1"></label>
+                    <label for="carousel-3" class=" prev control-4"></label>
                     <label for="carousel-2" class=" next control-1"></label>
                     <label for="carousel-1" class=" prev control-2"></label>
+
+                    <label for="carousel-4" class=" prev control-1"></label>
                     <label for="carousel-3" class=" next control-2"></label>
                     <label for="carousel-2" class=" prev control-3"></label>
                     <label for="carousel-1" class=" next control-3"></label>
+
                     <ol class="carousel-indicators">
                         @foreach ($pet['images'] as $image)
                         <li>
@@ -64,6 +68,7 @@
                         </li>
                         @endforeach
                     </ol>
+
                 </div>
             </div>
         </div>
