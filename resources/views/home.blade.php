@@ -58,7 +58,7 @@
                     <img src="../images/location.svg" alt="">
                     <span>{{ $pet['wilaya'] }}</span>
                 </div>
-                <div class="age">20 years</div>
+                <div class="age">{{ $pet['age'] }}</div>
                 <div class="price">{{ $pet['status'] }}</div>
             </div>
         </div>

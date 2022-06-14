@@ -20,67 +20,29 @@ use Illuminate\Support\Facades\Storage;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 
-class PetController extends Controller
-{
-
-    //must be refactored
-    public function index()
-    {
-        $base_pet = URL::to('/pets') . '/';
-
-        //$base = env('APP_URL');
-        $data['pets'] = [];
+class PetController extends Controller {
+    /**
+     *  Show all pets of the database.
+     *
+     *  @return \ pets, race
+     */
+    public function index() {
         $pets = Pet::all();
-        //$pet = $pets->first();
         $races = Race::all();
-
-        foreach ($pets as $key => $pet) {
-
-            $data['pets'][$key] = [
-                'url' => $base_pet . $pet->id,             //use uuid
-                'name' => $pet->name,
-                'gender' => $pet->gender,
-                'race' => $pet->race->name,
-                'subRace' => $pet->subRace->name,
-                'status' => $pet->status->name,
-                'wilaya' => $pet->wilaya->name,
-                'status' => $pet->status->name,
-                'image' => getFirstImage($pet->pics)
-            ];
-        }
-        $data_obj = (object)$data['pets'];
-
-        //return response()->json($data['pets'], 201);
+        $data_obj = getPets($pets);
         return view('home', ['pets' => $data_obj, 'races' => $races]);
     }
 
-    //inject images url + refactor
+    /**
+     *  Show all pets with same race.
+     *
+     *  @return \ pets, race
+     */
     public function race($race) {
-
         $selected_race = Race::where('name', strtolower($race))->first();
-
-        $base1 = URL::to('/pets') . '/';
-        //$base = env('APP_URL');
-        $data['pets'] = [];
         $pets = $selected_race->pets;
-        //$pet = $pets->first();
         $races = Race::all();
-        foreach ($pets as $key => $pet) {
-            $data['pets'][$key] = [
-                'url' => $base1 . $pet->id,             //use uuid
-                'name' => $pet->name,
-                'gender' => $pet->gender,
-                'race' => $pet->race->name,
-                'subRace' => $pet->subRace->name,
-                'status' => $pet->status->name,
-                'wilaya' => $pet->wilaya->name,
-                'status' => $pet->status->name,
-                'image' => getFirstImage($pet->pics)
-            ];
-        }
-        $data_obj = (object)$data['pets'];
-        //return response()->json($data['pets'], 201);
-
+        $data_obj = getPets($pets);
         return view('home', ['pets' => $data_obj, 'races' => $races]);
     }
 
@@ -125,31 +87,22 @@ class PetController extends Controller
     public function store(Request $request)
     {
         $user = Auth()->user();
-        $uuid = uniqueUuid($request->race ,$request->name);
-        $uploadedFileUrl = [];
 
         //$images = array_slice($request->file('images'), 0, 4);
-        $status = $request->status;
-
+        $uploadedFileUrl = [];
         foreach ($request->imageCompressed as $image) {
             //$uploadedFileUrl[$i] = Cloudinary::upload($request->imageCompressed[$i])->getSecurePath();
             $file = explode( ',', $image )[1];
-
             $filename= str_replace("-", "", Str::uuid()->toString()).'.png';
-
             Storage::disk('saveImages')->put($filename, base64_decode($file));
-
             array_push($uploadedFileUrl, $filename);
         }
-
-        if($status == 'sell'){$status = 1;}
-        if($status == 'adoption'){$status = 2;}
-        if($status == 'rent'){$status = 3;}
 
         $raceName = Race::find($request->race)->name;
         $sub_raceName = SubRace::find($request->sub)->name;
         $wilayaName = Wilaya::find($request->wilaya)->name;
         $color = Color::find($request->color)->name;
+        $uuid = uniqueUuid($request->race ,$request->name);
 
         $pet = new Pet();
         $pet->uuid = $uuid;
@@ -157,14 +110,14 @@ class PetController extends Controller
         $pet->user_id = $user->id;
         $pet->race_id = $request->race;
         $pet->sub_race_id = $request->sub;
-        $pet->status_id = $status;              //not setted
+        $pet->status_id = $request->status;              //not setted
         $pet->wilaya_id = $request->wilaya;
         $pet->raceName = $raceName;
         $pet->sub_raceName = $sub_raceName;
         $pet->wilayaName = $wilayaName;
         $pet->gender = $request->gender;
         $pet->color = $color;
-        $pet->date_birth = Carbon::parse("2021-11-01")->format('Y/m/d');
+        $pet->date_birth = date('Y-m-d',strtotime($request->birthday));
         $pet->size = $request->size;            //not setted
         $pet->pics = json_encode($uploadedFileUrl);
         $pet->description = $request->description;
