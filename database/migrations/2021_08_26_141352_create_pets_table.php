@@ -38,6 +38,12 @@ class CreatePetsTable extends Migration
 
             $table->string('phone_number')->nullable();
 
+            $table->integer('is_active')->default(1);
+            $table->string('announcement_status')->default('active');
+            $table->date('last_date_activated');
+
+            //$table->integer('is_owner_premium')->default(0);      //so I can monitise if owner wants more then 7days active
+
             $table->timestamps();
         });
     }

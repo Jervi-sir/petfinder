@@ -148,6 +148,7 @@ main {
     background-color: white;
     border-radius: 15px;
     padding: 5px;
+    width: 100%;
 }
 
 /*-----------
@@ -172,15 +173,15 @@ main {
 .carousel-item {
     position: absolute;
     opacity: 0;
-    -webkit-transition: opacity 0.5s ease-in;
-    transition: opacity 0.5s ease-in;
+    -webkit-transition: opacity 0.0s ease-in;
+    transition: opacity 0.0s ease-in;
     display: flex;
     justify-content: center;
     height: 35rem;
     img {
         display: block;
         height: auto;
-        max-width: 100%;
+        /*max-width: 100%;*/
         /*position: absolute;*/
         /*width: 100%;*/
     }

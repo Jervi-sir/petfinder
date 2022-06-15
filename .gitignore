@@ -1,6 +1,7 @@
 /node_modules
 /public/hot
-/public/clientImages
+/public/petImages
+/public/profileImages
 /public/storage
 /storage/*.key
 /vendor

@@ -37,13 +37,13 @@ return [
 
         'saveImages' => [
             'driver' => 'local',
-            'root' => public_path('clientImages'),
+            'root' => public_path('petImages'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
         'profileImage' => [
             'driver' => 'local',
-            'root' => public_path('profileImage'),
+            'root' => public_path('profileImages'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],

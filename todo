@@ -28,9 +28,11 @@
 [x] upload images
 [x] display images
 [x] center images
+[x] user image
+[x] scheduler 7days post, add updated time
+[x] re-migrate db and pet db
 
 
-[] scheduler 7days post, add updated time
 
 [] check if came from search url then change search title
 [] loading screen
@@ -38,4 +40,4 @@
 [] desktop front
 [] save
 [] add no offer found in home page
-[] 7days timer for each post
+[] cover no data pet in home

@@ -84,8 +84,7 @@ class PetController extends Controller {
      * Store a new Pet
      *
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $user = Auth()->user();
 
         //$images = array_slice($request->file('images'), 0, 4);
@@ -130,13 +129,16 @@ class PetController extends Controller {
                     . $request->size . ', '
                     . $request->description ;
 
+        $pet->is_active = 1;
+        $pet->last_date_activated = Carbon::now()->format('Y-m-d');
+
         $pet->save();
         toastr('Pet added successfully ', $type = 'success', $title = '', $options = [
             'positionClass' => 'toast-top-center',
             'timeOut'           => 3000,
         ]);
 
-        return redirect()->route('pet.show', ['id' => $pet->id]);
+        return redirect()->route('pet.show', ['uuid' => $pet->uuid]);
 
     }
 
@@ -149,7 +151,6 @@ class PetController extends Controller {
     public function show($uuid)
     {
         $pet = Pet::where('uuid', $uuid)->first();
-
         $age = $pet->date_birth != null ? getAge($pet->date_birth) : '';
 
         $data['pet'] = [

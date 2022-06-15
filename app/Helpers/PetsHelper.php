@@ -96,7 +96,7 @@ use Illuminate\Support\Facades\URL;
      *  @return \ string
      */
     function imagesToUrl($images) {
-        $base_image = URL::to('/clientImages') . '/';
+        $base_image = URL::to('/petImages') . '/';
         $pet_pics_with_url = [];
         $pet_pics = json_decode($images);
         foreach($pet_pics as $pic) {
@@ -119,7 +119,7 @@ use Illuminate\Support\Facades\URL;
     }
 
     function profileImageUrl($image) {
-        $base_image = URL::to('/profileImage') . '/';
+        $base_image = URL::to('/profileImages') . '/';
         return $base_image . $image;
 
     }
