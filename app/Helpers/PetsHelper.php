@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\ImagesToDelete;
+use App\Models\Petbackup;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\URL;
@@ -12,20 +14,24 @@ use Illuminate\Support\Facades\URL;
      */
     function getPets($pets) {
         $base_pet = URL::to('/pets') . '/';
-
-        foreach ($pets as $key => $pet) {
-            $data['pets'][$key] = [
-                'url' => $base_pet . $pet->uuid,             //use uuid
-                'name' => $pet->name,
-                'gender' => $pet->gender,
-                'race' => $pet->race->name,
-                'subRace' => $pet->subRace->name,
-                'status' => $pet->status->name,
-                'wilaya' => $pet->wilaya->name,
-                'status' => $pet->status->name,
-                'age' => getAge($pet->date_birth),
-                'image' => getFirstImage($pet->pics)
-            ];
+        if($pets->count() == 0) {
+            $data['pets'] = [];
+        } else {
+            foreach ($pets as $key => $pet) {
+                $data['pets'][$key] = [
+                    'url' => $base_pet . $pet->uuid,             //use uuid
+                    'id' => $pet->id,
+                    'name' => $pet->name,
+                    'gender' => $pet->gender,
+                    'race' => $pet->race->name,
+                    'subRace' => $pet->subRace->name,
+                    'status' => $pet->status->name,
+                    'wilaya' => $pet->wilaya->name,
+                    'status' => $pet->status->name,
+                    'age' => getAge($pet->date_birth),
+                    'image' => getFirstImage($pet->pics)
+                ];
+            }
         }
         return (object)$data['pets'];
     }
@@ -121,6 +127,52 @@ use Illuminate\Support\Facades\URL;
     function profileImageUrl($image) {
         $base_image = URL::to('/profileImages') . '/';
         return $base_image . $image;
+
+    }
+
+    function backupPet($pet) {
+
+        $backup = new Petbackup();
+        $backup->id = $pet->id;
+        $backup->uuid = $pet->uuid;
+        $backup->name = $pet->name;
+        $backup->user_id = $pet->user_id;
+        $backup->race_id = $pet->race_id;
+        $backup->sub_race_id = $pet->sub_race_id;
+        $backup->status_id = $pet->status_id;
+        $backup->wilaya_id = $pet->wilaya_id;
+        $backup->raceName = $pet->raceName;
+        $backup->sub_raceName = $pet->sub_raceName;
+        $backup->wilayaName = $pet->wilayaName;
+        $backup->gender = $pet->gender;
+        $backup->color = $pet->color;
+        $backup->date_birth = $pet->date_birth;
+        $backup->size = $pet->size;
+        $backup->pics = $pet->pics;
+        $backup->description = $pet->description;
+        $backup->tags = $pet->tags;
+        $backup->phone_number = $pet->phone_number;
+        $backup->is_active = 0;
+        $backup->announcement_status = "deleted";
+        $backup->last_date_activated = $pet->last_date_activated;
+        $backup->size = $pet->size;
+        $backup->save();
+
+        return true;
+    }
+
+    /**
+     * input array
+     *
+     */
+    function backupImages($images, $source, $type) {
+        foreach ($images as $image) {
+            $backup = new ImagesToDelete();
+            $backup->source = $source;
+            $backup->type = $type;
+            $backup->name = $image;
+            $backup->save();
+        }
 
     }
 

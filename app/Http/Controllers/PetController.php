@@ -9,6 +9,7 @@ use App\Models\Pet;
 use App\Models\Tag;
 use App\Models\Race;
 use App\Models\Color;
+use App\Models\Petbackup;
 use App\Models\Status;
 use App\Models\Wilaya;
 use App\Models\SubRace;
@@ -30,7 +31,11 @@ class PetController extends Controller {
         $pets = Pet::all();
         $races = Race::all();
         $data_obj = getPets($pets);
-        return view('home', ['pets' => $data_obj, 'races' => $races]);
+        $count = count((array)$data_obj);
+        return view('home', ['pets' => $data_obj,
+                            'races' => $races,
+                            'count' => $count
+                            ]);
     }
 
     /**
@@ -43,7 +48,11 @@ class PetController extends Controller {
         $pets = $selected_race->pets;
         $races = Race::all();
         $data_obj = getPets($pets);
-        return view('home', ['pets' => $data_obj, 'races' => $races]);
+        $count = count((array)$data_obj);
+        return view('home', ['pets' => $data_obj,
+                            'races' => $races,
+                            'count' => $count
+                            ]);
     }
 
     /**
@@ -190,14 +199,17 @@ class PetController extends Controller {
             'race' => $pet->race_id,
             'subRace' => $pet->subRace_id,
             'status' => $pet->status_id,
+            'location' => $pet->location,
             'wilaya' => $pet->wilaya_id,
             'status' => $pet->status_id,
             'date_birth' => $pet->date_birth,
             'size' => $pet->size,
+            'price' => $pet->price,
             'color' => $pet->color,
             'image' => $pet->pics,
             'description' => $pet->description,
-            'phone_number' => $pet->phone_number,
+            'phone_number' => json_decode($pet->phone_number),
+            'image' => getFirstImage($pet->pics)
         ];
 
         $races = Race::all();
@@ -253,16 +265,73 @@ class PetController extends Controller {
         return back();
     }
 
-    public function delete(Request $request)
+    /*--------- DELETE ------------*/
+    /**
+     * Delete data and pictures.
+     *
+     */
+    public function deleteWithoutBackup(Request $request)
     {
+        dd($request);
         $user = Auth()->user();
         $selected_pet = $user->pets->find($request->id);
+        foreach (json_decode($selected_pet->pics) as $pic) {
+            Storage::disk('saveImages')->delete($pic);
+        }
         $selected_pet->delete();
 
         toastr('Pet deleted successfully ', $type = 'success', $title = '', $options = [
             'positionClass' => 'toast-top-center',
             'timeOut'           => 3000,
         ]);
+
+        return redirect()->route('profile.myprofile');
+
+    }
+
+    /**
+     * Delete data from live table, .
+     * save deleted data on backuptable,
+     * no image delete
+     */
+    public function deleteWithBackup(Request $request)
+    {
+        $user = Auth()->user();
+        $selected_pet = $user->pets->find($request->id);
+
+        backupImages(json_decode($selected_pet->pics), 'backup', 'pet');
+        backupPet($selected_pet);
+
+        $selected_pet->delete();
+
+        toastr('Pet deleted successfully ', $type = 'success', $title = '', $options = [
+            'positionClass' => 'toast-top-center',
+            'timeOut'           => 3000,
+        ]);
+
+        return redirect()->route('profile.myprofile');
+    }
+
+    /**
+     * Change status only to deleted, .
+     * is_active to 0,
+     * no image delete
+     */
+    public function statusToDeleted(Request $request)
+    {
+        $user = Auth()->user();
+        $selected_pet = $user->pets->find($request->id);
+        $selected_pet->is_active = 0;
+        $selected_pet->announcement_status = 'deleted';
+        backupImages(json_decode($selected_pet->pics), 'status to delete', 'pet');
+        $selected_pet->save();
+
+        toastr('Pet deleted successfully ', $type = 'success', $title = '', $options = [
+            'positionClass' => 'toast-top-center',
+            'timeOut'           => 3000,
+        ]);
+
+        return redirect()->route('profile.myprofile');
     }
 
 

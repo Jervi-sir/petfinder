@@ -78,7 +78,7 @@
             <div class="double">
 
                 <div class="sub">
-                    <input id="birthday" name="birthday" type="date"  min="1900/01/01" max="1998/07/08" v-model="birthdate" @change='setAge()' placeholder="birthday">
+                    <input id="birthday" name="birthday" type="date"  min="1900/01/01"  v-model="birthdate" @change='setAge()' placeholder="birthday">
                 </div>
                 <div class="sub">
                     <span class="age">age: @{{ age }}</span>

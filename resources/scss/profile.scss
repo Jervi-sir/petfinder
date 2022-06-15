@@ -245,3 +245,95 @@ a.card {
     }
 }
 
+
+/*---------
+    modal
+    --------*/
+    .modal {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        background-color: #0000007d;
+        top: 0;
+        left: 0;
+        backdrop-filter: blur(2px);
+
+        .layer {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .container {
+            background-color: #EBEAEF;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 5px 16px rgba(0, 0, 0, 0.25);
+            border-radius: 15px;
+            padding: 2rem;
+            width: 80%;
+            margin: auto;
+            z-index: 99;
+        }
+
+        form {
+            display: flex;
+            flex-direction: row-reverse;
+            margin-top: 2rem;
+            background-color: transparent;
+
+            button {
+                margin-left: 2rem;
+                border: none;
+                border-radius: 5px;
+                padding: 0.5rem 1rem;
+                color: white;
+                font-family: inherit;
+
+                &[type="submit"] {
+                    background-color: crimson;
+                }
+
+                &[type="submit"]:disabled {
+                    background-color: rgb(90, 22, 35);
+                    color: rgba(255, 255, 255, 0.3);
+                }
+
+                &[type="button"] {
+                    background-color: #333A59;
+                }
+
+            }
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-top: 2rem;
+        }
+
+        span {
+            background-color: khaki;
+            color: #333A59;
+            padding: 0.1rem 0.5rem;
+            border-radius: 2px;
+        }
+
+        input {
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            font-size: 1.5rem;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            font-family: inherit;
+        }
+
+    }
+
+

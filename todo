@@ -31,13 +31,12 @@
 [x] user image
 [x] scheduler 7days post, add updated time
 [x] re-migrate db and pet db
+[x] add no offer found in home page
 
-
+[] filter in home
+[] cover no data pet in home
 
 [] check if came from search url then change search title
 [] loading screen
-[] filter in home
 [] desktop front
 [] save
-[] add no offer found in home page
-[] cover no data pet in home

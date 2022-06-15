@@ -20,11 +20,37 @@
         data: {
             activesearch: false,
             pets: [],
+            confirmDelete: '',
+            deleteBtn: false,
+            showModal: false,
+            modal:{
+                petId: '',
+                petName: '',
+            },
+            keyword: ''
         },
         methods: {
             activeSearch: function () {
                 this.activesearch = true;
-            }
+            },
+            deletePet: function (event) {
+                var target = event.target;
+                var pet_id = target.getAttribute('data-pet-id');
+                var pet_name = target.getAttribute('data-pet-name');
+
+                this.showModal = true;
+                this.modal.petId = pet_id;
+                this.modal.petName = pet_name;
+                console.log(pet_id);
+                console.log(pet_name);
+            },
+            verifyDelete: function() {
+                if(this.confirmDelete == this.modal.petName) {
+                    this.deleteBtn = true;
+                } else {
+                    this.deleteBtn = false;
+                }
+            },
         },
     })
 </script>
@@ -72,6 +98,8 @@
                 <span class="age">{{ $pet['age'] }}</span>
             </div>
         </a>
+        <a href="{{ route('pet.edit', ['id' => $pet['id']]) }}">edit</a>
+        <button data-pet-id="{{ $pet['id'] }}" data-pet-name="{{ $pet['name'] }}" @click="deletePet($event)">delete</button>
         @endforeach
         @endif
         <div class="add-pets">
@@ -88,6 +116,21 @@
                 <div class="action">
                     <button type="submit">Logout</button>
                 </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" v-if="showModal">
+        <div class="layer"  @click="showModal=false"></div>
+        <div class="container">
+            <h1> Are u sure u want to delete</h1>
+            <p>Please type <span>@{{ modal.petName }}</span>  to confirm.</p>
+            <input type="text" v-model="confirmDelete" @keyup="verifyDelete">
+            <form action="{{ route('pet.delete') }}" method="POST">
+                @csrf
+                <input type="text" name="id" :value='modal.petId' hidden>
+                <button type="button" @click="showModal=false">Cancel</button>
+                <button type="submit" :disabled="!deleteBtn">Delete</button>
             </form>
         </div>
     </div>

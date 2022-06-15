@@ -40,13 +40,12 @@ Route::post('/uncomment/{id}', [ActionController::class, 'uncomment'])->name('un
 Route::get('/pets-latest/filter={filter}', [PetController::class, 'filter'])->name('pet.filter');
 Route::post('/search', [SearchController::class, 'search'])->name('pet.search');
 
-
 Route::middleware(['auth'])->group(function () {
     Route::get('/add-pet', [PetController::class, 'create'])->name('pet.create');           //done
     Route::post('/add-pet', [PetController::class, 'store'])->name('pet.store');            //done
     Route::get('/update-pet/{id}', [PetController::class, 'edit'])->name('pet.edit');       //images not yet
     Route::post('/update-pet', [PetController::class, 'update'])->name('pet.update');       //done
-    Route::post('/delete-pet', [PetController::class, 'delete'])->name('pet.delete');       //done
+    Route::post('/delete-pet', [PetController::class, 'deleteWithoutBackup'])->name('pet.delete');       //done
 
     Route::get('/myprofile',[ProfileController::class, 'myprofile'])->name('profile.myprofile');        //done        //done
     Route::get('/profile-edit',[ProfileController::class, 'edit'])->name('profile.edit');               //done

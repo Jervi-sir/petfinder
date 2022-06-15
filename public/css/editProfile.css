@@ -162,6 +162,7 @@ form button {
   padding: 2rem;
   width: 80%;
   margin: auto;
+  z-index: 99;
 }
 .modal form {
   display: flex;

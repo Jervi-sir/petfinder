@@ -38,6 +38,9 @@
     </div>
     <!-- pets -->
     <div class="results">
+        @if ($count == 0)
+            No offer currently
+        @endif
         @foreach ($pets as $pet)
         <div class='card {{ $pet['race'] }}' class="card">
             <div class="card-top">

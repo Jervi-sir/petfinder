@@ -28,14 +28,6 @@
             <input hidden name="images[]" type="file" id="add-image"  accept="image/png, image/jpeg"  multiple @change='addImage($event.target)'>
         </div>
         <div class="row">
-            <label for="">status</label>
-            <select name="status" id="" :value='pet.status'>
-                @foreach ($statuses as $status)
-                <option value="{{ $status->id }}">{{ $status->name }}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="row">
             <label for="">name</label>
             <input name="name" type="text" :value='pet.name'>
         </div>
@@ -87,7 +79,7 @@
             <div class="double">
 
                 <div class="sub">
-                    <input id="birthday" name="birthday" type="date"  min="1900-01-01" max="1998-07-08" :value='pet.date_birth' v-model="birthdate" @change='setAge()' placeholder="birthday">
+                    <input id="birthday" name="birthday" type="date"  min="1900/01/01"  v-model="birthdate" @change='setAge()' placeholder="birthday">
                 </div>
                 <div class="sub">
                     <span class="age">age: @{{ age }}</span>
@@ -98,7 +90,7 @@
             <label for="">color</label>
             <select name="color" id="" :value='pet.color'>
                 @foreach ($colors as $color)
-                <option value="{{ $color->id }}">{{ $color->name }}</option>
+                <option value="{{ $color->name }}">{{ $color->name }}</option>
                 @endforeach
             </select>
         </div>
@@ -106,28 +98,17 @@
             <label for="">weight</label>
             <input name="weight" type="text" :value='pet.weight' @keypress="validateNumber">
         </div>
-        <div class="row box-container">
-            @{{ pet.status }}
-            <div class="box">
-                <input type="radio" name="status" value="adoption" v-model="status" checked v-if="pet.status === 1">
-                <input type="radio" name="status" value="adoption" v-model="status" v-else>
-                <span>adoption</span>
-            </div>
-            <div class="box">
-                <input type="radio" name="status" value="sell" v-model="status" checked v-if="pet.status === 2">
-                <input type="radio" name="status" value="sell" v-model="status" v-else>
-                <span>sell</span>
-            </div>
-            <div class="box">
-                <input type="radio" name="status" value="rent" v-model="status" checked v-if="pet.status === 3">
-                <input type="radio" name="status" value="rent" v-model="status" v-else>
-                <span>rent</span>
-            </div>
+        <div class="row">
+            <label for="">status</label>
+            <select name="status" id="" :value='pet.status'>
+                @foreach ($statuses as $status)
+                <option value="{{ $status->id }}">{{ $status->name }}</option>
+                @endforeach
+            </select>
         </div>
         <div class="row">
-
             <label for="">price</label>
-            <input name="price" type="text" :value='pet.price' :disabled="status == 'adoption'" @keypress="validateNumber">
+            <input name="price" type="text" :value='pet.price' :disabled="statusValue == 2" @keypress="validateNumber">
         </div>
 
         <div class="row">
@@ -148,9 +129,9 @@
     <div class="delete btn">
         <button type="submit" @click="showModal=true">Delete announcement</button>
     </div>
-
+    @{{pet.phone_number[0]}}
     <div class="modal" v-if="showModal">
-        <div class="layer"  @click="showModal=false"></div>
+        <div class="layer" @click="showModal=false"></div>
         <div class="container">
             <h1> Are u sure u want to delete</h1>
             <p>Please type <span>@{{ pet.name }}</span>  to confirm.</p>
@@ -183,7 +164,6 @@
         data: {
             activesearch: false,
             images: [],
-            birthdate: '',
             age: '',
             status: 'adoption',
             items: [
@@ -192,16 +172,22 @@
                 },
             ],
             pet: [],
+            birthdate: '',
             description: '',
             uuid: '',
             confirmDelete: '',
+            statusValue: '',
+            keyword: '',
             deleteBtn: false,
             showModal: false,
         },
         created() {
             var pet = {!! json_encode($pet) !!};
             this.pet = pet;
+            this.birthdate = this.pet.date_birth;
+            this.setAge();
             this.description = this.pet.description;
+            console.log(typeof(Object.keys(this.pet.phone_number)))
         },
         methods: {
             verifyDelete: function() {
