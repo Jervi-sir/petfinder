@@ -80,6 +80,9 @@ form .img {
   background-color: orange;
   border-radius: 10px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 form .img img {
   width: 100%;

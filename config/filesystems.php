@@ -41,6 +41,12 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
+        'profileImage' => [
+            'driver' => 'local',
+            'root' => public_path('profileImage'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
 
         'public' => [
             'driver' => 'local',

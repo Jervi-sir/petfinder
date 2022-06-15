@@ -75,7 +75,7 @@
         <div class="details">
             <h2>{{ $pet['name'] }}</h2>
             <h3>{{ $pet['race'] }}</h3>
-            <h4><img src="../images/location_empty.svg" alt=""> {{ $pet['wilaya'] }}</h4>
+            <h4><img src="../images/location_empty.svg" alt=""> <span>{{ $pet['wilaya'] }}</span></h4>
             <div class="bubbles">
                 <span class="age">{{ $pet['date_birth'] }}</span>
                 <span class="gender">{{ $pet['gender'] }}</span>

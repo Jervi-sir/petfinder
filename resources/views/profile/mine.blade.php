@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-<title>my Profile</title>
+<title>My Profile</title>
 @endsection
 
 @section('style-head')
@@ -20,19 +20,12 @@
         data: {
             activesearch: false,
             pets: [],
-            user: [],
         },
         methods: {
             activeSearch: function () {
                 this.activesearch = true;
             }
         },
-        created() {
-            var pets = {!! json_encode($pets) !!};
-            var user = {!! json_encode($user) !!};
-            this.pets = pets;
-            this.user = user;
-        }
     })
 </script>
 @endsection
@@ -43,12 +36,12 @@
     <div class="profile-card">
         <div class="details">
             <div class="left">
-                <span>@{{ user.name }}</span>
-                <span>@{{ user.email }}</span>
-                <span>@{{ user.phone_number }}</span>
+                <span>{{ $user['name'] }}</span>
+                <span>{{ $user['email'] }}</span>
+                <span>{{ $user['phone_number'] }}</span>
             </div>
             <div class="right">
-                <img src="" alt="">
+                <img src="{{ $user['image'] }}" alt="">
             </div>
         </div>
         <div class="edit">
@@ -63,21 +56,23 @@
     </div>
     <div class="posts">
         @if($count)
-        <a class="card" :href='pet.url' v-for="(pet, index) in pets">
+        @foreach ($pets as $pet)
+        <a class="card" href='{{ $pet['url'] }}'>
             <div class="left">
-                <img src="" alt="">
+                <img src="{{ $pet['image'] }}" alt="">
             </div>
             <div class="middle">
-                <h4>@{{ pet.name }}</h4>
-                <h6>@{{ pet.race }}, @{{ pet.subRace }}</h6>
-                <h6>@{{ pet.race }}</h6>
-                <h5>@{{ pet.status }}</h5>
+                <h4>{{ $pet['name'] }}</h4>
+                <h6>{{ $pet['race'] }}, {{ $pet['subRace'] }}</h6>
+                <h6>{{ $pet['race'] }}</h6>
+                <h5>{{ $pet['status'] }}</h5>
             </div>
             <div class="right">
-                <span class="gender" :class="pet.gender">@{{ pet.gender }}</span>
-                <span class="age">@{{ pet.age }}</span>
+                <span class="gender {{ $pet['gender'] }}" >{{ $pet['gender'] }}</span>
+                <span class="age">{{ $pet['age'] }}</span>
             </div>
         </a>
+        @endforeach
         @endif
         <div class="add-pets">
             @if($count > 7)

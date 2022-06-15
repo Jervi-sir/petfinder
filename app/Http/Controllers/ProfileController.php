@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use toastr;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -51,27 +53,16 @@ class ProfileController extends Controller
         $data['user'] = [
             'name' => $user->name,
             'email' => $user->email,
+            'image' => profileImageUrl($user->pic),
             'phone_number' => $user->phone_number,
         ];
 
-        $pets = $user->pets()->get();
+        $pets = $user->pets;
         //$pet = $pets->first();
         if($pets->count()) {
             $count = $pets->count();
-            foreach ($pets as $key => $pet) {
-                $data['pets'][$key] = [
-                    'url' => $base1 . $pet->id,
-                    'name' => $pet->name,
-                    'gender' => $pet->gender,
-                    'race' => $pet->race->name,
-                    'subRace' => $pet->subRace->name,
-                    'status' => $pet->status->name,
-                    'wilaya' => $pet->wilaya->name,
-                    'status' => $pet->status->name,
-                    'image' => $pet->pics,
-                    'age' => $this->getAge($pet->date_birth),
-                ];
-            }
+            $data['pets'] = getPets($pets);
+
         }
         else {
             $data['pets'][0] = '';
@@ -81,7 +72,7 @@ class ProfileController extends Controller
         //$user = (object)$data['user'];
         //$pets = (object)$data['pets'];
         return view('profile.mine', ['pets' => $data['pets'],
-                                    'user' => $user,
+                                    'user' => $data['user'],
                                     'count' => $count
                                 ]);
     }
@@ -93,20 +84,28 @@ class ProfileController extends Controller
             'name' => $user->name,
             'email' => $user->email,
             'phone_number' => $user->phone_number,
+            'image' => profileImageUrl($user->pic),
             //'location' => $user->location,
-            'image' => $user->pic,
         ];
 
         $user = (object)$data['user'];
-        return view('profile.edit', ['user' => $user]);
+        return view('profile.edit', ['user' => $data['user']]);
     }
 
     public function update(Request $request)
     {
         $user = Auth()->user();
+        if($user->pic != null) {
+            Storage::disk('profileImage')->delete($user->pic);
+        }
+
+        $file = explode( ',', $request->imageCompressed )[1];
+        $filename= str_replace("-", "", Str::uuid()->toString()).'.png';
+        Storage::disk('profileImage')->put($filename, base64_decode($file));
+
         $user->name = $request->name;
         $user->phone_number = $request->phone;
-        $user->pic = $request->image;
+        $user->pic = $filename;
         $user->save();
 
         toastr('Profile updated successfully ', $type = 'success', $title = '', $options = [

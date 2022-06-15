@@ -89,7 +89,9 @@ form {
         background-color: orange;
         border-radius: 10px;
         overflow: hidden;
-
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         img {
             width: 100%;
         }

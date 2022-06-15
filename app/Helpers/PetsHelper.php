@@ -118,3 +118,9 @@ use Illuminate\Support\Facades\URL;
         return imagesToUrl($images)[0];
     }
 
+    function profileImageUrl($image) {
+        $base_image = URL::to('/profileImage') . '/';
+        return $base_image . $image;
+
+    }
+

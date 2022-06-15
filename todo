@@ -26,9 +26,12 @@
 [x] linked menu
 [x] menu filter in home
 [x] upload images
+[x] display images
+[x] center images
 
-[] display images
-[] crop images
+
+[] scheduler 7days post, add updated time
+
 [] check if came from search url then change search title
 [] loading screen
 [] filter in home
