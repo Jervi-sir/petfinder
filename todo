@@ -32,6 +32,7 @@
 [x] scheduler 7days post, add updated time
 [x] re-migrate db and pet db
 [x] add no offer found in home page
+[x] remove multiple phone number
 
 [] filter in home
 [] cover no data pet in home

@@ -87,9 +87,11 @@
             </div>
             <div class="contact">
                 <img src="../images/phone.svg" alt="">
+                @foreach ($pet['phone_number'] as $phone_number)
                 <span >
-                    {{ $pet['phone_number'] }}
+                    {{ $phone_number }}
                 </span>
+                @endforeach
             </div>
             <div class="actions">
                 <div class="like">

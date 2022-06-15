@@ -115,10 +115,9 @@
             <textarea name="description" id="" cols="30" rows="10" maxlength="300" v-model="description"></textarea>
             <span class="count">@{{ description.length }} / 300</span>
         </div>
-        <div class="row phone" v-for="(item, index) in items">
-            <input name="phone[]" class="phone" type="text" value="" placeholder="phone number" @keypress="validateNumber" required>
-            <button type="button"  v-on:click="addItem" v-if="items.length - 1 <= index" v-bind:class="{ disabled: item.phone.length == 0 }"><img src="../images/plus.svg" alt=""></button>
-            <button type="button" v-on:click="removeItem(index);" v-if="(items.length - 1 >= index) && (items.length -1 != index)"><img src="../images/minus.svg" alt=""></a>
+        <div class="row">
+            <label for="">phone number</label>
+            <input name="phone" class="phone" type="text" value="" placeholder="" @keypress="validateNumber" required>
         </div>
         <div id="output"></div>
         <div class="actions">
@@ -154,22 +153,9 @@
             status: 'adoption',
             statusValue: '',
             keyword: '',
-            items: [
-                {
-                    phone: '',
-                },
 
-            ]
         },
         methods: {
-            addItem: function() {
-                this.items.push({
-                    phone: '',
-                });
-            },
-            removeItem: function(index) {
-                this.items.splice(index, 1);
-            },
             addImage: function(event) {
                 let max = 4;
 

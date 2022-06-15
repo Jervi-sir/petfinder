@@ -116,17 +116,20 @@
             <textarea name="description" id="" cols="30" rows="10" maxlength="300" v-model="description"></textarea>
             <span class="count">@{{ description.length }} / 300</span>
         </div>
-        <div class="row">
-            <input name="phone" class="phone" type="text" value='{{ $pet['phone_number'] }}' placeholder="phone number" @keypress="validateNumber" required>
+        <div class="row phone" v-for="(item, index) in items">
+            <input name="phone[]" class="phone" type="text" :value='pet.phone_number' placeholder="phone number" @keypress="validateNumber" required>
+            <button type="button"  v-on:click="addItem" v-if="items.length - 1 <= index" v-bind:class="{ disabled: item.phone.length == 0 }"><img src="../images/plus.svg" alt=""></button>
+            <button type="button" v-on:click="removeItem(index);" v-if="(items.length - 1 >= index) && (items.length -1 != index)"><img src="../images/minus.svg" alt=""></a>
         </div>
         <div class="actions">
-            <button class="publish" type="submit">update</button>
+            <button class="publish" type="submit">publish</button>
             <button class="preview" type="button">preview</button>
         </div>
     </form>
     <div class="delete btn">
         <button type="submit" @click="showModal=true">Delete announcement</button>
     </div>
+    @{{pet.phone_number[0]}}
     <div class="modal" v-if="showModal">
         <div class="layer" @click="showModal=false"></div>
         <div class="container">

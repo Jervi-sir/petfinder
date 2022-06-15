@@ -129,7 +129,7 @@ class PetController extends Controller {
         $pet->size = $request->size;            //not setted
         $pet->pics = json_encode($uploadedFileUrl);
         $pet->description = $request->description;
-        $pet->phone_number = json_encode($request->phone);
+        $pet->phone_number = $request->phone;
         $pet->tags = Race::find($request->race)->name . ', '
                     . SubRace::find($request->sub)->name . ', '
                     . Wilaya::find($request->wilaya)->name . ', '
@@ -177,7 +177,7 @@ class PetController extends Controller {
             'color' => $pet->color,
             'images' => imagesToUrl($pet->pics),
             'description' => $pet->description,
-            'phone_number' => json_decode($pet->phone_number)
+            'phone_number' => $pet->phone_number
         ];
         return view("pets.show", ['pet' => $data['pet']]);
     }
@@ -208,7 +208,7 @@ class PetController extends Controller {
             'color' => $pet->color,
             'image' => $pet->pics,
             'description' => $pet->description,
-            'phone_number' => json_decode($pet->phone_number),
+            'phone_number' => $pet->phone_number,
             'image' => getFirstImage($pet->pics)
         ];
 
@@ -272,7 +272,6 @@ class PetController extends Controller {
      */
     public function deleteWithoutBackup(Request $request)
     {
-        dd($request);
         $user = Auth()->user();
         $selected_pet = $user->pets->find($request->id);
         foreach (json_decode($selected_pet->pics) as $pic) {
