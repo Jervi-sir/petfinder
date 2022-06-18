@@ -24,12 +24,13 @@ main {
             color: #31334E;
         }
 
-        .filter {
+        .open-filter {
             font-style: normal;
             font-weight: 600;
             font-size: 30px;
             line-height: 33px;
             color: #000000;
+            cursor: pointer;
         }
     }
 }
@@ -168,6 +169,76 @@ main {
             font-weight: normal;
             font-size: 10px;
             color: #000000;
+        }
+    }
+}
+
+@keyframes animatename{
+    0%{
+      transform: translateY(-9px);
+    }
+    100%{
+        transform: translateY(1px);
+    }
+  }
+
+.filter {
+    background-color: white;
+    width: 100%;
+    border-radius: 15px;
+    overflow: hidden;
+    height: 0%;
+    &.active {
+        animation: animatename .2s linear;
+    }
+    .filter-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding:1rem 2rem 0 2rem;
+        h3 {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 20px;
+            color: #31334E;
+        }
+
+        .cancel-filter {
+            background-color: transparent;
+            border: none;
+            font-weight: 400;
+            font-size: 20px;
+            color: #31334E;
+        }
+    }
+    form {
+        .filter-selectors {
+            padding:1rem 2rem;
+            .row {
+                display: flex;
+                flex-direction: column;
+                input, select {
+                    background: #EBEAEF;
+                    border-radius: 5px;
+                    width: 100%;
+                    border: none;
+                    padding: 1rem;
+                    margin-bottom: 1rem;
+                    font-weight: 600;
+                    font-size: 15px;
+                    color: #000000;
+                }
+            }
+        }
+        button {
+            background: #31334E;
+            width: 100%;
+            border: none;
+            padding: 1rem;
+            font-weight: 400;
+            font-size: 15px;
+            color: #FFFFFF;
+            cursor: pointer;
         }
     }
 }

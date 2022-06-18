@@ -12,7 +12,7 @@
     </div>
     <div :class="activesearch == true ? 'search active' : 'search'">
         <div class="formHeader">
-            <input type="text" placeholder="Search" v-model="keyword" @keyup.enter="search" @keyup="activeSearch">
+            <input type="text" placeholder="Search" v-model="keyword" @keyup.enter="search" @keyup="activesearch = true">
             <button type="submit" @click.prevent="search">
                 <img src="../images/search.svg" alt="">
             </button>
@@ -28,7 +28,7 @@
     </div>
     <div class="search active">
         <div class="formHeader">
-            <input name="keyword" type="text" placeholder="Search" v-model="keyword" @keyup.enter="search" @keyup="activeSearch">
+            <input name="keyword" type="text" placeholder="Search" v-model="keyword" @keyup.enter="search" @keyup="activesearch = true">
             <button type="submit" @click.prevent="search">
                 <img src="../images/search.svg" alt="">
             </button>

@@ -18,11 +18,11 @@
         el: '#app',
         data: {
             activesearch: false,
+            filterIsOpen: false,
+            keyword: '',
         },
         methods: {
-            activeSearch: function() {
-                this.activesearch = true;
-            },
+
         },
     })
 </script>
@@ -34,12 +34,18 @@
 <main>
     <div class="top">
         <h5>New Pets</h5>
-        <div class="filter">...</div>
+        <div class="open-filter" @click="filterIsOpen = !filterIsOpen">
+            <img src="../images/filter.svg" alt="">
+        </div>
     </div>
+    @include('components._filter')
+
     <!-- pets -->
     <div class="results">
         @if ($count == 0)
-            No offer currently
+        <h2>
+           No offer currently
+        </h2>
         @endif
         @foreach ($pets as $pet)
         <div class='card {{ $pet['race'] }}' class="card">

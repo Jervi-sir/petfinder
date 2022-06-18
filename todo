@@ -33,10 +33,15 @@
 [x] re-migrate db and pet db
 [x] add no offer found in home page
 [x] remove multiple phone number
+[x] filter in home
 
-[] filter in home
-[] cover no data pet in home
+[] make filter working in home
+[] automatic set already choosen filter
+[] search system
+[] search with translate
 
+[] cloudinary
+[] edit pet page
 [] check if came from search url then change search title
 [] loading screen
 [] desktop front

@@ -22,12 +22,13 @@ main .top h5 {
   line-height: 33px;
   color: #31334E;
 }
-main .top .filter {
+main .top .open-filter {
   font-style: normal;
   font-weight: 600;
   font-size: 30px;
   line-height: 33px;
   color: #000000;
+  cursor: pointer;
 }
 
 .results {
@@ -145,4 +146,80 @@ main .top .filter {
   font-weight: normal;
   font-size: 10px;
   color: #000000;
+}
+
+@-webkit-keyframes animatename {
+  0% {
+    transform: translateY(-9px);
+  }
+  100% {
+    transform: translateY(1px);
+  }
+}
+
+@keyframes animatename {
+  0% {
+    transform: translateY(-9px);
+  }
+  100% {
+    transform: translateY(1px);
+  }
+}
+.filter {
+  background-color: white;
+  width: 100%;
+  border-radius: 15px;
+  overflow: hidden;
+  height: 0%;
+}
+.filter.active {
+  -webkit-animation: animatename 0.2s linear;
+          animation: animatename 0.2s linear;
+}
+.filter .filter-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem 0 2rem;
+}
+.filter .filter-top h3 {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: #31334E;
+}
+.filter .filter-top .cancel-filter {
+  background-color: transparent;
+  border: none;
+  font-weight: 400;
+  font-size: 20px;
+  color: #31334E;
+}
+.filter form .filter-selectors {
+  padding: 1rem 2rem;
+}
+.filter form .filter-selectors .row {
+  display: flex;
+  flex-direction: column;
+}
+.filter form .filter-selectors .row input, .filter form .filter-selectors .row select {
+  background: #EBEAEF;
+  border-radius: 5px;
+  width: 100%;
+  border: none;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  font-size: 15px;
+  color: #000000;
+}
+.filter form button {
+  background: #31334E;
+  width: 100%;
+  border: none;
+  padding: 1rem;
+  font-weight: 400;
+  font-size: 15px;
+  color: #FFFFFF;
+  cursor: pointer;
 }
