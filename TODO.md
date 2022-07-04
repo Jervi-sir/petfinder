@@ -9,6 +9,7 @@ Project Description
 - [ ] selector pet icons  
 - [ ] error handler in login  
 - [ ] fix login template  
+- [ ] search with all languages
 
 ### In Progress
 
