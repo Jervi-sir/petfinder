@@ -15,8 +15,10 @@ class CreateRacesTable extends Migration
     {
         Schema::create('races', function (Blueprint $table) {
             $table->id();
+            $table->integer('order');
             $table->string('name');
-            $table->string('description')->nullable();
+            $table->string('details')->nullable();
+            $table->longText('breed')->nullable();
             $table->timestamps();
         });
     }

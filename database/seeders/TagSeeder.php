@@ -18,7 +18,16 @@ class TagSeeder extends Seeder
             'name' => 'cat'
         ]);
         DB::table('tags')->insert([
-            'name' => 'cat'
+            'name' => 'dog'
+        ]);
+        DB::table('tags')->insert([
+            'name' => 'horse'
+        ]);
+        DB::table('tags')->insert([
+            'name' => 'fish'
+        ]);
+        DB::table('tags')->insert([
+            'name' => 'snake'
         ]);
     }
 }

@@ -17,30 +17,30 @@ class CreatePetbackupsTable extends Migration
             $table->id();
             $table->string('uuid');
             $table->string('name')->nullable();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('race_id')->constrained('races');
-            $table->foreignId('sub_race_id')->constrained('sub_races');
-            $table->foreignId('status_id')->constrained('statuses');
-            $table->foreignId('wilaya_id')->constrained('wilayas');
 
-            $table->string('raceName');
-            $table->string('sub_raceName');
-            $table->string('wilayaName');
+            $table->string('location');
 
+            $table->string('race');
             $table->string('gender');
             $table->string('color')->nullable();
-            $table->date('date_birth')->nullable();
+            $table->date('birth_date')->nullable();
             $table->string('size')->nullable();
+
             $table->longText('pics')->nullable();
             $table->longText('description')->nullable();
-
-            $table->longText('tags')->nullable();
 
             $table->string('phone_number')->nullable();
 
             $table->integer('is_active')->default(1);
-            $table->string('announcement_status')->default('active');
+            $table->string('status')->default('active');    //active, deleted, backedup
             $table->date('last_date_activated');
+
+            $table->longText('keywords')->nullable();
+
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('race_id')->constrained('races');
+            $table->foreignId('offer_type_id')->constrained('offer_types');
+            $table->foreignId('wilaya_id')->constrained('wilayas');
 
             $table->timestamps();
         });
