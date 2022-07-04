@@ -170,6 +170,14 @@ header {
     padding-bottom: 1rem;
 
     .item {
+        &:hover {
+            background: #333a5a30;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        &.active {
+            background-color: #1c234030;
+        }
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -185,14 +193,9 @@ header {
         font-weight: 600;
         font-size: 1.5rem;
         color: #000000;
-        &.active {
-            background-color: #1c234030;
-        }
-        a {
-            text-decoration: none;
-            color: inherit;
-            text-align: center;
-        }
+        text-decoration: none;
+        color: inherit;
+        text-align: center;
     }
 
 }
