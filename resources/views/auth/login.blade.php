@@ -7,7 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     @vite('resources/scss/login.scss')
 
-    <title>add Pet</title>
+    <title>Login</title>
 </head>
 <body >
 <div id="app">

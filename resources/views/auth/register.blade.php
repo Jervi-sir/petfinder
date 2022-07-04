@@ -7,7 +7,7 @@
     @vite('resources/scss/register.scss')
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 
-    <title>add Pet</title>
+    <title>Register</title>
 </head>
 <body >
 <div id="app">

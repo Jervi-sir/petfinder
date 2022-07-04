@@ -6,10 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Chrome, Edge, Firefox -->
+    <link rel="icon" href="images/logo.svg">
+    <!-- Safari -->
+    <link rel="mask-icon" href="images/logo.svg" color="#000000">
+
+    @vite('resources/scss/styles.scss')
     @yield('style-head')
     @yield('script-head')
     @yield('title')
-    @vite('resources/scss/styles.scss')
 </head>
 <body >
 <div id="app">
