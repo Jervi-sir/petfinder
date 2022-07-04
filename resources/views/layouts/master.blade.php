@@ -6,11 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    @toastr_css
-    <link rel="stylesheet" href="../css/styles.css">
     @yield('style-head')
     @yield('script-head')
     @yield('title')
+    @vite('resources/scss/styles.scss')
 </head>
 <body >
 <div id="app">
@@ -44,7 +43,4 @@ document.querySelector('.body').addEventListener('touchmove', function (event) {
 }, false)
 </script>
 </body>
-@jquery
-@toastr_js
-@toastr_render
 </html>

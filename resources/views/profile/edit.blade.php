@@ -5,7 +5,7 @@
 @endsection
 
 @section('style-head')
-<link rel="stylesheet" href="../css/editProfile.css">
+@vite('resources/scss/editProfile.scss')
 @endsection
 
 @section('header')

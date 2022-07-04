@@ -5,7 +5,7 @@
 @endsection
 
 @section('style-head')
-<link rel="stylesheet" href="../css/add.css">
+@vite('resources/scss/add.scss')
 @endsection
 
 @section('header')

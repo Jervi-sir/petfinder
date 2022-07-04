@@ -1,13 +1,11 @@
 /node_modules
+/public/build
 /public/hot
-/public/petImages
-/public/profileImages
 /public/storage
 /storage/*.key
 /vendor
 .env.backup
 .phpunit.result.cache
-docker-compose.override.yml
 Homestead.json
 Homestead.yaml
 npm-debug.log
