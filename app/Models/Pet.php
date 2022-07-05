@@ -4,9 +4,8 @@ namespace App\Models;
 
 use App\Models\Race;
 use App\Models\User;
-use App\Models\Status;
 use App\Models\Wilaya;
-use App\Models\SubRace;
+use App\Models\OfferType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -16,19 +15,19 @@ class Pet extends Model
 
     protected $fillable = [
         'name',
-        'user_id',
-        'race_id',
-        'sub_race_id',
-        'status_id',
-        'wilaya_id',
+
         'gender',
         'color',
-        'date_birth',
+        'birth_date',
         'size',
         'pics',
         'description',
         'phone_number',
 
+        'user_id',
+        'race_id',
+        'offer_type_id',
+        'wilaya_id',
     ];
 
 
@@ -37,19 +36,14 @@ class Pet extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function race()
+    public function Races()
     {
         return $this->belongsTo(Race::class);
     }
 
-    public function subRace()
+    public function offerType()
     {
-        return $this->belongsTo(SubRace::class);
-    }
-
-    public function status()
-    {
-        return $this->belongsTo(Status::class);
+        return $this->belongsTo(OfferType::class);
     }
 
     public function wilaya()

@@ -107,7 +107,6 @@ class PetController extends Controller {
         }
 
         $raceName = Race::find($request->race)->name;
-        $sub_raceName = SubRace::find($request->sub)->name;
         $wilayaName = Wilaya::find($request->wilaya)->name;
         $color = Color::find($request->color)->name;
         $uuid = uniqueUuid($request->race ,$request->name);
@@ -115,30 +114,36 @@ class PetController extends Controller {
         $pet = new Pet();
         $pet->uuid = $uuid;
         $pet->name = $request->name;
-        $pet->user_id = $user->id;
-        $pet->race_id = $request->race;
-        $pet->sub_race_id = $request->sub;
-        $pet->status_id = $request->status;              //not setted
-        $pet->wilaya_id = $request->wilaya;
-        $pet->raceName = $raceName;
-        $pet->sub_raceName = $sub_raceName;
-        $pet->wilayaName = $wilayaName;
+
+        $pet->location = $wilayaName;
+
+        $pet->race = $raceName;
         $pet->gender = $request->gender;
         $pet->color = $color;
-        $pet->date_birth = date('Y-m-d',strtotime($request->birthday));
+        $pet->birth_date = date('Y-m-d',strtotime($request->birthday));
         $pet->size = $request->size;            //not setted
+
         $pet->pics = json_encode($uploadedFileUrl);
         $pet->description = $request->description;
+
         $pet->phone_number = $request->phone;
-        $pet->tags = Race::find($request->race)->name . ', '
+
+        $pet->is_active = 1;
+        $pet->last_date_activated = Carbon::now()->format('Y-m-d');
+
+        $pet->user_id = $user->id;
+        $pet->race_id = $request->race;
+        $pet->offer_type_id = $request->status;              //not setted
+        $pet->wilaya_id = $request->wilaya;
+
+        $pet->keywords = Race::find($request->race)->name . ', '
                     . Wilaya::find($request->wilaya)->name . ', '
                     . $request->gender . ', '
                     . $color . ', '
                     . $request->size . ', '
                     . $request->description ;
 
-        $pet->is_active = 1;
-        $pet->last_date_activated = Carbon::now()->format('Y-m-d');
+
 
         $pet->save();
         toastr('Pet added successfully ', $type = 'success', $title = '', $options = [
@@ -160,6 +165,7 @@ class PetController extends Controller {
     {
         $pet = Pet::where('uuid', $uuid)->first();
         $age = $pet->date_birth != null ? getAge($pet->date_birth) : '';
+        dd($pet->Races);
 
         $data['pet'] = [
             'uuid' => $pet->uuid,

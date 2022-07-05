@@ -36,6 +36,20 @@ return [
             'throw' => false,
         ],
 
+        'saveImages' => [
+            'driver' => 'local',
+            'root' => public_path('petImages'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
+        'profileImage' => [
+            'driver' => 'local',
+            'root' => public_path('profileImages'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
