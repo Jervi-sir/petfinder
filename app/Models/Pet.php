@@ -36,7 +36,7 @@ class Pet extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function Races()
+    public function race()
     {
         return $this->belongsTo(Race::class);
     }

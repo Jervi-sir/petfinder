@@ -117,9 +117,9 @@ class PetController extends Controller {
 
         $pet->location = $wilayaName;
 
-        $pet->race = $raceName;
+        $pet->raceName = $raceName;
         $pet->gender = $request->gender;
-        $pet->color = $color;
+        $pet->colorName = $color;
         $pet->birth_date = date('Y-m-d',strtotime($request->birthday));
         $pet->size = $request->size;            //not setted
 
@@ -165,16 +165,14 @@ class PetController extends Controller {
     {
         $pet = Pet::where('uuid', $uuid)->first();
         $age = $pet->date_birth != null ? getAge($pet->date_birth) : '';
-        dd($pet->Races);
 
         $data['pet'] = [
             'uuid' => $pet->uuid,
             'name' => $pet->name,
             'gender' => $pet->gender,
             'race' => $pet->race->name,
-            'status' => $pet->status->name,
+            'status' => $pet->offerType->name,
             'wilaya' => $pet->wilaya->name,
-            'status' => $pet->status->name,
             'weight' => $pet->weight,
             'date_birth' => $age,
             'size' => $pet->size,
