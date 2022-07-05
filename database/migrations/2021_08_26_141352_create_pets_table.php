@@ -20,9 +20,9 @@ class CreatePetsTable extends Migration
 
             $table->string('location');
 
-            $table->string('race');
+            $table->string('raceName');
             $table->string('gender');
-            $table->string('color')->nullable();
+            $table->string('colorName')->nullable();
             $table->date('birth_date')->nullable();
             $table->string('size')->nullable();
 
