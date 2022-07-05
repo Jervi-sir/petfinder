@@ -39,14 +39,6 @@
                     @endforeach
                 </select>
             </div>
-            <div class="sub">
-                <label for="">sub</label>
-                <select name="sub" id="">
-                    @foreach ($subRaces as $subRace)
-                    <option value="{{ $subRace->id }}">{{ $subRace->name }}</option>
-                    @endforeach
-                </select>
-            </div>
         </div>
         <div class="row">
             <label for="">gender</label>

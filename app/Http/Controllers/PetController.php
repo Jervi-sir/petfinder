@@ -14,6 +14,7 @@ use App\Models\Wilaya;
 use App\Models\SubRace;
 use App\Models\Petbackup;
 use App\Helpers\PetHelpers;
+use App\Models\OfferType;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
@@ -77,13 +78,11 @@ class PetController extends Controller {
         }
 
         $races = Race::all();
-        $subRaces = SubRace::all();
         $wilayas = Wilaya::all();
         $colors = Color::all();
-        $statuses = Status::all();
+        $statuses = OfferType::all();
         return view('pets.add', [
             'races' => $races,
-            'subRaces' => $subRaces,
             'wilayas' => $wilayas,
             'colors' => $colors,
             'statuses' => $statuses,
@@ -132,7 +131,6 @@ class PetController extends Controller {
         $pet->description = $request->description;
         $pet->phone_number = $request->phone;
         $pet->tags = Race::find($request->race)->name . ', '
-                    . SubRace::find($request->sub)->name . ', '
                     . Wilaya::find($request->wilaya)->name . ', '
                     . $request->gender . ', '
                     . $color . ', '
@@ -168,7 +166,6 @@ class PetController extends Controller {
             'name' => $pet->name,
             'gender' => $pet->gender,
             'race' => $pet->race->name,
-            'subRace' => $pet->subRace->name,
             'status' => $pet->status->name,
             'wilaya' => $pet->wilaya->name,
             'status' => $pet->status->name,

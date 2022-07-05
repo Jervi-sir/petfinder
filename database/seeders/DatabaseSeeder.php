@@ -16,7 +16,7 @@ use Database\Seeders\UsertypeSeeder;
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Seed the application's 0database.
      *
      * @return void
      */
