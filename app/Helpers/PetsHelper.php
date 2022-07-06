@@ -24,10 +24,8 @@ use Illuminate\Support\Facades\URL;
                     'name' => $pet->name,
                     'gender' => $pet->gender,
                     'race' => $pet->race->name,
-                    'subRace' => $pet->subRace->name,
-                    'status' => $pet->status->name,
+                    'status' => $pet->offerType->name,
                     'wilaya' => $pet->wilaya->name,
-                    'status' => $pet->status->name,
                     'age' => getAge($pet->date_birth),
                     'image' => getFirstImage($pet->pics)
                 ];
