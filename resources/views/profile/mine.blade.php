@@ -89,7 +89,6 @@
             </div>
             <div class="middle">
                 <h4>{{ $pet['name'] }}</h4>
-                <h6>{{ $pet['race'] }}, {{ $pet['subRace'] }}</h6>
                 <h6>{{ $pet['race'] }}</h6>
                 <h5>{{ $pet['status'] }}</h5>
             </div>
