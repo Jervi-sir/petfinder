@@ -5,7 +5,6 @@ use App\Http\Controllers\PetController;
 use App\Http\Controllers\ActionController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ProfileController;
-use Stichoza\GoogleTranslate\GoogleTranslate;
 
 /*
 |--------------------------------------------------------------------------
