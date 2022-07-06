@@ -7,6 +7,7 @@ use App\Models\Pet;
 use App\Models\Race;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
+use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class SearchController extends Controller
 {
@@ -28,7 +29,11 @@ class SearchController extends Controller
     public function search(Request $request)
     {
         $keywords = explode(" ", $request->keyword);
+        $tr = new GoogleTranslate('en');
 
+        $text =  $tr->setSource()->setTarget('en')->translate('قط اسود');
+
+        dd($text);
 
         $pets = Pet::where('tags', 'like', '%'. $keywords[0] . '%');
         //remove first keyword

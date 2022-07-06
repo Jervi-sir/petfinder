@@ -32,4 +32,4 @@ Petfinder is an Market Place app that provides Animals offers:
 - **[Toastr](https://github.com/yoeunes/toastr)**
 - **[Cloudinary](https://github.com/cloudinary-labs/cloudinary-laravel)**
 - **[Breeze](https://dev.to/kingsconsult/how-to-setup-basic-laravel-app-with-login-and-registration-using-laravel-breeze-6o5)**
-
+- **[Translator](https://github.com/Stichoza/google-translate-php)
