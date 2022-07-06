@@ -16,22 +16,27 @@ class TranslationSeeder extends Seeder
     public function run()
     {
         DB::table('translations')->insert([
+            'score' => 1,
             'english_word' => 'cat',
             'translation' => 'cat chat قط chatton kitten kitty',
         ]);
         DB::table('translations')->insert([
+            'score' => 1,
             'english_word' => 'dog',
             'translation' => 'dog chien كلب pet doggy petty',
         ]);
         DB::table('translations')->insert([
+            'score' => 5,
             'english_word' => 'black',
             'translation' => 'black dark noir noire اسود اكحل كحل',
         ]);
         DB::table('translations')->insert([
+            'score' => 5,
             'english_word' => 'black',
             'translation' => 'black dark noir noire اسود اكحل كحل',
         ]);
         DB::table('translations')->insert([
+            'score' => 3,
             'english_word' => 'siamoa',
             'translation' => 'siamoa siamo سيامو سياموا',
         ]);

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Pet;
 use App\Models\Race;
+use App\Models\Translation;
+use Carbon\Translator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 
@@ -27,18 +29,21 @@ class SearchController extends Controller
 
     public function search(Request $request)
     {
-        $keywords = explode(" ", $request->keyword);
+        //turn keywords single line string into a keyword array
+        $eng_keywords = translateToEnglish($request->keywords);
 
-        $pets = Pet::where('tags', 'like', '%'. $keywords[0] . '%');
+        $pets = Pet::where('keywords', 'like', '%'. $eng_keywords[0] . '%');
+        dd($pets->get());
         //remove first keyword
-        array_shift($keywords);
+        array_shift($eng_keywords);
 
-        foreach($keywords as $keyword)
+        foreach($eng_keywords as $keyword)
         {
-            $pets = $pets->where('tags', 'like', '%'. $keyword . '%');
+            $pets = $pets->where('keywords', 'like', '%'. $keyword . '%');
         }
 
         $results = $pets->get();
+        dd($results);
 
         $base1 = URL::to('/pets') . '/';
 

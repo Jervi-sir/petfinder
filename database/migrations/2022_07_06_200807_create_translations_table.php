@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('translations', function (Blueprint $table) {
             $table->id();
+            $table->integer('score');
             $table->string('english_word');
             $table->longText('translation');
             $table->string('nb_words')->nullable(); //incase to use it
@@ -22,6 +23,17 @@ return new class extends Migration
             $table->timestamps();
         });
     }
+    /*
+    |--------------------------------------------------------------------------
+    | Score
+    |--------------------------------------------------------------------------
+    | 1: race
+    | 2 - 4: breed
+    | 5: color
+    | 10: location
+    | 15: size
+    | 20: rent, sell, adopte
+    */
 
     /**
      * Reverse the migrations.

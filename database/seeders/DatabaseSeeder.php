@@ -3,15 +3,16 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Database\Seeders\OfferType;
 use Database\Seeders\TagSeeder;
 use Illuminate\Database\Seeder;
 use Database\Seeders\RaceSeeder;
 use Database\Seeders\RoleSeeder;
 use Database\Seeders\ColorSeeder;
-use Database\Seeders\OfferType;
 use Database\Seeders\WilayaSeeder;
 use Database\Seeders\SubraceSeeder;
 use Database\Seeders\UsertypeSeeder;
+use Database\Seeders\TranslationSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -29,6 +30,7 @@ class DatabaseSeeder extends Seeder
         $colors = new ColorSeeder();
         $wilayas = new WilayaSeeder();
         $offer_type = new OfferTypeSeeder();
+        $translation = new TranslationSeeder();
 
         $role->run();
         $race->run();
@@ -36,5 +38,6 @@ class DatabaseSeeder extends Seeder
         $colors->run();
         $wilayas->run();
         $offer_type->run();
+        $translation->run();
     }
 }

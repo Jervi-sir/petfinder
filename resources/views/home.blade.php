@@ -9,7 +9,7 @@
 @endsection
 
 @section('header')
-@include('components._headerJson')
+@include('components._header')
 @endsection
 
 @section('script')

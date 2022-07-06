@@ -1,9 +1,10 @@
 <?php
 
-use App\Models\ImagesToDelete;
-use App\Models\Petbackup;
 use Carbon\Carbon;
+use App\Models\Petbackup;
+use App\Models\Translation;
 use Illuminate\Support\Str;
+use App\Models\ImagesToDelete;
 use Illuminate\Support\Facades\URL;
 
 
@@ -172,5 +173,28 @@ use Illuminate\Support\Facades\URL;
             $backup->save();
         }
 
+    }
+
+    /**
+     * input string
+     * output array
+        //turn keywords single line string into a keyword array
+     */
+    function translateToEnglish($sentence) {
+        $eng_keywords = [];
+        $keywords = explode(" ", preg_replace("/[^A-Za-z0-9 ]\s+/", ' ', $sentence));
+
+        $tmp = Translation::where('translation', 'like', '%'.$keywords[0].'%')->first();
+        if($tmp) {
+            dd($tmp->english_word);
+        }
+        dd($tmp);
+
+        foreach ($keywords as $key => $keyword) {
+            $tmp = Translation::whereNotNull('translation', 'like', '%'.$keyword.'%')->first()->english_word;
+            array_push($eng_keywords, $tmp);
+        }
+
+        return $eng_keywords;
     }
 
