@@ -2,6 +2,7 @@
 
 ## About The App
 
+Project started on Aug 12, 2021
 Petfinder is an Market Place app that provides Animals offers:
 
 - User can create an account, post Animal offers.
