@@ -177,7 +177,7 @@ use Illuminate\Support\Facades\URL;
 
     /**
      * input string
-     * output array
+     * output array of keyword sorted by score
         //turn keywords single line string into a keyword array
         //ignore what doesnt exist in db
      */
@@ -193,11 +193,14 @@ use Illuminate\Support\Facades\URL;
             }
             $eng_keyword = $tmp->english_word;
             $score = $tmp->score;
-            array_push($eng_keywords, $tmp->english_word);
-            $data[$score]= $eng_keyword;
-        }
-        dd(($data));
 
-        return $eng_keywords;
+            $array[] = array('score' => $score, 'keyword' => $eng_keyword);
+
+        }
+
+        $columns = array_column($array, 'score');
+        array_multisort($columns, SORT_ASC, $array);
+
+        return $array;
     }
 

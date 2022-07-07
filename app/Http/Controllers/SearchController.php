@@ -31,42 +31,33 @@ class SearchController extends Controller
     {
         //turn keywords single line string into a keyword array
         $eng_keywords = translateToEnglish($request->keywords);
-        $pets = Pet::where('keywords', 'like', '%'. $eng_keywords[0] . '%');
-        dd($eng_keywords);
-        //remove first keyword
-        array_shift($eng_keywords);
 
-        foreach($eng_keywords as $keyword)
-        {
-            $pets = $pets->where('keywords', 'like', '%'. $keyword . '%');
+        //create a collection of db that has keyword score 1
+        $keyword_score_1 = [];
+        foreach ($eng_keywords as $key => $value) {
+            if($value['score'] == 1) {
+                //remove the used keyword
+                array_shift($eng_keywords);
+                array_push($keyword_score_1, $value['keyword']);
+            }
+        }
+        if(!empty($keyword_score_1)) {
+            $result = Pet::whereIn('raceName', $keyword_score_1);
         }
 
-        $results = $pets->get();
-        dd($results);
-
-        $base1 = URL::to('/pets') . '/';
-
-        foreach ($results as $key => $pet) {
-            $data['pets'][$key] = [
-                'url' => $base1 . $pet->id,             //use uuid
-                'name' => $pet->name,
-                'gender' => $pet->gender,
-                'race' => $pet->race->name,
-                'subRace' => $pet->subRace->name,
-                'status' => $pet->status->name,
-                'wilaya' => $pet->wilaya->name,
-                'status' => $pet->status->name,
-                'image' => $pet->pics,
-            ];
+        //filter what we found
+        foreach($eng_keywords as $word){
+            $result->where('keywords', 'LIKE', '%'.$word['keyword'].'%');
         }
-
-        $data_obj = (object)$data['pets'];
+        $results = getPets($result->get());
 
         if($request->resultNeeded == 'json') {
-            return response()->json($data_obj);
+            return response()->json($results);
         } else {
             $races = Race::all();
-            return view('home', ['pets' => $data_obj, 'races' => $races]);
+            return view('home', ['count' => count((array)$results),
+                                'pets' => $results,
+                                'races' => $races]);
         }
 
     }
