@@ -32,7 +32,7 @@
         <form class="formHeader" action="{{ route('pet.search') }}" method="POST">
             @csrf
             <input hidden name="resultNeeded" value="view">
-            <input name="keyword" type="text" placeholder="Search" v-model="keyword" @keyup="activeSearch">
+            <input name="keywords" type="text" placeholder="Search" v-model="keyword">
             <button type="submit" >
                 <img src="../images/search.svg" alt="">
             </button>

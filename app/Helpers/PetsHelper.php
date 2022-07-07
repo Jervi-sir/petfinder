@@ -179,21 +179,24 @@ use Illuminate\Support\Facades\URL;
      * input string
      * output array
         //turn keywords single line string into a keyword array
+        //ignore what doesnt exist in db
      */
     function translateToEnglish($sentence) {
         $eng_keywords = [];
         $keywords = explode(" ", preg_replace("/[^A-Za-z0-9 ]\s+/", ' ', $sentence));
 
-        $tmp = Translation::where('translation', 'like', '%'.$keywords[0].'%')->first();
-        if($tmp) {
-            dd($tmp->english_word);
-        }
-        dd($tmp);
-
         foreach ($keywords as $key => $keyword) {
-            $tmp = Translation::whereNotNull('translation', 'like', '%'.$keyword.'%')->first()->english_word;
-            array_push($eng_keywords, $tmp);
+            $tmp = Translation::where('translation', 'like', '%'.$keyword.'%')->first();
+            //if eng_word is null
+            if($tmp == null) {
+                continue;
+            }
+            $eng_keyword = $tmp->english_word;
+            $score = $tmp->score;
+            array_push($eng_keywords, $tmp->english_word);
+            $data[$score]= $eng_keyword;
         }
+        dd(($data));
 
         return $eng_keywords;
     }

@@ -31,9 +31,8 @@ class SearchController extends Controller
     {
         //turn keywords single line string into a keyword array
         $eng_keywords = translateToEnglish($request->keywords);
-
         $pets = Pet::where('keywords', 'like', '%'. $eng_keywords[0] . '%');
-        dd($pets->get());
+        dd($eng_keywords);
         //remove first keyword
         array_shift($eng_keywords);
 

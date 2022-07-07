@@ -6,6 +6,7 @@ Project Description
 
 ### Todo
 
+- [ ] fix search html of activeSearch issue  
 - [ ] selector pet icons  
 - [ ] error handler in login  
 - [ ] fix login template  
