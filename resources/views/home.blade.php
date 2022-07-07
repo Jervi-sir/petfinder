@@ -6,6 +6,7 @@
 
 @section('style-head')
 @vite('resources/scss/home.scss')
+@vite('resources/scss/card.scss')
 @endsection
 
 @section('header')
@@ -62,7 +63,7 @@
             </div>
             <div class="details">
                 <div class="breed">{{ $pet['race'] }}</div>
-                <div class="gender" class="gender.{{ $pet['gender'] }}">{{ $pet['gender'] }}</div>
+                <div class="gender {{ $pet['gender'] }}">{{ $pet['gender'] }}</div>
                 <div class="location">
                     <img src="../images/location.svg" alt="">
                     <span>{{ $pet['wilaya'] }}</span>

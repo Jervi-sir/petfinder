@@ -5,10 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pet;
 use App\Models\Race;
-use App\Models\Translation;
-use Carbon\Translator;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\URL;
 
 class SearchController extends Controller
 {

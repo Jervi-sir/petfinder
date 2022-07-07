@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@100;200;300;400;500;600;700;800;900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
 
 :root {
-    --ff-primary: 'Archivo', sans-serif;
-    --ff-secondary: 'Chakra Petch', sans-serif;
+    --ff-primary: 'Lato', sans-serif;
+    --ff-secondary: 'Lato', sans-serif;
     --padding-layout: 2rem;
     --gap: 3rem;
     --bg-primary: #333A5A;
@@ -85,9 +85,7 @@ header {
     display: flex;
     flex-direction: column;
     padding: var(--padding-layout);
-}
 
-header {
     &.active {
         display: flex;
         flex-direction: row;
@@ -235,128 +233,8 @@ main {
     }
 }
 
-main .top
 
 
-.card.dog {
-    .card-top {
-        background: #E3EADF;
-    }
-}
-
-.card.cat {
-    .card-top {
-        background: #F9E3D2;
-    }
-}
-
-.card-top {
-    position: relative;
-    border-radius: 2rem;
-
-    .save{
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-    }
-
-    .images {
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-        width: 100%;
-        height: 14rem;
-    }
-
-    .name {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        text-align: center;
-        padding: 0.5rem;
-        background: rgba(51, 58, 90, 0.5);
-        border-radius: 0px 0px 100px 100px;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 15px;
-        color: #FFFFFF;
-    }
-}
-
-.card {
-    width: 16rem;
-    border-radius: 2rem;
-    margin-bottom: 3rem;
-    overflow: hidden;
-    background-color: var(--color-secondary);
-
-    .details  {
-        display: flex;
-        gap: 1rem;
-        align-items: center;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        padding: 1rem 1.5rem;
-
-        .breed {
-            flex: auto;
-            font-family: var(--ff-secondary);
-            font-style: normal;
-            font-weight: normal;
-            font-size: 10px;
-            color: #8F8989;
-        }
-
-        .location {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            width: 100%;
-            font-family: var(--ff-secondary);
-            font-style: normal;
-            font-weight: 300;
-            font-size: 10px;
-            color: rgba(0, 0, 0, 0.7);
-        }
-
-        .age {
-            font-family: var(--ff-secondary);
-            font-style: normal;
-            font-weight: normal;
-            font-size: 10px;
-            color: #000000;
-        }
-
-        .price {
-            font-family: var(--ff-secondary);
-            font-style: normal;
-            font-weight: normal;
-            font-size: 10px;
-            color: #000000;
-        }
-
-    }
-}
-
-
-.gender {
-    padding: .7rem 2rem;
-    border-radius: 25px;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 10px;
-
-    &.male {
-        background: #D9E2F5;
-        color: #3A78E0;
-    }
-
-    &.female {
-        background: #FFD1E7;
-        color: #F364A9;
-    }
-}
 
 
 /*---------
