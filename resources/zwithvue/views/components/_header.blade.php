@@ -1,7 +1,27 @@
 
-
 <!-- Header -->
-@if(!request()->is('pets-latest'))
+@if(request()->is('pets-latest'))
+<header :class="activesearch == true ? 'active' : ''">
+    <div class="logo">
+        <a href="{{ route('pet.all') }}">
+            <img src="../images/logo.svg" alt="">
+        </a>
+    </div>
+    <div :class="activesearch == true ? 'title active' : 'title'">
+        <h1>Find your favorite pet</h1>
+    </div>
+    <div :class="activesearch == true ? 'search active' : 'search'">
+        <form class="formHeader" action="{{ route('pet.search') }}" method="POST">
+            @csrf
+            <input hidden name="resultNeeded" value="view">
+            <input name="keywords" type="text" placeholder="Search" v-model="keyword" @keyup="activeSearch">
+            <button type="submit">
+                <img src="../images/search.svg" alt="">
+            </button>
+        </form>
+    </div>
+</header>
+@else
 <header class="active">
     <div class="logo">
         <a href="{{ route('pet.all') }}">
@@ -19,42 +39,6 @@
         </form>
     </div>
 </header>
-@else
-<header x-data="searchInput" x-init="watchInput()" :class="activesearch == true ? 'active' : ''">
-    <div class="logo">
-        <a href="{{ route('pet.all') }}">
-            <img src="../images/logo.svg" alt="">
-        </a>
-    </div>
-    <div :class="activesearch == true ? 'title active' : 'title'">
-        <h1>Find your favorite pet</h1>
-    </div>
-    <div :class="activesearch == true ? 'search active' : 'search'">
-        <form class="formHeader" action="{{ route('pet.search') }}" method="POST">
-            @csrf
-            <input hidden name="resultNeeded" value="view">
-            <input name="keywords" type="text" placeholder="Search" x-model="keywordInput" >
-            <button type="submit">
-                <img src="../images/search.svg" alt="">
-            </button>
-        </form>
-    </div>
-</header>
-<script>
-    function searchInput() {
-        return {
-            activesearch: false,
-            keywordInput: '',
-
-            watchInput() {
-                this.$watch('keywordInput', () => {
-                    this.activesearch = true
-                })
-            }
-        }
-    }
-</script>
-
 @endif
 
 <!-- end Header -->

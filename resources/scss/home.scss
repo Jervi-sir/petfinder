@@ -101,6 +101,7 @@ main {
     height: 0%;
     &.active {
         animation: animatename .2s linear;
+        height: 100%;
     }
     .filter-top {
         display: flex;

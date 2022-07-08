@@ -10,7 +10,6 @@
     <link rel="icon" href="images/logo.svg">
     <!-- Safari -->
     <link rel="mask-icon" href="images/logo.svg" color="#000000">
-    <script src="//unpkg.com/alpinejs" defer></script>
 
     @vite('resources/scss/styles.scss')
     @yield('style-head')
@@ -34,6 +33,7 @@
     @include('components._menu')
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 
 @yield('script')
 

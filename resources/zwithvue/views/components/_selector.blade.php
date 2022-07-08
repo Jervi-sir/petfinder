@@ -1,5 +1,3 @@
-@props(['races'])
-
 <div class="selector">
     <div class=""></div>
     <a href="{{ route('pet.all') }}" class="item">

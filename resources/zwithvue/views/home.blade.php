@@ -10,23 +10,37 @@
 @endsection
 
 @section('header')
-<x-_header :races='$races' />
+@include('components._header')
 @endsection
 
 @section('script')
 <script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            activesearch: false,
+            filterIsOpen: false,
+            keyword: '',
+        },
+        methods: {
 
+        },
+    })
 </script>
 @endsection
 
 @section('main')
-<x-_selector :races='$races' />
+@include('components._selector')
 
 <main>
-    @php
-        $title = 'New Pets'
-    @endphp
-    <x-_filter :title='$title' />
+    <div class="top">
+        <h5>New Pets</h5>
+        <div class="open-filter" @click="filterIsOpen = !filterIsOpen">
+            <img src="../images/filter.svg" alt="">
+        </div>
+    </div>
+    @include('components._filter')
+
     <!-- pets -->
     <div class="results">
         @if ($count == 0)
@@ -59,6 +73,8 @@
             </div>
         </div>
         @endforeach
+
     </div>
 </main>
+
 @endsection

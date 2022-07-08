@@ -6,19 +6,19 @@ Project Description
 
 ### Todo
 
-- [ ] replace vuejs with something else  
 - [ ] optimise css  
 - [ ] search template  
 - [ ] selector pet icons  
 - [ ] error handler in login  
-- [ ] fix login template  
 
 ### In Progress
 
+- [ ] replace vuejs with something else  
 - [ ] desktop version  
 
 ### Done ✓
 
+- [x] fix login template  
 - [x] search with all languages  
 - [x] fix search html of activeSearch issue  
 
