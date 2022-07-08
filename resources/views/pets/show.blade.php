@@ -9,31 +9,17 @@
 @endsection
 
 @section('header')
-@include('components._header')
+<x-_header />
 @endsection
 
 
 @section('script')
-<script>
-    var app = new Vue({
-    el: '#app',
-        data: {
-            activesearch: false,
-        },
-        methods: {
-            activeSearch: function () {
-                this.activesearch = true;
-            }
-        },
-
-    })
-</script>
 @endsection
 
 @section('main')
-<main>
+<main x-data="app">
     <!-- pets -->
-    <div class="pet-container">
+    <div class="pet-container" >
         <div class="image">
             <div class="back" onclick="window.history.back();">
                 <img src="../images/back.svg" alt="">
@@ -77,30 +63,59 @@
             <h3>{{ $pet['race'] }}</h3>
             <h4><img src="../images/location_empty.svg" alt=""> <span>{{ $pet['wilaya'] }}</span></h4>
             <div class="bubbles">
+                @if ($pet['date_birth'])
                 <span class="age">{{ $pet['date_birth'] }}</span>
+                @endif
+                @if ($pet['gender'])
                 <span class="gender">{{ $pet['gender'] }}</span>
+                @endif
+                @if ($pet['weight'])
                 <span class="weight">{{ $pet['weight'] }}</span>
+                @endif
+                @if ($pet['color'])
                 <span class="color">{{ $pet['color'] }}</span>
+                @endif
             </div>
             <div class="bio">
                 {{ $pet['description'] }}
             </div>
-            <div class="contact">
-                <img src="../images/phone.svg" alt="">
-                <span >
-                    {{ $pet['phone_number'] }}
-                </span>
-            </div>
             <div class="actions">
-                <div class="like">
-                    <img src="../images/heart_empty.svg" alt="">
+                <div class="contact">
+                    <img src="../images/phone.svg" alt="">
+                    <span >
+                        {{ $pet['phone_number'] }}
+                    </span>
                 </div>
-                <div class="message">
-                    <button><img src="../images/phone.svg" alt=""></button>
-                    <button>Send message</button>
+                <div class="message" >
+                    <a href="tel:{{ $pet['phone_number'] }}"><img src="../images/phone.svg" alt=""></a>
+                    <a @click="openModal">Send message</a>
                 </div>
             </div>
         </div>
     </div>
+
+    <!--  Modal -->
+    <div id="myModal" x-show="show_modal"  class="modal">
+        <div class="layer" @click="closeModal"></div>
+        <div class="modal-content">
+            <p>Coming soon..</p>
+            <span class="close" @click="closeModal">&times;</span>
+        </div>
+    </div>
 </main>
+
+<script>
+    function app() {
+        return {
+            show_modal: false,
+
+            openModal() {
+                this.show_modal = true
+            },
+            closeModal() {
+                this.show_modal = false
+            }
+        }
+    }
+</script>
 @endsection

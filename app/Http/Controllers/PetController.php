@@ -165,19 +165,19 @@ class PetController extends Controller {
     public function show($uuid)
     {
         $pet = Pet::where('uuid', $uuid)->first();
-        $age = $pet->date_birth != null ? getAge($pet->date_birth) : '';
+        $age = $pet->birth_date != null ? getAge($pet->birth_date) : '';
 
         $data['pet'] = [
             'uuid' => $pet->uuid,
             'name' => $pet->name,
             'gender' => $pet->gender,
-            'race' => $pet->race->name,
+            'race' => $pet->raceName,
             'status' => $pet->offerType->name,
-            'wilaya' => $pet->wilaya->name,
+            'wilaya' => $pet->location,
             'weight' => $pet->weight,
             'date_birth' => $age,
             'size' => $pet->size,
-            'color' => $pet->color,
+            'color' => $pet->colorName,
             'images' => imagesToUrl($pet->pics),
             'description' => $pet->description,
             'phone_number' => $pet->phone_number
