@@ -20,7 +20,7 @@
     </div>
 </header>
 @else
-<header x-data="searchInput" x-init="watchInput()" :class="activesearch == true ? 'active' : ''">
+<header x-data="searchInput" :class="activesearch == true ? 'active' : ''">
     <div class="logo">
         <a href="{{ route('pet.all') }}">
             <img src="../images/logo.svg" alt="">
@@ -33,7 +33,7 @@
         <form class="formHeader" action="{{ route('pet.search') }}" method="POST">
             @csrf
             <input hidden name="resultNeeded" value="view">
-            <input name="keywords" type="text" placeholder="Search" x-model="keywordInput" >
+            <input name="keywords" type="text" placeholder="Search" x-model="keywordInput" @keyup="activeSearch">
             <button type="submit">
                 <img src="../images/search.svg" alt="">
             </button>
@@ -46,10 +46,8 @@
             activesearch: false,
             keywordInput: '',
 
-            watchInput() {
-                this.$watch('keywordInput', () => {
-                    this.activesearch = true
-                })
+            activeSearch() {
+                this.activesearch = true
             }
         }
     }

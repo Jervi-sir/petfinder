@@ -9,21 +9,22 @@
 @endsection
 
 @section('header')
-@include('components._header')
+<x-_header />
 @endsection
-
 
 @section('main')
 <main>
     <!-- pets -->
-    <form class="form" action="{{ route('pet.store') }}" method="POST" enctype="multipart/form-data">
+    <form x-data="submitForm" class="form" action="{{ route('pet.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="image">
-            <div class="show"  v-for="(image, index) in images">
-                <img :src='image' alt="">
-            </div>
+            <template x-for="image in images">
+                <div class="show">
+                    <img :src='image' alt="">
+                </div>
+            </template>
             <label class="add-img" for="add-image"><span>+</span></label>
-            <input hidden name="images[]" type="file" id="add-image"  accept="image/png, image/jpeg"  multiple @change='addImage($event.target)'>
+            <input hidden type="file" id="add-image"  accept="image/png, image/jpeg"  multiple @change='addImage($event.target)'>
         </div>
 
         <div class="row">
@@ -70,10 +71,14 @@
             <div class="double">
 
                 <div class="sub">
-                    <input id="birthday" name="birthday" type="date"  min="1900/01/01"  v-model="birthdate" @change='setAge()' placeholder="birthday">
+                    <input id="birthday" name="birthday" type="date"  min="1900/01/01"  x-model="birthdate" @change='setAge()' placeholder="birthday">
                 </div>
                 <div class="sub">
-                    <span class="age">age: @{{ age }}</span>
+                    <span class="age" >
+                        age:
+                        <span x-text="age"></span>
+                    </span>
+
                 </div>
             </div>
         </div>
@@ -91,7 +96,7 @@
         </div>
         <div class="row">
             <label for="">status</label>
-            <select name="status" id="" v-model="statusValue">
+            <select name="status" id="" x-model="statusValue">
                 @foreach ($statuses as $status)
                 <option value="{{ $status->id }}">{{ $status->name }}</option>
                 @endforeach
@@ -99,13 +104,16 @@
         </div>
         <div class="row">
             <label for="">price</label>
-            <input name="price" type="text" :disabled="statusValue == 2" @keypress="validateNumber">
+            <input name="price" type="text" :disabled="statusValue == 0" @keypress="validateNumber">
         </div>
 
         <div class="row">
             <label for="">description</label>
-            <textarea name="description" id="" cols="30" rows="10" maxlength="300" v-model="description"></textarea>
-            <span class="count">@{{ description.length }} / 300</span>
+            <textarea name="description" id="" cols="30" rows="10" maxlength="300" x-model="description"></textarea>
+            <span class="count" >
+                <span x-text="description.length"></span>
+                /300
+            </span>
         </div>
         <div class="row">
             <label for="">phone number</label>
@@ -119,9 +127,6 @@
     </form>
 
 </main>
-@endsection
-
-@section('script')
 <script>
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
@@ -132,11 +137,8 @@
 
     document.getElementById('birthday').max = today;
 
-    var app = new Vue({
-
-    el: '#app',
-        data: {
-            activeSearch: false,
+    function submitForm() {
+        return {
             images: [],
             compressed: [],
             description: '',
@@ -146,14 +148,10 @@
             statusValue: '',
             keyword: '',
 
-        },
-        methods: {
-            addImage: function(event) {
+            addImage(event) {
                 let max = 4;
-
                 //preview images
                 this.previewImages(event, max);
-
                 //compress images
                 document.querySelector("#output").innerHTML = "";
                 const countImage = event.files.length;
@@ -164,13 +162,15 @@
                     this.comporessImage(event.files[i]);
                 }
             },
-            validateNumber: function(event) {
+
+            validateNumber(event) {
                 let keyCode = event.keyCode;
                 if (keyCode < 46 || keyCode > 57) {
                     event.preventDefault();
                 }
             },
-            setAge: function() {
+
+            setAge() {
                 var birthDate = new Date(this.birthdate);
                 var todayObj = new Date(today);
                 var total = birthDate - todayObj;
@@ -181,17 +181,17 @@
                 var leftMonths = totalMonths % 12;
                 if(totalYears == 0) {
                     if(leftMonths == 0) {
-                        this.age = leftDays + 'days';
+                        this.age = leftDays + ' days';
                     } else {
-                        this.age =  leftMonths + 'months ' + leftDays + 'days';
+                        this.age =  leftMonths + ' months, ' + leftDays + ' days';
                     }
                 } else {
-                    this.age = totalYears + 'y ' + leftMonths + 'm ' + leftDays + 'd';
+                    this.age = totalYears + ' y, ' + leftMonths + ' m, ' + leftDays + ' d';
                 }
             },
 
             // helpers
-            previewImages: function(event, max) {
+            previewImages(event, max) {
                 this.images = [];
                 for (let i = 0; i < event.files.length; i++) {
                     this.images.push(URL.createObjectURL(event.files[i]));
@@ -203,7 +203,7 @@
                 }
             },
 
-            comporessImage: function(file) {
+            comporessImage(file) {
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
                 reader.onload = function (event) {
@@ -232,10 +232,12 @@
                     };
                 };
             }
-
         }
-    })
-
+    }
 </script>
+@endsection
+
+@section('script')
+
 @endsection
 

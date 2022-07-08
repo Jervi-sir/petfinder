@@ -6,13 +6,13 @@ Project Description
 
 ### Todo
 
-- [ ] optimise css  
 - [ ] search template  
 - [ ] selector pet icons  
 - [ ] error handler in login  
 
 ### In Progress
 
+- [ ] optimise css  
 - [ ] replace vuejs with something else  
 - [ ] desktop version  
 

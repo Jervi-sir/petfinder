@@ -94,6 +94,7 @@ class PetController extends Controller {
      *
      */
     public function store(Request $request) {
+        dd($request);
         $user = Auth()->user();
 
         //$images = array_slice($request->file('images'), 0, 4);

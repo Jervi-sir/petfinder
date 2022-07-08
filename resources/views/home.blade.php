@@ -10,7 +10,7 @@
 @endsection
 
 @section('header')
-<x-_header :races='$races' />
+<x-_header />
 @endsection
 
 @section('script')
