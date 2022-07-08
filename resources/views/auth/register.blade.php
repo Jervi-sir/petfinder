@@ -5,7 +5,7 @@
 @endsection
 
 @section('style-head')
-@vite('resources/scss/register.scss')
+@vite('resources/scss/login.scss')
 @endsection
 
 @section('header')

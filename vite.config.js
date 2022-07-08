@@ -11,7 +11,6 @@ export default defineConfig({
             'resources/scss/login.scss',
             'resources/scss/pet.scss',
             'resources/scss/profile.scss',
-            'resources/scss/register.scss',
             'resources/scss/styles.scss',
             'resources/scss/card.scss',
         ]),
