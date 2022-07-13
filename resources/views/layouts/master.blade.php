@@ -18,7 +18,7 @@
     @yield('title')
 </head>
 <body >
-<div id="app">
+<div>
     <div class="body">
         <!-- Header -->
         @yield('header')

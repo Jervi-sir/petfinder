@@ -81,8 +81,17 @@ class PetController extends Controller {
         $wilayas = Wilaya::all();
         $colors = Color::all();
         $statuses = OfferType::all();
+
+        foreach ($races as $key => $race) {
+            $data['race'][$key] = [
+                'name' => $race->name,
+                'breeds' => $race->breed,
+            ];
+        }
+
+
         return view('pets.add', [
-            'races' => $races,
+            'races' => json_encode($data['race']),
             'wilayas' => $wilayas,
             'colors' => $colors,
             'statuses' => $statuses,

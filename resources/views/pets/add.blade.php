@@ -34,10 +34,11 @@
         <div class="row double">
             <div class="sub">
                 <label for="">race</label>
-                <select name="race" id="">
-                    @foreach ($races as $race)
-                    <option value="{{ $race->id }}">{{ $race->name }}</option>
-                    @endforeach
+                <select name="race" x-model="selectedRace" @change="filterBeed">
+                    <option selected disabled hidden>Whats ur pet's race</option>
+                    <template x-for="(race, index) in races">
+                        <option :value="race['name']" x-text="race['name']"></option>
+                    </template>
                 </select>
             </div>
         </div>
@@ -137,6 +138,9 @@
 
     document.getElementById('birthday').max = today;
 
+    var races = {!! ($races) !!};
+
+
     function submitForm() {
         return {
             images: [],
@@ -147,6 +151,16 @@
             status: 'adoption',
             statusValue: '',
             keyword: '',
+            races: [],
+            selectedRace: '',
+
+            init() {
+                this.races = races;
+            },
+
+            filterBeed() {
+                console.log(this.selectedRace);
+            },
 
             addImage(event) {
                 let max = 4;
