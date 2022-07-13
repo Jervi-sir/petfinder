@@ -88,9 +88,7 @@ class PetController extends Controller {
                 'breeds' => $race->breed,
             ];
         }
-
-
-        return view('pets.add', [
+         return view('pets.add', [
             'races' => json_encode($data['race']),
             'wilayas' => $wilayas,
             'colors' => $colors,

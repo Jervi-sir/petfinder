@@ -41,6 +41,15 @@
                     </template>
                 </select>
             </div>
+            <div class="sub">
+                <label for="">breed</label>
+                <select name="breed">
+                    <option selected disabled hidden>Whats ur pet's race</option>
+                    <template x-for="(breed, index) in breeds">
+                        <option :value="breed" x-text="breed"></option>
+                    </template>
+                </select>
+            </div>
         </div>
         <div class="row">
             <label for="">gender</label>
@@ -72,7 +81,7 @@
             <div class="double">
 
                 <div class="sub">
-                    <input id="birthday" name="birthday" type="date"  min="1900/01/01"  x-model="birthdate" @change='setAge()' placeholder="birthday">
+                    <input id="birthday" name="birthday" type="date"  min="1900/01/01" max="2100/01/01"  x-model="birthdate" @change='setAge()' placeholder="birthday">
                 </div>
                 <div class="sub">
                     <span class="age" >
@@ -136,7 +145,7 @@
 
     today = yyyy + '-' + mm + '-' + dd;
 
-    document.getElementById('birthday').max = today;
+    document.getElementById('birthday').setAttribute("max", today);
 
     var races = {!! ($races) !!};
 
@@ -153,13 +162,20 @@
             keyword: '',
             races: [],
             selectedRace: '',
+            breeds: [],
+            maxDate: '',
 
             init() {
                 this.races = races;
             },
 
             filterBeed() {
-                console.log(this.selectedRace);
+                for(var i = 0; i < this.races.length; i++) {
+                    if(this.races[i].name == this.selectedRace) {
+                        this.breeds = JSON.parse(this.races[i].breeds);
+                        break;
+                    }
+                }
             },
 
             addImage(event) {
