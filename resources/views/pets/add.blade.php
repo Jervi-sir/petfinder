@@ -20,7 +20,7 @@
         <div class="image">
             <template x-for="image in images">
                 <div class="show">
-                    <img :src='image' alt="">
+                    <img :src='image' @click="previewImages(this.src)" alt="">
                 </div>
             </template>
             <label class="add-img" for="add-image"><span>+</span></label>
@@ -62,10 +62,6 @@
         <div class="row ">
             <label for="">location</label>
             <div class="double">
-
-                <div class="sub">
-                    <input id="location" name="location" type="text" placeholder="....">
-                </div>
                 <div class="sub">
                     <select name="wilaya" id="">
                         <option value="" selected disabled hidden>wailaya</option>
@@ -73,6 +69,9 @@
                         <option value="{{ $wilaya->id }}">{{ $wilaya->name }}</option>
                         @endforeach
                     </select>
+                </div>
+                <div class="sub">
+                    <input id="location" name="location" type="text" placeholder="....">
                 </div>
             </div>
         </div>
@@ -127,7 +126,7 @@
         </div>
         <div class="row">
             <label for="">phone number</label>
-            <input name="phone" class="phone" type="text" value="" placeholder="" @keypress="validateNumber" required>
+            <input name="phone" class="phone" type="text" value="{{ $user_phone }}" placeholder="" @keypress="validateNumber" required>
         </div>
         <div id="output"></div>
         <div class="actions">
@@ -168,6 +167,9 @@
             init() {
                 this.races = races;
             },
+
+
+
 
             filterBeed() {
                 for(var i = 0; i < this.races.length; i++) {

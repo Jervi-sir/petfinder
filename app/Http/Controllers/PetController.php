@@ -88,11 +88,14 @@ class PetController extends Controller {
                 'breeds' => $race->breed,
             ];
         }
+
+        $user_phone = Auth()->user()->phone_number;
          return view('pets.add', [
             'races' => json_encode($data['race']),
             'wilayas' => $wilayas,
             'colors' => $colors,
             'statuses' => $statuses,
+            'user_phone' => $user_phone,
         ]);
     }
 
