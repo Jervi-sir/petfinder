@@ -18,7 +18,7 @@
     @yield('title')
 </head>
 <body >
-<div>
+<div class="body-container">
     <div class="body">
         <!-- Header -->
         @yield('header')
@@ -37,7 +37,7 @@
 
 @yield('script')
 
-
+@vite('resources/scss/mediaQueries.scss')
 <script>
 window.addEventListener('touchmove', function (event) {
   event.preventDefault()

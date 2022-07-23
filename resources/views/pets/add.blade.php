@@ -18,9 +18,10 @@
     <form x-data="submitForm" class="form" action="{{ route('pet.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="image">
-            <template x-for="image in images">
+            <template x-for="(image, index) in images">
                 <div class="show">
                     <img :src='image' @click="previewImages(this.src)" alt="">
+                    <button class="remove" @click="removeImage(index)" type="button">del</button>
                 </div>
             </template>
             <label class="add-img" for="add-image"><span>+</span></label>
@@ -35,7 +36,7 @@
             <div class="sub">
                 <label for="">race</label>
                 <select name="race" x-model="selectedRace" @change="filterBeed">
-                    <option selected disabled hidden>Whats ur pet's race</option>
+                    <option value="" selected disabled hidden>Race?</option>
                     <template x-for="(race, index) in races">
                         <option :value="race['name']" x-text="race['name']"></option>
                     </template>
@@ -44,7 +45,7 @@
             <div class="sub">
                 <label for="">breed</label>
                 <select name="breed">
-                    <option selected disabled hidden>Whats ur pet's race</option>
+                    <option selected disabled hidden>Breed?</option>
                     <template x-for="(breed, index) in breeds">
                         <option :value="breed" x-text="breed"></option>
                     </template>
@@ -105,7 +106,7 @@
         </div>
         <div class="row">
             <label for="">status</label>
-            <select name="status" id="" x-model="statusValue">
+            <select name="status" id="" x-model="statusValue" class="bg-green">
                 @foreach ($statuses as $status)
                 <option value="{{ $status->id }}">{{ $status->name }}</option>
                 @endforeach
@@ -128,7 +129,11 @@
             <label for="">phone number</label>
             <input name="phone" class="phone" type="text" value="{{ $user_phone }}" placeholder="" @keypress="validateNumber" required>
         </div>
-        <div id="output"></div>
+        <div class="output">
+            <template x-for="comp in compresseds">
+                <input name="imageCompressed[]" type="text" :value='comp' hidden>
+            </template>
+        </div>
         <div class="actions">
             <button class="publish" type="submit">publish</button>
             <button class="preview" type="button">preview</button>
@@ -152,7 +157,7 @@
     function submitForm() {
         return {
             images: [],
-            compressed: [],
+            compresseds: [],
             description: '',
             birthdate: '',
             age: '',
@@ -168,30 +173,12 @@
                 this.races = races;
             },
 
-
-
-
             filterBeed() {
                 for(var i = 0; i < this.races.length; i++) {
                     if(this.races[i].name == this.selectedRace) {
                         this.breeds = JSON.parse(this.races[i].breeds);
                         break;
                     }
-                }
-            },
-
-            addImage(event) {
-                let max = 4;
-                //preview images
-                this.previewImages(event, max);
-                //compress images
-                document.querySelector("#output").innerHTML = "";
-                const countImage = event.files.length;
-                for(var i = 0; i < countImage; i++) {
-                    if(i > max) {
-                        return;
-                    }
-                    this.comporessImage(event.files[i]);
                 }
             },
 
@@ -222,47 +209,64 @@
                 }
             },
 
-            // helpers
+            /*-
+            |------------
+            |   Image processing
+            |------------
+            */
+
+            addImage(event) {
+                let max = 4;
+
+                if(this.images.length >= max) {
+                    console.log('only max are allowed');
+                    return;
+                }
+
+                //preview images
+                this.previewImages(event, max);
+                //compress images
+                this.compressAllImages();
+                
+            },
+
             previewImages(event, max) {
-                this.images = [];
+
                 for (let i = 0; i < event.files.length; i++) {
                     this.images.push(URL.createObjectURL(event.files[i]));
                 }
-                if(event.files.length > max) {
-                    console.log('only max are allowed');
-                    this.images = this.images.slice(0, max);
-                    console.log(this.images);
-                }
+                
             },
 
-            comporessImage(file) {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = function (event) {
-                    const imgElement = document.createElement("img");
-                    imgElement.src = event.target.result;
-                    imgElement.onload = function (e) {
-                        const canvas = document.createElement("canvas");
-                        const MAX_WIDTH = 200;
-                        const scaleSize = MAX_WIDTH / e.target.width;
-                        canvas.width = MAX_WIDTH;
-                        canvas.height = e.target.height * scaleSize;
-                        const ctx = canvas.getContext("2d");
-                        ctx.drawImage(e.target, 0, 0, canvas.width, canvas.height);
-                        // you can send srcEncoded to the server
-                        const srcEncoded = ctx.canvas.toDataURL("image/png", 0.9);
+            removeImage(index) {
+                this.images.splice(index, 1);
+                this.compressAllImages();
+            },
 
-                        //push into HTML
-                        const output = document.querySelector("#output");
-                        const imageOutput = document.createElement('input');
-                        imageOutput.name = "imageCompressed[]";
-                        imageOutput.type = "text";
-                        imageOutput.hidden = true;
-                        imageOutput.value = srcEncoded;
-                        //console.log(srcEncoded);
-                        output.appendChild(imageOutput);
-                    };
-                };
+            compressAllImages(max = 4) {
+                this.compresseds = [];
+                const countImage = this.images.length;
+                for(var i = 0; i < countImage; i++) {
+                    if(i > max) {
+                        return;
+                    }
+                    var result = this.compressOneImage(this.images[i]);
+                    this.compresseds.push(result);
+                }
+            },
+            compressOneImage(blobURL) {
+                //input is blobURL
+                var imgEle = new Image();
+                imgEle.src = blobURL;
+
+                /*--- Create Canva ---*/
+                var canvas = document.createElement('canvas');
+                const ctx = canvas.getContext("2d");
+
+                ctx.drawImage(imgEle, 0, 0, imgEle.width, imgEle.height);
+                const srcEncoded = ctx.canvas.toDataURL("image/png", 0.9);
+
+                return srcEncoded;
             }
         }
     }

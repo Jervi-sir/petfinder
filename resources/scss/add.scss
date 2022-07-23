@@ -22,27 +22,40 @@ main {
 
 .image {
     display: flex;
-    height: 6rem;
     gap: 1rem;
 }
 
+.show, .add-img {
+    height: 10rem;
+    width: 9rem;
+}
+
 .show {
-    width: 5rem;
+    position: relative;
     border-radius: 10px;
     text-align: center;
-    background-color: black;
     color: wheat;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     img {
         height: 100%;
     }
+
+    button.remove {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 }
 
+
+
 .add-img {
-    width: 5rem;
+    width: 6rem;
     padding: 0;
     border-radius: 10px;
     background-color: rgba(0, 0, 0, 0.356);
@@ -52,6 +65,10 @@ main {
     display: flex;
     justify-content: center;
     text-align: center;
+    flex-direction: column;
+    span {
+        transform: translateY(-2px);
+    }
 }
 
 .row {

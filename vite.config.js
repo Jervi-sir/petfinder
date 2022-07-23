@@ -13,6 +13,7 @@ export default defineConfig({
             'resources/scss/profile.scss',
             'resources/scss/styles.scss',
             'resources/scss/card.scss',
+            'resources/scss/mediaQueries.scss',
         ]),
        {
            name: 'blade',
