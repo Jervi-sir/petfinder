@@ -12,10 +12,8 @@
 @include('components._header')
 @endsection
 
-
-
 @section('main')
-<main>
+<main x-data="app">
     <h3>my profile</h3>
     <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -39,17 +37,17 @@
     <button class="reset">reset password</button>
     <button class="delete" @click="showModal=true">delete account</button>
 
-    <div class="modal" v-if="showModal">
+    <div class="modal" x-show="showModal">
         <div class="layer"  @click="showModal=false"></div>
         <div class="container">
             <h1> Are u sure u want to delete</h1>
             <p>Please type <span>{{ $user['email'] }}</span>  to confirm.</p>
-            <input type="text" v-model="confirmDelete" @keyup="verifyDelete">
+            <input type="text" x-model="confirmDelete"  >
             <form action="{{ route('pet.delete') }}" method="POST">
                 @csrf
-                <input type="text" name="id" value="{{ $user['email'] }}" hidden>
+                <input type="text" name="id" value="{{ $user['email'] }}" x-model="email" hidden>
                 <button type="button" @click="showModal=false">Cancel</button>
-                <button type="submit" :disabled="!deleteBtn">Delete</button>
+                <button type="submit" :disabled="confirmDelete != email">Delete</button>
             </form>
         </div>
     </div>
@@ -59,37 +57,28 @@
 
 @section('script')
 <script>
-    var app = new Vue({
-    el: '#app',
-        data: {
-            activesearch: false,
+    var email = {!! json_encode($user['email']) !!};
+    console.log(email);
+
+    function app() {
+        return {
             imageUrl: '',
             confirmDelete: '',
             deleteBtn: false,
             showModal: false,
-        },
-        methods: {
-            activeSearch: function () {
-                this.activesearch = true;
-            },
-            setImage: function(event) {
+            email: email,
+
+            setImage(event) {
                 document.getElementById('preview').src = URL.createObjectURL(event.files[0]);
                 this.comporessImage(event.files[0]);
             },
-            verifyDelete: function() {
-                if(this.confirmDelete == this.pet.name) {
-                    this.deleteBtn = true;
-                } else {
-                    this.deleteBtn = false;
-                }
-            },
-            validateNumber: function(event) {
+            validateNumber(event) {
                 let keyCode = event.keyCode;
                 if (keyCode < 46 || keyCode > 57) {
                     event.preventDefault();
                 }
             },
-            comporessImage: function(file) {
+            comporessImage(file) {
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
                 reader.onload = function (event) {
@@ -105,7 +94,6 @@
                         ctx.drawImage(e.target, 0, 0, canvas.width, canvas.height);
                         // you can send srcEncoded to the server
                         const srcEncoded = ctx.canvas.toDataURL("image/png", 0.9);
-
                         //push into HTML
                         const output = document.querySelector("#output");
                         const imageOutput = document.createElement('input');
@@ -119,6 +107,6 @@
                 };
             }
         }
-    })
+    }
 </script>
 @endsection

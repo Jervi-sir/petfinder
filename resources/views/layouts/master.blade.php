@@ -6,12 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!--<link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap" rel="stylesheet">-->
     <!-- Chrome, Edge, Firefox -->
     <link rel="icon" href="images/logo.svg">
     <!-- Safari -->
     <link rel="mask-icon" href="images/logo.svg" color="#000000">
     <script src="//unpkg.com/alpinejs" defer></script>
-
+    
     @vite('resources/scss/styles.scss')
     @yield('style-head')
     @yield('script-head')

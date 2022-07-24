@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@100;200;300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@100;200;300;400;500;600;700;800;900&display=swap');
+//@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
 
 :root {
@@ -186,7 +186,7 @@ header {
         padding: 1rem 4rem;
         border-radius: 15px;
         background-color: var(--color-secondary);
-        font-family: Archivo;
+        font-family: var(--ff-primary);
         font-style: normal;
         font-weight: 600;
         font-size: 1.5rem;
