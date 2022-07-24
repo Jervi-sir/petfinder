@@ -15,10 +15,8 @@
 
 @section('script')
 <script>
-    var app = new Vue({
-    el: '#app',
-        data: {
-            activesearch: false,
+    function app() {
+        return {
             pets: [],
             confirmDelete: '',
             deleteBtn: false,
@@ -27,13 +25,9 @@
                 petId: '',
                 petName: '',
             },
-            keyword: ''
-        },
-        methods: {
-            activeSearch: function () {
-                this.activesearch = true;
-            },
-            deletePet: function (event) {
+            keyword: '',
+
+            deletePet(event) {
                 var target = event.target;
                 var pet_id = target.getAttribute('data-pet-id');
                 var pet_name = target.getAttribute('data-pet-name');
@@ -44,20 +38,20 @@
                 console.log(pet_id);
                 console.log(pet_name);
             },
-            verifyDelete: function() {
+            verifyDelete() {
                 if(this.confirmDelete == this.modal.petName) {
                     this.deleteBtn = true;
                 } else {
                     this.deleteBtn = false;
                 }
             },
-        },
-    })
+        }
+    }
 </script>
 @endsection
 
 @section('main')
-<main>
+<main x-data="app">
     <h3>my profile</h3>
     <div class="profile-card">
         <div class="details">
@@ -83,22 +77,26 @@
     <div class="posts">
         @if($count)
         @foreach ($pets as $pet)
-        <a class="card" href='{{ $pet['url'] }}'>
-            <div class="left">
-                <img src="{{ $pet['image'] }}" alt="">
+        <div class="card-container">
+            <a class="card" href='{{ $pet['url'] }}'>
+                <div class="left">
+                    <img src="{{ $pet['image'] }}" alt="">
+                </div>
+                <div class="middle">
+                    <h4>{{ $pet['name'] }}</h4>
+                    <h6>{{ $pet['race'] }}</h6>
+                    <h5>{{ $pet['status'] }}</h5>
+                </div>
+                <div class="right">
+                    <span class="gender {{ $pet['gender'] }}" >{{ $pet['gender'] }}</span>
+                    <span class="age">{{ $pet['age'] }}</span>
+                </div>
+            </a>
+            <div class="actions">
+                <a href="{{ route('pet.edit', ['id' => $pet['id']]) }}">edit</a>
+                <button data-pet-id="{{ $pet['id'] }}" data-pet-name="{{ $pet['name'] }}" @click="deletePet($event)">delete</button>
             </div>
-            <div class="middle">
-                <h4>{{ $pet['name'] }}</h4>
-                <h6>{{ $pet['race'] }}</h6>
-                <h5>{{ $pet['status'] }}</h5>
-            </div>
-            <div class="right">
-                <span class="gender {{ $pet['gender'] }}" >{{ $pet['gender'] }}</span>
-                <span class="age">{{ $pet['age'] }}</span>
-            </div>
-        </a>
-        <a href="{{ route('pet.edit', ['id' => $pet['id']]) }}">edit</a>
-        <button data-pet-id="{{ $pet['id'] }}" data-pet-name="{{ $pet['name'] }}" @click="deletePet($event)">delete</button>
+        </div>
         @endforeach
         @endif
         <div class="add-pets">
@@ -119,11 +117,11 @@
         </div>
     </div>
 
-    <div class="modal" v-if="showModal">
+    <div class="modal" x-show="showModal">
         <div class="layer"  @click="showModal=false"></div>
         <div class="container">
             <h1> Are u sure u want to delete</h1>
-            <p>Please type <span>@{{ modal.petName }}</span>  to confirm.</p>
+            <p>Please type <span x-text="modal.petName"></span>  to confirm.</p>
             <input type="text" v-model="confirmDelete" @keyup="verifyDelete">
             <form action="{{ route('pet.delete') }}" method="POST">
                 @csrf
