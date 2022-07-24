@@ -13,9 +13,10 @@
 @endsection
 
 @section('main')
-<main>
+    
+<main x-data="submitForm" >
     <!-- pets -->
-    <form x-data="submitForm" class="form" action="{{ route('pet.store') }}" method="POST" enctype="multipart/form-data">
+    <form class="form" action="{{ route('pet.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="image">
             <template x-for="(image, index) in images">
@@ -114,7 +115,12 @@
         </div>
         <div class="row">
             <label for="">price</label>
-            <input name="price" type="text" :disabled="statusValue == 0" @keypress="validateNumber">
+            <template x-if="statusValue > 1">
+                <input name="price" type="text" @keypress="validateNumber">
+            </template>
+            <template x-if="statusValue <= 1" >
+                <input disabled type="text" placeholder="please select sell or rent">
+            </template>
         </div>
 
         <div class="row">
@@ -136,7 +142,7 @@
         </div>
         <div class="actions">
             <button class="publish" type="submit">publish</button>
-            <button class="preview" type="button">preview</button>
+            <button class="preview" type="button" hidden>preview</button>
         </div>
     </form>
 
@@ -156,6 +162,7 @@
 
     function submitForm() {
         return {
+            pet: [],
             images: [],
             compresseds: [],
             description: '',
@@ -168,6 +175,7 @@
             selectedRace: '',
             breeds: [],
             maxDate: '',
+            phone_number: '',
 
             init() {
                 this.races = races;

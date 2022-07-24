@@ -36,6 +36,7 @@
                 @endforeach
             </ul>
         @endif
+        <input type="checkbox" name="remember" hidden checked>
         <div class="actions">
             <a href="#">Forgot my password</a>
             <button class="login" type="submit">Login</button>

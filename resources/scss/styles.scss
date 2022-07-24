@@ -264,3 +264,64 @@ main {
     }
 }
 /*---- end menu ---*/
+
+
+
+/*---------
+    Opener animation
+    ----------------*/
+.animation-opener {
+    position: absolute;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(97, 97, 97, 0.5);
+    backdrop-filter: blur(5px);
+    animation: fadeOpener 0.7s 0.8s cubic-bezier(0.39, -0.15, 0, 1.63) forwards;
+    display: block;
+
+    .logo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 1000%);
+        img {
+            transform: scale(2);
+        }
+        animation: slideLogo 0.7s cubic-bezier(0.39, -0.15, 0, 1.63) forwards,
+                scaleLogo 0.7s 0.65s cubic-bezier(0.39, -0.15, 0, 1.63) forwards;
+    }
+}
+
+@keyframes slideLogo {
+    from {
+        transform: translate(-50%, 1000%);
+    }
+    to {
+        transform: translate(-50%, -60%);
+    }
+}
+
+@keyframes scaleLogo {
+    from {
+        transform: translate(-50%, -60%) scale(1.1);
+    }
+    to {
+        transform: translate(-50%, -60%) scale(0.1);
+    }
+}
+
+@keyframes fadeOpener {
+    0% {
+        opacity: 100%;
+    }
+    90% {
+        opacity: 0%;
+    }
+    100% {
+        opacity: 0%;
+        z-index: -9999;
+    }
+}

@@ -37,9 +37,11 @@
         @foreach ($pets as $pet)
         <div class='card {{ $pet['race'] }}' class="card">
             <div class="card-top">
+                @auth
                 <div class="save">
                     <img src="../images/heart_empty.svg" alt="">
                 </div>
+                @endauth
                 <a href='{{ $pet['url'] }}' class="images">
                     <img src="{{ $pet['image'] }}" alt="">
                 </a>
@@ -61,4 +63,5 @@
         @endforeach
     </div>
 </main>
+
 @endsection

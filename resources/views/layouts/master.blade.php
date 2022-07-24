@@ -34,6 +34,27 @@
     @include('components._menu')
 </div>
 
+<div id="animationOpener" class="animation-opener">
+  <div class="layer"></div>
+  <div class="logo">
+      <img src="../images/logo.svg" alt="">
+  </div>
+</div>
+
+
+<script>
+  var isNewHere = window.sessionStorage.getItem("newHere");
+  var opener = document.getElementById('animationOpener');
+
+  if(isNewHere == null) {
+    window.sessionStorage.setItem("newHere", true);
+  } else {
+    opener.style.display = 'none';
+  }
+
+
+
+</script>
 
 @yield('script')
 

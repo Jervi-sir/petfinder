@@ -26,6 +26,12 @@ main {
             top: 1rem;
             left: 1rem;
             z-index: 99;
+            cursor: pointer;
+
+            &:hover {
+                filter: invert(80%);
+                transition: 0.2s;
+            }
         }
 
         .pic {
