@@ -124,7 +124,6 @@ header {
             input {
                 border: none;
                 flex: auto;
-                font-family: var(--ff-secondary);
                 font-style: normal;
                 font-weight: normal;
                 font-size: 1.5rem;
@@ -186,7 +185,6 @@ header {
         padding: 1rem 4rem;
         border-radius: 15px;
         background-color: var(--color-secondary);
-        font-family: var(--ff-primary);
         font-style: normal;
         font-weight: 600;
         font-size: 1.5rem;

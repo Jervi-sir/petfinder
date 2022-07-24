@@ -76,7 +76,6 @@ main {
     flex-direction: column;
     label {
         margin: 0rem 1rem;
-        font-family: Archivo;
         font-style: normal;
         font-weight: normal;
         font-size: 10px;
@@ -105,7 +104,6 @@ main {
         width: 100%;
     }
     .age {
-        font-family: Archivo;
         font-style: normal;
         font-weight: normal;
         font-size: 15px;
@@ -164,7 +162,6 @@ textarea {
         &.publish {
             border: none;
             padding: 0.5rem 2rem;
-            font-family: Archivo;
             font-style: normal;
             font-weight: normal;
             font-size: 15px;
@@ -177,7 +174,6 @@ textarea {
         &.preview {
             background-color: transparent;
             border: none;
-            font-family: Archivo;
             font-style: normal;
             font-weight: normal;
             font-size: 15px;
@@ -202,7 +198,6 @@ textarea {
         cursor: pointer;
         background-color: transparent;
         border: none;
-        font-family: Archivo;
         font-style: normal;
         font-weight: 600;
         font-size: 15px;
@@ -252,7 +247,6 @@ textarea {
             border-radius: 5px;
             padding: 0.5rem 1rem;
             color: white;
-            font-family: inherit;
         }
     }
     button {
@@ -284,7 +278,6 @@ textarea {
         font-size: 1.5rem;
         margin-top: 1rem;
         padding: 0.5rem 1rem;
-        font-family: inherit;
     }
 }
 
@@ -324,7 +317,6 @@ textarea {
         gap: 1rem;
         width: 100%;
         h2 {
-            font-family: Archivo;
             font-style: normal;
             font-weight: normal;
             font-size: 20px;
@@ -333,7 +325,6 @@ textarea {
             mix-blend-mode: normal;
         }
         h3 {
-            font-family: Archivo;
             font-style: normal;
             font-weight: normal;
             font-size: 12px;
@@ -342,7 +333,6 @@ textarea {
             mix-blend-mode: normal;
         }
         h4 {
-            font-family: Archivo;
             font-style: normal;
             font-weight: normal;
             font-size: 11px;
@@ -358,7 +348,6 @@ textarea {
             }
         }
         .bio {
-            font-family: Archivo;
             font-style: normal;
             font-weight: normal;
             font-size: 10px;
@@ -385,7 +374,6 @@ textarea {
         span {
             padding: 0.5em 2em;
             border-radius: 5px;
-            font-family: Archivo;
             font-style: normal;
             font-weight: normal;
             font-size: 11px;
@@ -526,7 +514,6 @@ textarea {
         text-align: center;
         font-size: 27px;
         color: rgba(255, 255, 255, 1);
-        font-family: 'Open Sans', sans-serif;
         z-index: 9999;
         text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.33), -1px 0px 2px rgba(255, 255, 255, 0);
     }

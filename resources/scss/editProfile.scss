@@ -23,7 +23,6 @@ main {
 }
 
 h3 {
-    font-family: Archivo;
     font-style: normal;
     font-weight: normal;
     font-size: 15px;
@@ -71,7 +70,6 @@ form {
             background: #333A5A;
             border-radius: 5px;
             color: white;
-            font-family: Archivo;
             font-style: normal;
             font-weight: normal;
             font-size: 10px;
@@ -104,7 +102,6 @@ form {
     button {
         background: #333A5A;
         border-radius: 0px 0px 15px 15px;
-        font-family: Archivo;
         font-style: normal;
         font-weight: normal;
         font-size: 15px;
@@ -118,7 +115,6 @@ form {
 }
 
 .reset {
-    font-family: Archivo;
     font-style: normal;
     font-weight: normal;
     font-size: 15px;
@@ -131,7 +127,6 @@ form {
 }
 
 .delete {
-    font-family: Archivo;
     font-style: normal;
     font-weight: normal;
     font-size: 15px;
@@ -190,7 +185,6 @@ form {
             border-radius: 5px;
             padding: 0.5rem 1rem;
             color: white;
-            font-family: inherit;
 
             &[type="submit"] {
                 background-color: crimson;
@@ -227,7 +221,6 @@ form {
         font-size: 1.5rem;
         margin-top: 1rem;
         padding: 0.5rem 1rem;
-        font-family: inherit;
     }
 
 }
