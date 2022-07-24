@@ -2,7 +2,6 @@
 /public/build
 /public/hot
 /public/storage
-/public/petImages
 /public/profileImages
 /storage/*.key
 /vendor
