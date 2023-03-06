@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\api;
+namespace App\Http\Controllers\api\v1;
 
 use App\Models\Pet;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
 
 class PetController extends Controller
 {
-    public function index()
+    public function all() :JsonResponse
     {
         $pets = Pet::all();
         $pet = $pets->first();
@@ -26,7 +26,5 @@ class PetController extends Controller
         }
 
         return response()->json($data, 201);
-
-        return view('pets.all');
     }
 }

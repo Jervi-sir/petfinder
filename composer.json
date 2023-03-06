@@ -5,11 +5,7 @@
     "keywords": ["pet", "finder", "mira", "animal marketplace"],
     "license": "MIT",
     "require": {
-<<<<<<< HEAD
         "php": "^8.1",
-=======
-        "php": "^8.0.0",
->>>>>>> 6e556ebe428e41d7a1072c125d4bbcf23a6049c0
         "cloudinary-labs/cloudinary-laravel": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.0",
@@ -28,9 +24,6 @@
         "spatie/laravel-ignition": "^2.0"
     },
     "autoload": {
-        "files": [
-            "app/Helpers/PetsHelper.php"
-        ],
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
