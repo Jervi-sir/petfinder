@@ -6,35 +6,27 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class ActionController extends Controller
+class ProfileController extends Controller
 {
-    public function like($petId) :JsonResponse
+    public function showMyProfile() :JsonResponse
+    {
+        return response()->json('', 200);
+    }
+    public function getMyProfileForEdit() :JsonResponse
+    {
+        return response()->json('', 200);
+    }
+    public function listMyPets() :JsonResponse
+    {
+        return response()->json('', 200);
+    }
+    public function updateMyProfile() :JsonResponse
+    {
+        return response()->json('', 200);
+    }
+    public function getSavedList() :JsonResponse
     {
         return response()->json('', 200);
     }
 
-    public function unlike($petId) :JsonResponse
-    {
-        return response()->json('', 200);
-    }
-
-    public function comment($petId) :JsonResponse
-    {
-        return response()->json('', 200);
-    }
-
-    public function uncomment($petId) :JsonResponse
-    {
-        return response()->json('', 200);
-    }
-
-    public function save($petId) :JsonResponse
-    {
-        return response()->json('', 200);
-    }
-
-    public function unsave($petId) :JsonResponse
-    {
-        return response()->json('', 200);
-    }
 }

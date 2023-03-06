@@ -11,20 +11,26 @@ class PetController extends Controller
 {
     public function all() :JsonResponse
     {
-        $pets = Pet::all();
-        $pet = $pets->first();
+        return response()->json('', 201);
+    }
 
-        foreach ($pets as $key => $pet) {
-            $data['pets'][$key] = [
-                'name' => $pet->name,
-                'race' => $pet->race->first()->name,
-                'subRace' => $pet->subRace->first()->name,
-                'status' => $pet->status->first()->name,
-                'image' => $pet->pics,
-                'slug' => $pet->id,
-            ];
-        }
+    public function latest() :JsonResponse
+    {
+        return response()->json('', 201);
+    }
 
-        return response()->json($data, 201);
+    public function showByRace($race) :JsonResponse
+    {
+        return response()->json('', 201);
+    }
+
+    public function showPet($uuid) :JsonResponse
+    {
+        return response()->json('', 201);
+    }
+
+    public function latestByRace($filter) :JsonResponse
+    {
+        return response()->json('', 201);
     }
 }

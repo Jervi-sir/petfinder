@@ -6,35 +6,31 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class ActionController extends Controller
+class PetAuthController extends Controller
 {
-    public function like($petId) :JsonResponse
+    public function postPet() :JsonResponse
     {
         return response()->json('', 200);
     }
 
-    public function unlike($petId) :JsonResponse
+    public function editPet($petId) :JsonResponse
     {
         return response()->json('', 200);
     }
 
-    public function comment($petId) :JsonResponse
+    public function storePet() :JsonResponse
     {
         return response()->json('', 200);
     }
 
-    public function uncomment($petId) :JsonResponse
+    public function updatePet() :JsonResponse
     {
         return response()->json('', 200);
     }
 
-    public function save($petId) :JsonResponse
+    public function deleteWithoutBackupPet($petId) :JsonResponse
     {
         return response()->json('', 200);
     }
-
-    public function unsave($petId) :JsonResponse
-    {
-        return response()->json('', 200);
-    }
+    
 }
