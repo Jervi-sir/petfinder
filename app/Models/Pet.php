@@ -8,11 +8,12 @@ use App\Models\Wilaya;
 use App\Models\OfferType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Pet extends Model
 {
     use HasFactory;
-
+    
     protected $fillable = [
         'name',
 
@@ -31,22 +32,22 @@ class Pet extends Model
     ];
 
 
-    public function user()
+    public function user() :BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function race()
+    public function race() :BelongsTo
     {
         return $this->belongsTo(Race::class);
     }
 
-    public function offerType()
+    public function offerType() :BelongsTo
     {
         return $this->belongsTo(OfferType::class);
     }
 
-    public function wilaya()
+    public function wilaya() :BelongsTo
     {
         return $this->belongsTo(Wilaya::class);
     }

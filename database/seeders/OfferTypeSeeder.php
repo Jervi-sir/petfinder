@@ -10,10 +10,8 @@ class OfferTypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         DB::table('offer_types')->insert([
             'name' => 'adoption'

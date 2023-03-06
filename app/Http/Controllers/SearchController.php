@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pet;
 use App\Models\Race;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
@@ -24,7 +25,7 @@ class SearchController extends Controller
         return false;
     }
 
-    public function search(Request $request)
+    public function search(Request $request) :View
     {
         //turn keywords single line string into a keyword array
         $eng_keywords = translateToEnglish($request->keywords);
@@ -48,7 +49,7 @@ class SearchController extends Controller
         }
         $results = getPets($result->get());
 
-        if($request->resultNeeded == 'json') {
+        if($request->response == 'json') {
             return response()->json($results);
         } else {
             $races = Race::all();
@@ -99,7 +100,7 @@ class SearchController extends Controller
 
         $data_obj = (object)$results['pets'];
         //return response()->json($data['pets'], 201);
-        if($request->resultNeeded == 'json') {
+        if($request->response == 'json') {
             return response()->json($data_obj);
         } else {
             $races = Race::all();

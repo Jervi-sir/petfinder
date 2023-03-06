@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use toastr;
-use Illuminate\Support\Str;
+use App\Http\Requests\ProfileUpdateRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
@@ -39,13 +39,7 @@ class ProfileController extends Controller
         return $age;
     }
 
-
-    public function index()
-    {
-        //
-    }
-
-    public function myprofile()
+    public function myprofile() :View
     {
         $base1 = URL::to('/update-pet') . '/';
 
@@ -77,7 +71,7 @@ class ProfileController extends Controller
                                 ]);
     }
 
-    public function edit()
+    public function edit() :View
     {
         $user = Auth()->user();
         $data['user'] = [
@@ -92,7 +86,7 @@ class ProfileController extends Controller
         return view('profile.edit', ['user' => $data['user']]);
     }
 
-    public function update(Request $request)
+    public function update(Request $request) :View
     {
         $user = Auth()->user();
         if($user->pic != null) {
@@ -115,9 +109,59 @@ class ProfileController extends Controller
         return redirect()->route('profile.myprofile');
     }
 
-    public function delete(Request $request)
+
+
+    public function delete(Request $request) :View
     {
         dd($request);
     }
 
+    /* Laravel One  */
+    /**
+     * Update the user's profile information.
+    
+    public function update(ProfileUpdateRequest $request): RedirectResponse
+    {
+        $request->user()->fill($request->validated());
+
+        if ($request->user()->isDirty('email')) {
+            $request->user()->email_verified_at = null;
+        }
+
+        $request->user()->save();
+
+        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    }
+    */
+    /**
+     * Display the user's profile form.
+     
+    public function edit(Request $request): View
+    {
+        return view('profile.edit', [
+            'user' => $request->user(),
+        ]);
+    }
+    */
+    /**
+     * Delete the user's account.
+   
+    public function destroy(Request $request): RedirectResponse
+    {
+        $request->validateWithBag('userDeletion', [
+            'password' => ['required', 'current-password'],
+        ]);
+
+        $user = $request->user();
+
+        Auth::logout();
+
+        $user->delete();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return Redirect::to('/');
+    }
+      */
 }

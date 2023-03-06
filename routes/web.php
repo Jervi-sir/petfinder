@@ -39,7 +39,7 @@ Route::controller(ActionController::class)->group(function () {
 
 /*-----| SearchController |-----*/
 Route::controller(SearchController::class)->group(function () {
-    Route::post('/search','search')->name('pet.search');
+    Route::get('/search','search')->name('pet.search');
 });
 
 

@@ -2,42 +2,21 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Database\Seeders\OfferType;
-use Database\Seeders\TagSeeder;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Database\Seeders\RaceSeeder;
-use Database\Seeders\RoleSeeder;
-use Database\Seeders\ColorSeeder;
-use Database\Seeders\WilayaSeeder;
-use Database\Seeders\SubraceSeeder;
-use Database\Seeders\UsertypeSeeder;
-use Database\Seeders\TranslationSeeder;
 
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's 0database.
-     *
-     * @return void
+     * Seed the application's database.
      */
-    public function run()
+    public function run(): void
     {
         // \App\Models\User::factory(10)->create();
-        $tag = new TagSeeder();
-        $role = new RoleSeeder();
-        $race = new RaceSeeder();
-        $colors = new ColorSeeder();
-        $wilayas = new WilayaSeeder();
-        $offer_type = new OfferTypeSeeder();
-        $translation = new TranslationSeeder();
 
-        $role->run();
-        $race->run();
-        $tag->run();
-        $colors->run();
-        $wilayas->run();
-        $offer_type->run();
-        $translation->run();
+        // \App\Models\User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
     }
 }

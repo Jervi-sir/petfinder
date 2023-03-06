@@ -99,6 +99,7 @@ main {
     border-radius: 15px;
     overflow: hidden;
     height: 0%;
+
     &.active {
         animation: animatename .2s linear;
         height: 100%;
@@ -151,6 +152,7 @@ main {
             font-size: 15px;
             color: #FFFFFF;
             cursor: pointer;
+            border-radius: 10px;
         }
     }
 }

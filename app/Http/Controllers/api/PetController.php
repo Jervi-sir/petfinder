@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Models\Pet;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 
 class PetController extends Controller
 {

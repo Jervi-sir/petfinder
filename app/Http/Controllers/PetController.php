@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
-
+use Illuminate\Contracts\View\View;
 
 class PetController extends Controller {
     /**
@@ -29,14 +29,17 @@ class PetController extends Controller {
      *
      *  @return \ pets, race
      */
-    public function index() {
+    public function index() :View
+    {
         $pets = Pet::all();
-        $races = Race::all();
-        $data_obj = getPets($pets);
-        $count = count((array)$data_obj);
-        return view('home', ['pets' => $data_obj,
-                            'races' => $races,
-                            'count' => $count
+
+        $data['races'] = Race::all();
+        $data['pets'] = getPets($pets);
+        $data['total_pets'] = count((array)$data['pets']);
+
+        return view('home', ['pets' => $data['pets'],
+                            'races' => $data['races'],
+                            'count' => $data['total_pets']
                             ]);
     }
 
@@ -45,15 +48,18 @@ class PetController extends Controller {
      *
      *  @return \ pets, race
      */
-    public function race($race) {
+    public function race($race) :View
+    {
         $selected_race = Race::where('name', strtolower($race))->first();
         $pets = $selected_race->pets;
-        $races = Race::all();
-        $data_obj = getPets($pets);
-        $count = count((array)$data_obj);
-        return view('home', ['pets' => $data_obj,
-                            'races' => $races,
-                            'count' => $count
+
+        $data['races'] = Race::all();
+        $data['pets'] = getPets($pets);
+        $data['total_pets'] = count((array)$data['pets']);
+        
+        return view('home', ['pets' => $data['pets'],
+                            'races' => $data['races'],
+                            'count' => $data['total_pets']
                             ]);
     }
 
@@ -62,7 +68,7 @@ class PetController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create() :View
     {
         //check if user hits the limit of 7
         if(Auth()->user()->pets->count() > 7) {
@@ -78,9 +84,9 @@ class PetController extends Controller {
         }
 
         $races = Race::all();
-        $wilayas = Wilaya::all();
-        $colors = Color::all();
-        $statuses = OfferType::all();
+        $data['wilayas'] = Wilaya::all();
+        $data['colors'] = Color::all();
+        $data['statuses'] = OfferType::all();
 
         foreach ($races as $key => $race) {
             $data['race'][$key] = [
@@ -89,13 +95,14 @@ class PetController extends Controller {
             ];
         }
 
-        $user_phone = Auth()->user()->phone_number;
+        $data['user_phone'] = Auth()->user()->phone_number;
+        
          return view('pets.add', [
             'races' => json_encode($data['race']),
-            'wilayas' => $wilayas,
-            'colors' => $colors,
-            'statuses' => $statuses,
-            'user_phone' => $user_phone,
+            'wilayas' => $data['wilayas'],
+            'colors' => $data['colors'],
+            'statuses' => $data['statuses'],
+            'user_phone' => $data['user_phone'],
         ]);
     }
 
@@ -103,7 +110,8 @@ class PetController extends Controller {
      * Store a new Pet
      *
      */
-    public function store(Request $request) {
+    public function store(Request $request) :View
+    {
         dd($request);
         $user = Auth()->user();
 
@@ -172,7 +180,7 @@ class PetController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($uuid)
+    public function show($uuid) :View
     {
         $pet = Pet::where('uuid', $uuid)->first();
         $age = $pet->birth_date != null ? getAge($pet->birth_date) : '';
@@ -201,7 +209,7 @@ class PetController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id) :View
     {
         $pet = Pet::find($id);
         $data['pet'] = [
@@ -225,19 +233,19 @@ class PetController extends Controller {
             'image' => getFirstImage($pet->pics)
         ];
 
-        $races = Race::all();
-        $subRaces = SubRace::all();
-        $wilayas = Wilaya::all();
-        $colors = Color::all();
-        $statuses = Status::all();
+        $data['races'] = Race::all();
+        $data['subRaces'] = SubRace::all();
+        $data['wilayas'] = Wilaya::all();
+        $data['colors'] = Color::all();
+        $data['statuses'] = Status::all();
 
         return view('pets.edit', [
             'pet' => $data['pet'],
-            'races' => $races,
-            'subRaces' => $subRaces,
-            'wilayas' => $wilayas,
-            'colors' => $colors,
-            'statuses' => $statuses,
+            'races' => $data['races'],
+            'subRaces' => $data['subRaces'],
+            'wilayas' => $data['wilayas'],
+            'colors' => $data['colors'],
+            'statuses' => $data['statuses'],
         ]);
     }
 
@@ -245,7 +253,7 @@ class PetController extends Controller {
      * Update the specified resource in storage.
      *
      */
-    public function update(Request $request)
+    public function update(Request $request) :View
     {
         $pet = Pet::find($request->id);
 
@@ -283,7 +291,7 @@ class PetController extends Controller {
      * Delete data and pictures.
      *
      */
-    public function deleteWithoutBackup(Request $request)
+    public function deleteWithoutBackup(Request $request) :View
     {
         $user = Auth()->user();
         $selected_pet = $user->pets->find($request->id);
@@ -306,7 +314,7 @@ class PetController extends Controller {
      * save deleted data on backuptable,
      * no image delete
      */
-    public function deleteWithBackup(Request $request)
+    public function deleteWithBackup(Request $request) :View
     {
         $user = Auth()->user();
         $selected_pet = $user->pets->find($request->id);
@@ -329,7 +337,7 @@ class PetController extends Controller {
      * is_active to 0,
      * no image delete
      */
-    public function statusToDeleted(Request $request)
+    public function statusToDeleted(Request $request) :View
     {
         $user = Auth()->user();
         $selected_pet = $user->pets->find($request->id);

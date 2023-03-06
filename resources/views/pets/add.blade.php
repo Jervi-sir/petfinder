@@ -13,11 +13,10 @@
 @endsection
 
 @section('main')
-    
+
 <main x-data="submitForm" >
     <!-- pets -->
     <form class="form" action="{{ route('pet.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
         <div class="image">
             <template x-for="(image, index) in images">
                 <div class="show">
@@ -235,7 +234,7 @@
                 this.previewImages(event, max);
                 //compress images
                 this.compressAllImages();
-                
+
             },
 
             previewImages(event, max) {
@@ -243,7 +242,7 @@
                 for (let i = 0; i < event.files.length; i++) {
                     this.images.push(URL.createObjectURL(event.files[i]));
                 }
-                
+
             },
 
             removeImage(index) {
