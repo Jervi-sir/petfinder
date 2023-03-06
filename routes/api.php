@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\v1\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+/*-----| Authentication |-----*/
+Route::controller(AuthController::class)->group(function () {
+    Route::post('/v1/register', 'register');                 
+    Route::post('/v1/login', 'login');                 
+    Route::post('/v1/logout', 'logout');                 
 });
 
 /*-----| PetController |-----*/

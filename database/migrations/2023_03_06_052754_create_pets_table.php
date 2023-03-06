@@ -18,11 +18,10 @@ return new class extends Migration
 
             $table->string('location');
 
-            $table->string('raceName');
+            $table->string('race');
             $table->string('gender');
             $table->string('colorName')->nullable();
-            $table->date('birth_date')->nullable();
-            $table->string('size')->nullable();
+            $table->date('birthday')->nullable();
 
             $table->longText('pics')->nullable();
             $table->longText('description')->nullable();

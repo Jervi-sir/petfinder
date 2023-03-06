@@ -12,7 +12,7 @@ class AuthController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function createUser(Request $request) :JsonResponse 
+    public function register(Request $request) :JsonResponse 
     {
         try {
             //Validated
@@ -51,7 +51,7 @@ class AuthController extends Controller
         }
     }
 
-    public function loginUser(Request $request) :JsonResponse
+    public function login(Request $request) :JsonResponse
     {
         try {
             $validateUser = Validator::make($request->all(), 
@@ -91,7 +91,7 @@ class AuthController extends Controller
         }
     }
 
-    public function logoutUser(Request $request) :JsonResponse
+    public function logout(Request $request) :JsonResponse
     {
         //$request->user()->tokens()->delete();
         auth()->user()->currentAccessToken()->delete();

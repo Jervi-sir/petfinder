@@ -15,15 +15,24 @@ class Pet extends Model
     use HasFactory;
     
     protected $fillable = [
+        'uuid',
         'name',
 
+        'location',
+
+        'race',
         'gender',
-        'color',
-        'birth_date',
-        'size',
+        'colorName',
+        'birthday',
         'pics',
         'description',
         'phone_number',
+
+        'is_active',
+        'status',
+        'last_date_activated',
+
+        'keywords',
 
         'user_id',
         'race_id',

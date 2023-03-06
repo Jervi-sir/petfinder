@@ -110,7 +110,7 @@ class PetController extends Controller {
      * Store a new Pet
      *
      */
-    public function store(Request $request) :View
+    public function store(Request $request)
     {
         dd($request);
         $user = Auth()->user();
