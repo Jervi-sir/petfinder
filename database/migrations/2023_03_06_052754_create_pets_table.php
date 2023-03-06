@@ -23,7 +23,6 @@ return new class extends Migration
             $table->string('colorName')->nullable();
             $table->date('birthday')->nullable();
 
-            $table->longText('pics')->nullable();
             $table->longText('description')->nullable();
 
             $table->string('phone_number')->nullable();

@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\OfferType;
 use Database\Seeders\TagSeeder;
 use Illuminate\Database\Seeder;
 use Database\Seeders\RaceSeeder;
@@ -25,18 +27,21 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        $roles = new RoleSeeder();
-        $color = new ColorSeeder();
-        $race = new RaceSeeder();
-        $tag = new TagSeeder();
-        $translation = new TranslationSeeder();
-        $wilaya = new WilayaSeeder();
+        //$roles = new RoleSeeder();
+        //$color = new ColorSeeder();
+        //$race = new RaceSeeder();
+        //$tag = new TagSeeder();
+        //$translation = new TranslationSeeder();
+        //$wilaya = new WilayaSeeder();
+        $offerType = new OfferTypeSeeder();
+
+        //$roles->run();
+        //$color->run();
+        //$race->run();
+        //$tag->run();
+        //$translation->run();
+        //$wilaya->run();
+        $offerType->run();
         
-        $roles->run();
-        $color->run();
-        $race->run();
-        $tag->run();
-        $translation->run();
-        $wilaya->run();
     }
 }

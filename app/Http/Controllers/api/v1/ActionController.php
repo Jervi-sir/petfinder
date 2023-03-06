@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Like;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ActionController extends Controller
 {
     public function like($petId) :JsonResponse
-    {
+    {   
+        $like = new Like();
         return response()->json('', 200);
     }
 
