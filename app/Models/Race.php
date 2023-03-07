@@ -11,7 +11,7 @@ class Race extends Model
 {
     use HasFactory;
 
-    public function pets() :HasMany
+    public function getPets() :HasMany
     {
         return $this->hasMany(Pet::class);
     }

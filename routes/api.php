@@ -17,8 +17,8 @@ use App\Http\Controllers\api\v1\ProfileController;
 |   [x] add pet      [x] delete pet   [x] update pet   [x] get edit pet
 |   [x] show profile [x] list my pets [] delete profile
 |   [x] update profile [x] get edit profile
-|   [] like         [] unlike       [] save         [] unsave
-|   [] comment      [] uncomment  
+|   [x] like         [x] unlike       [x] save         [x] unsave
+|   [x] comment      [x] uncomment  
 |   [] search       [] filter       [] pet latest
 */
 
@@ -73,11 +73,11 @@ Route::controller(ProfileController::class)->middleware('auth:sanctum')->group(f
 });
 
 /*-----| ActionController |-----*/
-Route::controller(ActionController::class)->group(function () {
-    Route::post('/v1/like/{petId}',       'like');
-    Route::post('/v1/save/{petId}',       'save');
-    Route::post('/v1/unlike/{petId}',     'unlike');
-    Route::post('/v1/unsave/{petId}',     'unsave');
-    Route::post('/v1/comment/{petId}',    'comment');
-    Route::post('/v1/uncomment/{petId}',  'uncomment');
+Route::controller(ActionController::class)->middleware('auth:sanctum')->group(function () {
+    Route::post('/v1/like/{petId}',       'like');      //[done]
+    Route::post('/v1/save/{petId}',       'save');      //[done]
+    Route::post('/v1/unlike/{petId}',     'unlike');    //[done]
+    Route::post('/v1/unsave/{petId}',     'unsave');    //[done]
+    Route::post('/v1/comment/{petId}',    'comment');   //[done]
+    Route::post('/v1/uncomment/{petId}',  'uncomment'); //[done]
 });

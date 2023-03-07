@@ -20,7 +20,7 @@ return new class extends Migration
 
             $table->string('race');
             $table->string('gender');
-            $table->string('colorName')->nullable();
+            $table->string('color')->nullable();
             $table->date('birthday')->nullable();
 
             $table->longText('description')->nullable();

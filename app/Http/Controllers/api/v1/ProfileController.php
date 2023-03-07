@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api\v1;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use App\Models\Save;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
@@ -63,6 +64,7 @@ class ProfileController extends Controller
     }
     public function getSavedList() :JsonResponse
     {
+        $saved = Auth::user()->save
         return response()->json('', 200);
     }
 
