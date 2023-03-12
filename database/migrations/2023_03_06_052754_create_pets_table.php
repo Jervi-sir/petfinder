@@ -16,10 +16,14 @@ return new class extends Migration
             $table->string('uuid');
             $table->string('name')->nullable();
 
-            $table->string('location');
+            $table->string('location')->nullable();
+            $table->string('wilaya_name')->nullable();
+            $table->string('price')->nullable();
+            $table->string('weight')->nullable();
 
-            $table->string('race');
-            $table->string('gender');
+            $table->string('race_name');
+            $table->string('sub_race')->nullable();
+            $table->tinyInteger('gender')->nullable();   //make it integer 3 options
             $table->string('color')->nullable();
             $table->date('birthday')->nullable();
 
@@ -27,7 +31,7 @@ return new class extends Migration
 
             $table->string('phone_number')->nullable();
 
-            $table->integer('is_active')->default(1);
+            $table->tinyInteger('is_active')->default(1);
             $table->string('status')->default('active');    //active, deleted, backedup
             $table->date('last_date_activated');
 

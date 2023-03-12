@@ -39,7 +39,7 @@ Route::controller(PetController::class)->group(function () {
     Route::get('/',             'all');                 
     Route::get('race/{race}',   'showByRace');          
     Route::get('/pets-latest',  'latest');              
-    Route::get('/pets/{uuid}',  'showPet');             
+    Route::get('/pet/{uuid}',  'showPet');             
     Route::get('/pets-latest/filter={filter}','latestByRace');
 });
 
@@ -57,10 +57,11 @@ Route::controller(SearchController::class)->group(function () {
 
 /*-----| PetController |-----*/
 Route::controller(PetAuthController::class)->middleware('auth:sanctum')->group(function () {
-    Route::post('/v1/add-pet',             'postPet');      //[done]            
-    Route::get('/v1/edit-pet/{petId}',     'editPet');      //[done]        
+    Route::get('/v1/get-add-pet',          'getPostPet');      //[done]            
+    Route::post('/v1/add-pet',              'postPet');      //[done]            
+    Route::get('/v1/edit-pet/{petId}',      'editPet');      //[done]        
     Route::post('/v1/update-pet/{petId}',   'updatePet');   //[done]        
-    Route::post('/v1/delete-pet/{petId}',  'deleteWithoutBackupPet');   //[done]
+    Route::post('/v1/delete-pet/{petId}',   'deleteWithoutBackupPet');   //[done]
 });
 
 /*-----| ProfileController |-----*/

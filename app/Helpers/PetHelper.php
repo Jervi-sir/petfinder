@@ -5,6 +5,8 @@ use App\Models\Petbackup;
 use App\Models\Translation;
 use Illuminate\Support\Str;
 use App\Models\ImagesToDelete;
+use App\Models\Race;
+use App\Models\Wilaya;
 use Illuminate\Support\Facades\URL;
 
 
@@ -204,3 +206,35 @@ function translateToEnglish($sentence) {
     return $array;
 }
 
+
+/**
+  * input request
+  * output keywords
+  */
+
+function generateKeywords($pet) {
+    $name = $pet->name;
+    $location = $pet->location;
+    $wilaya_id = $pet->wilaya_id;
+    $wilaya_name = $pet->wilaya_name;
+    $weight = $pet->weight;
+    $race_name = $pet->race_name;
+    $sub_race = $pet->sub_race;
+    $gender = ['male' ,'female', 'unknown'][$pet->gender + 1];
+    $color = $pet->color;
+    $offerType = ['adopt' ,'sell', 'rent'][$pet->gender + 1];
+    
+    $keywords = 
+        $name . ' , ' .
+        $location . ' , ' .
+        $wilaya_id . ' , ' .
+        $wilaya_name . ' , ' .
+        $weight . ' , ' .
+        $race_name . ' , ' .
+        $sub_race . ' , ' .
+        $gender . ' , ' .
+        $color . ' , ' .
+        $offerType . ' , ';
+
+    return $keywords;
+}

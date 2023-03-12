@@ -1,0 +1,24 @@
+Integer: 4 bytes
+Big Integer: 8 bytes
+Small Integer: 2 bytes
+Tiny Integer: 1 byte
+Float: 4 bytes
+Double: 8 bytes
+Decimal: Varies depending on precision and scale
+Boolean: 1 byte
+Date: 3 bytes
+Date Time: 8 bytes
+Time: 3 bytes
+Year: 1 byte
+Char: Varies depending on length
+Varchar: Varies depending on length
+Text: Varies depending on length
+Medium Text: Varies depending on length
+Long Text: Varies depending on length
+Binary: Varies depending on length
+Varbinary: Varies depending on length
+Blob: Varies depending on length
+Medium Blob: Varies depending on length
+Long Blob: Varies depending on length.
+
+

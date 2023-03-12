@@ -8,6 +8,9 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use App\Models\PetImage;
+use App\Models\Race;
+use App\Models\Wilaya;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -15,6 +18,7 @@ use Illuminate\Support\Carbon;
 
 class PetAuthController extends Controller
 {
+   
     private function uploadImages($files, $user_id) {
         $uploadedFileUrl = [];
         foreach ($files as $image) {
@@ -26,61 +30,89 @@ class PetAuthController extends Controller
         }
 
     }
+
+    public function getPostPet() :JsonResponse
+    {
+        $races = Race::all();
+        foreach($races as $index => $race) {
+            $data['races'][$index] = [
+                'value' => $race->id,
+                'label' => $race->name,
+            ];
+        }
+        $wilayas = Wilaya::all();
+        foreach($wilayas as $index => $wilaya) {
+            $data['wilayas'][$index] = [
+                'value' => $wilaya->id,
+                'label' => $wilaya->name,
+            ];
+        }
+
+        $user = Auth::user();
+        return response()->json([
+            'races' => $data['races'],
+            'wilaya' => $data['wilayas'],
+            'phone_number' => $user->phone_number,
+        ]);
+    }
+
     public function postPet(Request $request) :JsonResponse
     {
         try {
-            //Validated
-            $validateUser = Validator::make($request->all(), 
-            [
-                'name' => 'required',
-                'wilaya' => 'required',
-                'race' => 'required',
-            ]);
+            $user = Auth::user();
+            $uuid = uniqid();
 
-            if($validateUser->fails()){
-                return response()->json([
-                    'status' => false,
-                    'message' => 'validation error',
-                    'errors' => $validateUser->errors()
-                ], 401);
-            }
-
-            $uuid = uniqueUuid($request->race ,$request->name);
-            $location = 0;
             $last_date_activated = Carbon::now();
             $keywords = 0;
-            $pics = 0;
 
-            $pet = Pet::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'uuid' => $uuid,
-                'name' => $request->name,
-                'location' => $location,
-                'race' => $request->race,
-                'gender' => $request->gender,
-                'colorName' => $request->color,
-                'birth_date' => $request->birthday,
-                'birthday' => $request->birthday,
-                'description' => $request->description,
-                'phone_number' => $request->phone_number,
-
-                'last_date_activated' => $last_date_activated,
-                'keywords' => $keywords,
-
-                'user_id' => Auth::user()->id,
-                'race_id' => $request->race_id,
-                'offer_type_id' => $request->offer_type_id,
-                'wilaya_id' => $request->wilaya_id,
-            ]);
-
-            /*
+            $pet = new Pet();
+            $pet->uuid = $uuid;
+            $pet->name = $request->name;
+            $pet->location = $request->location;
+            $pet->wilaya_name = Wilaya::find($request->wilaya_id)->name;
+            $pet->price = $request->price;
+            $pet->weight = $request->weight;
+            $pet->race_name = Race::find($request->race_id)->name;
+            $pet->sub_race = $request->subRace;
+            $pet->gender = $request->gender;
+            $pet->color = $request->color;
+            $pet->birthday = $request->date;
+            $pet->description = $request->description;
+            $pet->phone_number = $request->phoneNumber;
+            $pet->last_date_activated = $last_date_activated;
             
-            */
+            $pet->user_id = $user->id;
+            $pet->race_id = $request->race_id;
+            $pet->offer_type_id = $request->typeOffer;
+            $pet->wilaya_id = $request->wilaya_id;
+
+            $pet->keywords = generateKeywords($pet);
+            
+            $pet->save();
+
+            foreach($request->images as $index => $image) {
+                if($image != null) {
+
+                    $data = base64_decode($image);
+                    $filename = 'race_' . $request->race_id . 
+                    '_user_' . $user->id .
+                    '_random_' . $uuid .
+                    '_i_' . $index .
+                    '.jpg';
+                    Storage::put('pets/' . $filename, $data);
+                    
+                    $img_save = new PetImage();
+                    $img_save->pet_id = $pet->id;
+                    $img_save->image_name = $pet->keywords;
+                    $img_save->image_url = $filename;
+                    $img_save->save();
+                }
+            }
+    
 
             return response()->json([
                 'status' => true,
-                'message' => 'User Created Successfully',
+                'message' => 'Pet Created Successfully',
                 'token' => $pet,
             ], 200);
 
@@ -128,6 +160,7 @@ class PetAuthController extends Controller
         $pet->race_id =  $request->race_id;
         $pet->offer_type_id =  $request->offer_type_id;
         $pet->wilaya_id =  $request->wilaya_id;
+        $pet->wilaya =  Wilaya::find($request->wilaya_id)->name;
         $pet->save();
 
         return response()->json('', 200);

@@ -27,20 +27,20 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        //$roles = new RoleSeeder();
-        //$color = new ColorSeeder();
-        //$race = new RaceSeeder();
-        //$tag = new TagSeeder();
-        //$translation = new TranslationSeeder();
-        //$wilaya = new WilayaSeeder();
+        $roles = new RoleSeeder();
+        $color = new ColorSeeder();
+        $race = new RaceSeeder();
+        $tag = new TagSeeder();
+        $translation = new TranslationSeeder();
+        $wilaya = new WilayaSeeder();
         $offerType = new OfferTypeSeeder();
 
-        //$roles->run();
-        //$color->run();
-        //$race->run();
-        //$tag->run();
-        //$translation->run();
-        //$wilaya->run();
+        $roles->run();
+        $color->run();
+        $race->run();
+        $tag->run();
+        $translation->run();
+        $wilaya->run();
         $offerType->run();
         
     }
