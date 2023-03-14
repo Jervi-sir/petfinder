@@ -165,7 +165,7 @@ function backupPet($pet) {
 /**
   * input array
   *
-  */
+ 
 function backupImages($images, $source, $type) {
     foreach ($images as $image) {
         $backup = new ImagesToDelete();
@@ -176,7 +176,7 @@ function backupImages($images, $source, $type) {
     }
 
 }
-
+ */
 /**
   * input string
   * output array of keyword sorted by score

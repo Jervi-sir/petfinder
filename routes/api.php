@@ -28,10 +28,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 /*-----| Authentication |-----*/
 Route::controller(AuthController::class)->group(function () {
-    Route::post('/v1/register', 'register');        //[done]   
-    Route::post('/v1/login',    'login');           //[done]   
+    Route::post('/v1/register', 'register');        //[done][done]   
+    Route::post('/v1/login',    'login');           //[done][done]   
     Route::middleware('auth:sanctum')->post('/v1/logout', 'logout');    //[done] 
 });
+
 
 
 /*-----| PetController |-----*/
@@ -42,6 +43,9 @@ Route::controller(PetController::class)->group(function () {
     Route::get('/pet/{uuid}',  'showPet');             
     Route::get('/pets-latest/filter={filter}','latestByRace');
 });
+
+
+
 
 /*-----| SearchController |-----*/
 Route::controller(SearchController::class)->group(function () {
@@ -57,8 +61,9 @@ Route::controller(SearchController::class)->group(function () {
 
 /*-----| PetController |-----*/
 Route::controller(PetAuthController::class)->middleware('auth:sanctum')->group(function () {
-    Route::get('/v1/get-add-pet',          'getPostPet');      //[done]            
-    Route::post('/v1/add-pet',              'postPet');      //[done]            
+    Route::get('/v1/get-add-pet',          'getPostPet');       //[done][done]           
+    Route::post('/v1/add-pet',              'postPet');         //[done][done]   
+
     Route::get('/v1/edit-pet/{petId}',      'editPet');      //[done]        
     Route::post('/v1/update-pet/{petId}',   'updatePet');   //[done]        
     Route::post('/v1/delete-pet/{petId}',   'deleteWithoutBackupPet');   //[done]
@@ -66,12 +71,14 @@ Route::controller(PetAuthController::class)->middleware('auth:sanctum')->group(f
 
 /*-----| ProfileController |-----*/
 Route::controller(ProfileController::class)->middleware('auth:sanctum')->group(function () {
+    Route::get('/v1/showMyProfile',        'showMyProfile');        //[done][]     
+
     Route::get('/v1/my-pets',             'listMyPets');            //[done]
     Route::get('/v1/saved-list',          'getSavedList');
-    Route::get('/v1/showMyProfile',        'showMyProfile');        //[done]      
     Route::get('/v1/profile-edit-get',     'getMyProfileForEdit');  //[done]                 
     Route::post('/v1/profile-edit-update', 'updateMyProfile');      //[done]
 });
+
 
 /*-----| ActionController |-----*/
 Route::controller(ActionController::class)->middleware('auth:sanctum')->group(function () {

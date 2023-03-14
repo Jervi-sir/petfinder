@@ -19,18 +19,6 @@ use Illuminate\Support\Carbon;
 class PetAuthController extends Controller
 {
    
-    private function uploadImages($files, $user_id) {
-        $uploadedFileUrl = [];
-        foreach ($files as $image) {
-            //$uploadedFileUrl[$i] = Cloudinary::upload($request->images[$i])->getSecurePath();
-            $file = explode( ',', $image )[1];
-            $filename= str_replace("-", "", Str::uuid()->toString()).'.png';
-            Storage::disk('saveImages')->put($filename, base64_decode($file));
-            array_push($uploadedFileUrl, $filename);
-        }
-
-    }
-
     public function getPostPet() :JsonResponse
     {
         $races = Race::all();
@@ -58,12 +46,26 @@ class PetAuthController extends Controller
 
     public function postPet(Request $request) :JsonResponse
     {
+
+        $validateUser = Validator::make($request->all(), 
+        [
+            'wilaya_id' => 'required',
+            'race_id' => 'required',
+        ]);
+
+        if($validateUser->fails()){
+            return response()->json([
+                'status' => false,
+                'message' => 'validation error',
+                'errors' => $validateUser->errors()
+            ], 401);
+        }
+            
         try {
             $user = Auth::user();
             $uuid = uniqid();
 
             $last_date_activated = Carbon::now();
-            $keywords = 0;
 
             $pet = new Pet();
             $pet->uuid = $uuid;
@@ -99,7 +101,7 @@ class PetAuthController extends Controller
                     '_random_' . $uuid .
                     '_i_' . $index .
                     '.jpg';
-                    Storage::put('pets/' . $filename, $data);
+                    Storage::put('public/pets/' . $filename, $data);
                     
                     $img_save = new PetImage();
                     $img_save->pet_id = $pet->id;
@@ -109,7 +111,6 @@ class PetAuthController extends Controller
                 }
             }
     
-
             return response()->json([
                 'status' => true,
                 'message' => 'Pet Created Successfully',

@@ -20,8 +20,11 @@ return new class extends Migration
 
             $table->string('phone_number')->nullable();
             $table->string('pic')->nullable();
+            $table->longText('location')->nullable();
+            $table->longText('wilaya')->nullable();
             $table->longText('socials')->nullable();
 
+            $table->foreignId('wilaya_id')->constrained('wilayas')->nullable();
             $table->foreignId('role_id')->constrained('roles');
 
             $table->rememberToken();
