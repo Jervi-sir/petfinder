@@ -31,7 +31,8 @@ return new class extends Migration
 
             $table->string('color')->nullable();
             $table->string('weight')->nullable();
-            $table->longText('description')->nullable();
+            $table->string('description')->nullable();
+            $table->tinyText('phone_number_this_pet')->nullable();
 
             $table->tinyInteger('is_active')->default(1);
             $table->date('last_date_activated');

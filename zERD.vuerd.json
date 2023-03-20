@@ -3,8 +3,8 @@
     "version": "2.2.11",
     "width": 2000,
     "height": 2000,
-    "scrollTop": -52,
-    "scrollLeft": -811,
+    "scrollTop": -44,
+    "scrollLeft": -812,
     "zoomLevel": 1,
     "show": {
       "tableComment": true,
@@ -1102,6 +1102,29 @@
             "id": "9bf75e57-5f94-4ce8-a251-d9b2ed59e047"
           },
           {
+            "name": "phone_number_this_pet",
+            "comment": "",
+            "dataType": "tinytext",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 142.2197265625,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "eccb3a4c-4c23-4326-b5ea-341c92444987"
+          },
+          {
             "name": "isActive",
             "comment": "",
             "dataType": "tinyInt",
@@ -1218,10 +1241,10 @@
           }
         ],
         "ui": {
-          "active": false,
+          "active": true,
           "left": 867.1111,
           "top": 149.8899,
-          "zIndex": 9,
+          "zIndex": 14,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1279,7 +1302,7 @@
             "id": "80e3d472-dc97-4e6e-95eb-977191cd79dc"
           },
           {
-            "name": "url",
+            "name": "image_url",
             "comment": "",
             "dataType": "varchar",
             "default": "",
@@ -1329,7 +1352,7 @@
           "active": false,
           "left": 1400.4446,
           "top": 143.4442,
-          "zIndex": 10,
+          "zIndex": 11,
           "widthName": 69.208984375,
           "widthComment": 60
         },
@@ -1545,7 +1568,7 @@
           "active": false,
           "left": 27.1117,
           "top": 834.5557,
-          "zIndex": 11,
+          "zIndex": 10,
           "widthName": 68.47900390625,
           "widthComment": 60
         },
@@ -1605,7 +1628,7 @@
             "5b0db49f-aecd-4a2e-a454-6e9c905350df"
           ],
           "x": 867.1111,
-          "y": 389.3899,
+          "y": 399.6399,
           "direction": "left"
         },
         "constraintName": "fk_users_to_pets",
@@ -1630,8 +1653,8 @@
           "columnIds": [
             "ea365596-4313-4abf-8b23-4af07b1219b2"
           ],
-          "x": 1268.1345375,
-          "y": 509.1399,
+          "x": 1296.3308265625,
+          "y": 274.7649,
           "direction": "right"
         },
         "constraintName": "fk_races_to_pets",
@@ -1647,8 +1670,8 @@
           "columnIds": [
             "ad24b085-5102-4307-bca6-68d817ac0872"
           ],
-          "x": 1268.1345375,
-          "y": 269.6399,
+          "x": 1296.3308265625,
+          "y": 524.5149,
           "direction": "right"
         },
         "end": {
@@ -1699,8 +1722,8 @@
           "columnIds": [
             "ad24b085-5102-4307-bca6-68d817ac0872"
           ],
-          "x": 1067.62281875,
-          "y": 628.8899,
+          "x": 1081.72096328125,
+          "y": 649.3899,
           "direction": "bottom"
         },
         "end": {

@@ -14,39 +14,39 @@ class RaceSeeder extends Seeder
     public function run(): void
     {
         DB::table('races')->insert([
-            'order' => 1,
+            //'order' => 1,
             'name' => 'cat',
-            'breed' => json_encode(['normal', 'siamo', 'ecail de tortue'])
+            //'breed' => json_encode(['normal', 'siamo', 'ecail de tortue'])
         ]);
         DB::table('races')->insert([
-            'order' => 2,
+            //'order' => 2,
             'name' => 'dog',
-            'breed' => json_encode(['berget', 'huski', 'caniche'])
+            //'breed' => json_encode(['berget', 'huski', 'caniche'])
         ]);
         DB::table('races')->insert([
-            'order' => 3,
+            //'order' => 3,
             'name' => 'horse',
-            'breed' => json_encode(['trait', 'normal', 'pure sans arab'])
+            //'breed' => json_encode(['trait', 'normal', 'pure sans arab'])
         ]);
         DB::table('races')->insert([
-            'order' => 4,
+            //'order' => 4,
             'name' => 'bird',
-            'breed' => json_encode(['pigeon', 'canari', 'peroquet'])
+            //'breed' => json_encode(['pigeon', 'canari', 'peroquet'])
         ]);
         DB::table('races')->insert([
-            'order' => 5,
+            //'order' => 5,
             'name' => 'hamster',
-            'breed' => json_encode(['hamster'])
+            //'breed' => json_encode(['hamster'])
         ]);
         DB::table('races')->insert([
-            'order' => 6,
+            //'order' => 6,
             'name' => 'fish',
-            'breed' => json_encode(['requin', 'normal', 'latcha'])
+            //'breed' => json_encode(['requin', 'normal', 'latcha'])
         ]);
         DB::table('races')->insert([
-            'order' => 6,
+            //'order' => 6,
             'name' => 'goat',
-            'breed' => json_encode(['goat', 'chevre', 'vruh'])
+            //'breed' => json_encode(['goat', 'chevre', 'vruh'])
         ]);
     }
 }

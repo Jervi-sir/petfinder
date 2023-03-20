@@ -37,20 +37,31 @@ class PetController extends Controller
                 array_push($images, $image);
             }
         }
-        $image = $pet->getImages()->exists() ? 'http://192.168.1.106:8000/storage/pets/' . $pet->getImages[0]->image_url : null;
+        //$image = $pet->getImages()->exists() ? 'http://192.168.1.106:8000/storage/pets/' . $pet->getImages[0]->image_url : null;
         $data['pet'] = [
             'id' => $pet->id,
+            'uuid' => $pet->uuid,
             'name' => $pet->name,
+            'location' => $pet->location,
+            'wilaya_name' => $pet->wilaya_name,
+
             'race_name' => $pet->race_name,
             'sub_race' => $pet->sub_race,
-            'location' => $pet->location,
-            'offer_type_id' => $pet->offer_type_id,
-            'price' => $pet->price,
             'gender' => $pet->gender,
-            'date' => str_replace('-', '/', $pet->birthday),
-            'pic' => $images,
+
+            'offer_type_number' => $pet->offer_type_number,
+            'offer_type_name' => getOfferTypeName($pet->offer_type_number),
+            'price' => $pet->price,
+
+            'birthday' => $pet->birthday,
+
+            'color' => $pet->color,
+            'weight' => $pet->weight,
+            'description' => $pet->description,
+            'phone_number' => $pet->phone_number_this_pet,
+
+            'images' => $images,
             'is_active' => $pet->isActive,
-            'last_date_activated' => $pet->last_date_activated,
         ];
         return response()->json([
             'pet' => $data['pet'],

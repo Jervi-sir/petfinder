@@ -21,7 +21,7 @@ class ProfileController extends Controller
             'location' => $user->location,
             'phone_number' => $user->phone_number,
             'pic' => 'http://192.168.1.106:8000/storage/users/' . $user->pic,
-            'socials' => $user->socials,
+            'social_list' => $user->socials,
         ];
 
         $data['pets'] = [];
@@ -31,15 +31,21 @@ class ProfileController extends Controller
             $data['pets'][$index] = [
                 'id' => $pet->id,
                 'name' => $pet->name,
+                'location' => $pet->location,
+                'wilaya_name' => $pet->wilaya_name,
+
                 'race_name' => $pet->race_name,
                 'sub_race' => $pet->sub_race,
-                'offer_type_id' => $pet->offer_type_id,
-                'price' => $pet->price,
                 'gender' => $pet->gender,
-                'date' => str_replace('-', '/', $pet->birthday),
-                'pic' => $image,
+
+                'offer_type_number' => $pet->offer_type_number,
+                'offer_type_name' => getOfferTypeName($pet->offer_type_number),
+                'price' => $pet->price,
+
+                'birthday' => $pet->birthday,
+                'image_preview' => $image,
+
                 'is_active' => $pet->isActive,
-                'last_date_activated' => $pet->last_date_activated,
             ];
         }
 
@@ -54,52 +60,29 @@ class ProfileController extends Controller
         $data['user'] = [
             'name' => $user->name,
             'location' => $user->location,
+            'wilaya_number' => $user->wilaya_number,
             'email' => $user->email,
             'phone_number' => $user->phone_number,
             'pic' => 'http://192.168.1.106:8000/storage/users/' . $user->pic,
-            'socials' => $user->socials,
+            'social_list' => $user->social_list,
         ];
-        $wilayas = Wilaya::all();
-        foreach($wilayas as $index => $wilaya) {
-            $data['wilayas'][$index] = [
-                'value' => $wilaya->id,
-                'label' => $wilaya->name,
-            ];
-        }
+        $wilayas = getAllWilaya();
 
         return response()->json([
             'user' => $data['user'],
-            'wilayas' => $data['wilayas'],
+            'wilayas' => $wilayas,
         ]);
     }
-    public function listMyPets() :JsonResponse
-    {
-        $pets = Auth::user()->pets;
-        foreach($pets as $key=>$pet) {
-            $data['pet'][$key] = [
-                'name' => $pet->name,
-                'location' => $pet->location,
-                'race' => $pet->race,
-                'gender' => $pet->gender,
-                'colorName' => $pet->color,
-                'birthday' => $pet->birthday,
-                'description' => $pet->description,
-                'phone_number' => $pet->phone_number,
-                'race_id' => $pet->race_id,
-                'offer_type_id' => $pet->offer_type_id,
-                'wilaya_id' => $pet->wilaya_id,
-            ];
-        }
-        
-        return response()->json($data['pet'], 200);
-    }
+
     public function updateMyProfile(Request $request) :JsonResponse
     {   
         $user = Auth::user();
         $user->name = $request->name;
-        $user->phone_number = $request->phoneNumber;
-        $user->socials = $request->socials;
         $user->location = $request->location;
+        $user->wilaya_number = $request->wilaya_number;
+        $user->wilaya_name = getWilayaName($request->wilaya_number);
+        $user->phone_number = $request->phoneNumber;
+        $user->social_list = $request->social_list;
 
         if(strlen($request->imageUpload) > 0) {
             $data = base64_decode($request->imageUpload);
@@ -115,6 +98,7 @@ class ProfileController extends Controller
 
         return response()->json('success', 200);
     }
+
     public function getSavedList() :JsonResponse
     {
         $saved = Auth::user()->save;

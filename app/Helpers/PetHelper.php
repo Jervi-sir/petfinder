@@ -9,19 +9,47 @@ use App\Models\Race;
 use App\Models\Wilaya;
 use Illuminate\Support\Facades\URL;
 
+$wilayas = [
+    1 => [ 'id' => 1, 'name' => 'Adrar', 'code' => 'adrar'],
+    16 => [ 'id' => 16, 'name' => 'Alger', 'code' => 'alger'],
+    17 => [ 'id' => 17, 'name' => 'Djelfa', 'code' => 'djelfa'],
+    13 => [ 'id' => 13, 'name' => 'Tlemcen', 'code' => 'tlemcen'],
+    31 => [ 'id' => 31, 'name' => 'Oran', 'code' => 'oran'],
+    46 => [ 'id' => 46, 'name' => 'Ain Temouchent', 'code' => 'ain temouchent'],
+    47 => [ 'id' => 47, 'name' => 'Ghardaia', 'code' => 'ghardaia'],
+];
+
+$offerTypes = ['adoption', 'sale', 'rent'];
+$gender = ['male', 'female', 'unkown'];
+
 function getWilayaName($number) {
-    $wilaya = ['', 'Adrar', 'Ain Temouchent', 'Oran', 'Alger', 'Tizi Ouzou', 'Tlemcen'];
-    return $wilaya[$number];
+    global $wilayas;
+    return $wilayas[$number]['name'] ?? null;
+}
+
+function getAllWilaya() {
+    global $wilayas;
+    return $wilayas;
 }
 
 function getOfferTypeName($number) {
-    $offerType = ['adoption', 'sale', 'rent'];
+    global $offerType;
     return $offerType[$number];
 }
 
+function getAllOfferType() {
+    global $offerType;
+    return $offerType;
+}
+
 function getGenderName($number) {
-    $gender = ['male', 'female', 'unknown'];
+    global $gender;
     return $gender[$number];
+}
+
+function getAllGenders() {
+    global $gender;
+    return $gender;
 }
 
 /**

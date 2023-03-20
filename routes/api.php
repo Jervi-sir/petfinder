@@ -58,10 +58,11 @@ Route::controller(SearchController::class)->group(function () {
 |--------------------------------------------------------------------------
 */
 
+
 /*-----| PetController |-----*/
 Route::controller(PetAuthController::class)->middleware('auth:sanctum')->group(function () {
-    Route::get('/v1/get-add-pet',          'getPostPet');       //[done][done]           
     Route::post('/v1/add-pet',              'postPet');         //[done][done]   
+    Route::get('/v1/get-add-pet',          'getPostPet');       //[done][done]           
 
     Route::get('/v1/edit-pet/{petId}',      'editPet');      //[done]        
     Route::post('/v1/update-pet/{petId}',   'updatePet');   //[done]        
