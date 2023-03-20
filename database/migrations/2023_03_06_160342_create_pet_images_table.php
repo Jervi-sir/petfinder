@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('pet_images', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pet_id')->constrained('pets');
-            $table->string('image_name')->nullable();
             $table->string('image_url');
-            $table->string('description')->nullable();
+            $table->string('meta')->nullable();
             $table->timestamps();
         });
     }

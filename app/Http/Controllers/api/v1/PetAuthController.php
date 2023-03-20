@@ -49,6 +49,7 @@ class PetAuthController extends Controller
 
         $validateUser = Validator::make($request->all(), 
         [
+            'images' => 'required',
             'wilaya_id' => 'required',
             'race_id' => 'required',
         ]);

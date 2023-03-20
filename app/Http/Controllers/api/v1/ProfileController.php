@@ -24,7 +24,10 @@ class ProfileController extends Controller
             'socials' => $user->socials,
         ];
 
+        $data['pets'] = [];
+
         foreach($user->getPets as $index => $pet) {
+            $image = $pet->getImages()->exists() ? 'http://192.168.1.106:8000/storage/pets/' . $pet->getImages[0]->image_url : null;
             $data['pets'][$index] = [
                 'id' => $pet->id,
                 'name' => $pet->name,
@@ -33,6 +36,9 @@ class ProfileController extends Controller
                 'offer_type_id' => $pet->offer_type_id,
                 'price' => $pet->price,
                 'gender' => $pet->gender,
+                'date' => str_replace('-', '/', $pet->birthday),
+                'pic' => $image,
+                'is_active' => $pet->isActive,
                 'last_date_activated' => $pet->last_date_activated,
             ];
         }

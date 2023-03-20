@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('races', function (Blueprint $table) {
             $table->id();
-            $table->integer('order');
-            $table->string('name');
+            $table->tinyText('name');
             $table->string('details')->nullable();
-            $table->longText('breed')->nullable();
+            //$table->longText('breed')->nullable();
+            //$table->integer('order')->nullable();;
             $table->timestamps();
         });
     }

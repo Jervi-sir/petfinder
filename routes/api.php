@@ -34,14 +34,13 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 
-
 /*-----| PetController |-----*/
 Route::controller(PetController::class)->group(function () {
+    Route::get('/v1/pet/{id}',  'showPet');      //[]         
     Route::get('/',             'all');                 
-    Route::get('race/{race}',   'showByRace');          
-    Route::get('/pets-latest',  'latest');              
-    Route::get('/pet/{uuid}',  'showPet');             
-    Route::get('/pets-latest/filter={filter}','latestByRace');
+    Route::get('/v1/race/{race}',   'showByRace');          
+    Route::get('/v1/pets-latest',  'latest');              
+    Route::get('/v1/pets-latest/filter={filter}','latestByRace');
 });
 
 

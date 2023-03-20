@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('usertypes', function (Blueprint $table) {
+        Schema::create('translations', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('details')->nullable();
+            $table->integer('score')->nullable();;
+            $table->string('english_word');
+            $table->longText('translation');
+            //$table->string('nb_words')->nullable(); //incase to use it
+            $table->string('how_many_searched')->nullable(); //incase to use it
             $table->timestamps();
         });
     }
@@ -24,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('usertypes');
+        Schema::dropIfExists('translations');
     }
 };

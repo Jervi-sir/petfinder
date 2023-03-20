@@ -14,33 +14,32 @@ return new class extends Migration
         Schema::create('pets', function (Blueprint $table) {
             $table->id();
             $table->string('uuid');
-            $table->string('name')->nullable();
 
+            $table->tinyText('name')->nullable();
             $table->string('location')->nullable();
-            $table->string('wilaya_name')->nullable();
-            $table->string('price')->nullable();
-            $table->string('weight')->nullable();
+            $table->tinyText('wilaya_name')->nullable();
+            $table->tinyInteger('wilaya_number')->nullable();
 
             $table->string('race_name');
             $table->string('sub_race')->nullable();
             $table->tinyInteger('gender')->nullable();   //make it integer 3 options
-            $table->string('color')->nullable();
+
+            $table->tinyInteger('offer_type_number')->nullable();   //make it integer 3 options
+            $table->double('price')->nullable();
+
             $table->date('birthday')->nullable();
 
+            $table->string('color')->nullable();
+            $table->string('weight')->nullable();
             $table->longText('description')->nullable();
 
-            $table->string('phone_number')->nullable();
-
             $table->tinyInteger('is_active')->default(1);
-            $table->string('status')->default('active');    //active, deleted, backedup
             $table->date('last_date_activated');
 
             $table->longText('keywords')->nullable();
 
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('race_id')->constrained('races');
-            $table->foreignId('offer_type_id')->constrained('offer_types');
-            $table->foreignId('wilaya_id')->constrained('wilayas');
 
             $table->timestamps();
         });
