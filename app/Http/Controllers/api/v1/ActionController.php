@@ -18,13 +18,13 @@ class ActionController extends Controller
         $save->pet_id = $petId;
         $save->save();
 
-        return response()->json('User save the pet', 200);
+        return response()->json('User saved the pet', 200);
     }
 
     public function unsave($petId) :JsonResponse
     {
         $save = Save::where('user_id', Auth::user()->id)->where('pet_id', $petId)->first();
         $save->delete();
-        return response()->json('User unsave the pet', 200);
+        return response()->json('User unsaved the pet', 200);
     }
 }

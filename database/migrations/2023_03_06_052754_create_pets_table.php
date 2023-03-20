@@ -22,9 +22,11 @@ return new class extends Migration
 
             $table->string('race_name');
             $table->string('sub_race')->nullable();
-            $table->tinyInteger('gender')->nullable();   //make it integer 3 options
+            $table->tinyInteger('gender_id')->nullable();   //make it integer 3 options
+            $table->tinyText('gender_name')->nullable();   //make it integer 3 options
 
-            $table->tinyInteger('offer_type_number')->nullable();   //make it integer 3 options
+            $table->tinyInteger('offer_type_id')->nullable();   //make it integer 3 options
+            $table->tinyText('offer_type_name')->nullable();   //make it integer 3 options
             $table->double('price')->nullable();
 
             $table->date('birthday')->nullable();

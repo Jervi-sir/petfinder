@@ -9,74 +9,99 @@ use App\Models\Race;
 use App\Models\Wilaya;
 use Illuminate\Support\Facades\URL;
 
-$wilayas = [
-    1 => [ 'id' => 1, 'name' => 'Adrar', 'code' => 'adrar'],
-    16 => [ 'id' => 16, 'name' => 'Alger', 'code' => 'alger'],
-    17 => [ 'id' => 17, 'name' => 'Djelfa', 'code' => 'djelfa'],
-    13 => [ 'id' => 13, 'name' => 'Tlemcen', 'code' => 'tlemcen'],
-    31 => [ 'id' => 31, 'name' => 'Oran', 'code' => 'oran'],
-    46 => [ 'id' => 46, 'name' => 'Ain Temouchent', 'code' => 'ain temouchent'],
-    47 => [ 'id' => 47, 'name' => 'Ghardaia', 'code' => 'ghardaia'],
-];
+function storedWilaya() {
+    return [
+        1  => [ 'id' => 1,  'name' => 'Adrar', 'code' => 'adrar'],
+        16 => [ 'id' => 16, 'name' => 'Alger', 'code' => 'alger'],
+        17 => [ 'id' => 17, 'name' => 'Djelfa', 'code' => 'djelfa'],
+        13 => [ 'id' => 13, 'name' => 'Tlemcen', 'code' => 'tlemcen'],
+        31 => [ 'id' => 31, 'name' => 'Oran', 'code' => 'oran'],
+        46 => [ 'id' => 46, 'name' => 'Ain Temouchent', 'code' => 'ain temouchent'],
+        47 => [ 'id' => 47, 'name' => 'Ghardaia', 'code' => 'ghardaia'],
+    ];
+}
 
-$offerTypes = ['adoption', 'sale', 'rent'];
-$gender = ['male', 'female', 'unkown'];
+function storedOfferType() {
+    return [
+        0 => [ 'id' => 0, 'name' => 'adoption'],
+        1 => [ 'id' => 1, 'name' => 'sale'],
+        2 => [ 'id' => 2, 'name' => 'rent'],
+    ];
+}
 
-function getWilayaName($number) {
-    global $wilayas;
-    return $wilayas[$number]['name'] ?? null;
+function storedGender() {
+    return [
+        0 => [ 'id' => 0, 'name' => 'male'],
+        1 => [ 'id' => 1, 'name' => 'female'],
+        2 => [ 'id' => 2, 'name' => 'unkown'],
+    ];
 }
 
 function getAllWilaya() {
-    global $wilayas;
-    return $wilayas;
-}
-
-function getOfferTypeName($number) {
-    global $offerType;
-    return $offerType[$number];
+    return storedWilaya();
 }
 
 function getAllOfferType() {
-    global $offerType;
-    return $offerType;
-}
-
-function getGenderName($number) {
-    global $gender;
-    return $gender[$number];
+    return storedOfferType();
 }
 
 function getAllGenders() {
-    global $gender;
-    return $gender;
+    return storedGender();
+}
+
+function getWilayaName($number) {
+    return getAllWilaya()[$number]['name'] ?? null;
+}
+
+function getOfferTypeName($number) {
+    return storedOfferType()[$number]['name'];
+}
+
+function getGenderName($number) {
+    return storedGender()[$number]['name'];
 }
 
 /**
- *  get Pets from object input.
+ *  get Pet from object input.
  *
  *  @return \ data object
  */
-function getPets($pets) {
-    $base_pet = URL::to('/pets') . '/';
-    if($pets->count() == 0) {
-        $data['pets'] = [];
-    } else {
-        foreach ($pets as $key => $pet) {
-            $data['pets'][$key] = [
-                'url' => $base_pet . $pet->uuid,             //use uuid
-                'id' => $pet->id,
-                'name' => $pet->name,
-                'gender' => $pet->gender,
-                'race' => $pet->race->name,
-                'status' => $pet->offerType->name,
-                'wilaya' => $pet->wilaya->name,
-                'age' => getAge($pet->date_birth),
-                'image' => getFirstImage($pet->pics)
-            ];
+function getPetDetailed($pet) {
+
+    $images = [];
+    if($pet->getImages()->exists()) {
+        foreach($pet->getImages as $image) {
+            array_push($images, $image);
         }
     }
-    return (object)$data['pets'];
+
+    return [
+        'id' => $pet->id,
+        'uuid' => $pet->uuid,
+        'name' => $pet->name,
+        'location' => $pet->location,
+        'wilaya_name' => $pet->wilaya_name,
+        'wilaya_number' => $pet->wilaya_number,
+
+        'race_name' => $pet->race_name,
+        'sub_race' => $pet->sub_race,
+        'gender_id' => $pet->gender_id,
+        'gender_name' => $pet->gender_name,
+
+        'offer_type_id' => $pet->offer_type_id,
+        'offer_type_name' => $pet->offer_type_name,
+        'price' => $pet->price,
+
+        'birthday' => $pet->birthday,
+
+        'color' => $pet->color,
+        'weight' => $pet->weight,
+        'description' => $pet->description,
+        'phoneNumber' => $pet->phone_number_this_pet,
+
+        'images' => $images ? $images : null,
+        'is_active' => $pet->is_active,
+    ];
 }
 
 /**
@@ -173,58 +198,12 @@ function profileImageUrl($image) {
 
 }
 
-function backupPet($pet) {
-
-    $backup = new Petbackup();
-    $backup->id = $pet->id;
-    $backup->uuid = $pet->uuid;
-    $backup->name = $pet->name;
-    $backup->user_id = $pet->user_id;
-    $backup->race_id = $pet->race_id;
-    $backup->sub_race_id = $pet->sub_race_id;
-    $backup->status_id = $pet->status_id;
-    $backup->wilaya_id = $pet->wilaya_id;
-    $backup->raceName = $pet->raceName;
-    $backup->sub_raceName = $pet->sub_raceName;
-    $backup->wilayaName = $pet->wilayaName;
-    $backup->gender = $pet->gender;
-    $backup->color = $pet->color;
-    $backup->date_birth = $pet->date_birth;
-    $backup->size = $pet->size;
-    $backup->pics = $pet->pics;
-    $backup->description = $pet->description;
-    $backup->tags = $pet->tags;
-    $backup->phone_number = $pet->phone_number;
-    $backup->is_active = 0;
-    $backup->announcement_status = "deleted";
-    $backup->last_date_activated = $pet->last_date_activated;
-    $backup->size = $pet->size;
-    $backup->save();
-
-    return true;
-}
-
-/**
-  * input array
-  *
- 
-function backupImages($images, $source, $type) {
-    foreach ($images as $image) {
-        $backup = new ImagesToDelete();
-        $backup->source = $source;
-        $backup->type = $type;
-        $backup->name = $image;
-        $backup->save();
-    }
-
-}
- */
 /**
   * input string
   * output array of keyword sorted by score
-    //turn keywords single line string into a keyword array
-    //ignore what doesnt exist in db
-  */
+  * turn keywords single line string into a keyword array
+  * ignore what doesnt exist in db
+*/
 function translateToEnglish($sentence) {
     $eng_keywords = [];
     $keywords = explode(" ", preg_replace("/[^A-Za-z0-9 ]\s+/", ' ', $sentence));

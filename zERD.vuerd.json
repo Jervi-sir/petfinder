@@ -1125,7 +1125,7 @@
             "id": "eccb3a4c-4c23-4326-b5ea-341c92444987"
           },
           {
-            "name": "isActive",
+            "name": "is_active",
             "comment": "",
             "dataType": "tinyInt",
             "default": "1",
@@ -1244,7 +1244,7 @@
           "active": true,
           "left": 867.1111,
           "top": 149.8899,
-          "zIndex": 14,
+          "zIndex": 15,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1352,7 +1352,7 @@
           "active": false,
           "left": 1400.4446,
           "top": 143.4442,
-          "zIndex": 11,
+          "zIndex": 10,
           "widthName": 69.208984375,
           "widthComment": 60
         },
@@ -1568,7 +1568,7 @@
           "active": false,
           "left": 27.1117,
           "top": 834.5557,
-          "zIndex": 10,
+          "zIndex": 9,
           "widthName": 68.47900390625,
           "widthComment": 60
         },

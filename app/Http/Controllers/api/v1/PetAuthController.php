@@ -10,11 +10,18 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Models\PetImage;
 use App\Models\Race;
-use App\Models\Wilaya;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Carbon;
+
+/* [complted]
+    [x] getPostPet()    //get info needed for the screen
+    [x] postPet()       //add the pet in database
+    [x] editPet()       //get info needed for the screen
+    [x] updatePet()     //update pet in database
+    [x] deleteWithoutBackupPet()    //delete pet from database without backup
+*/
 
 class PetAuthController extends Controller
 {
@@ -32,19 +39,35 @@ class PetAuthController extends Controller
 
         $user = Auth::user();
         return response()->json([
+            'message' => 'here data needed for post pet page',
             'races' => $data['races'],
             'wilaya' => $wilayas,
             'phone_number' => $user->phone_number,
         ]);
     }
 
+/*  inputs::
+|   name:petname
+|   location:petlocation
+|   wilaya_number:46
+|   race_id:1
+|   subRace:petSubRace
+|   gender_id:0
+|   typeOffer_id:0
+|   price:
+|   birthday:2022-08-07
+|   color:petcolor
+|   weight:petweight
+|   description:petDescription
+|   phoneNumber:0558054300
+|   images[]
+*/
     public function postPet(Request $request) :JsonResponse
     {
-
         $validateUser = Validator::make($request->all(), 
         [
             'images' => 'required',
-            'wilaya_id' => 'required',
+            'wilaya_number' => 'required',
             'race_id' => 'required',
         ]);
 
@@ -55,7 +78,7 @@ class PetAuthController extends Controller
                 'errors' => $validateUser->errors()
             ], 401);
         }
-            
+ 
         try {
             $user = Auth::user();
             $uuid = uniqid();
@@ -66,20 +89,23 @@ class PetAuthController extends Controller
             $pet->uuid = $uuid;
             $pet->name = $request->name;
             $pet->location = $request->location;
-            $pet->wilaya_name = getWilayaName($request->wilaya_id);
-            $pet->wilaya_number = $request->wilaya_id;
+            $pet->wilaya_name = getWilayaName($request->wilaya_number);
+            $pet->wilaya_number = $request->wilaya_number;
             
             $pet->race_name = Race::find($request->race_id)->name;
             $pet->sub_race = $request->subRace;
-            $pet->gender = $request->gender;
+            $pet->gender_id = $request->gender_id;
+            $pet->gender_name = getGenderName($request->gender_id);
 
-            $pet->offer_type_id = $request->typeOffer;
+            $pet->offer_type_id = $request->typeOffer_id;
+            $pet->offer_type_name = getOfferTypeName($request->typeOffer_id);
+
             $pet->price = $request->price;
-            $pet->birthday = $request->date;
+            $pet->birthday = $request->birthday;
             $pet->color = $request->color;
             $pet->weight = $request->weight;
             $pet->description = $request->description;
-            $pet->phone_number_this_pet = $request->phone_number;
+            $pet->phone_number_this_pet = $request->phoneNumber;
 
             $pet->last_date_activated = $last_date_activated;
             
@@ -87,9 +113,10 @@ class PetAuthController extends Controller
             $pet->race_id = $request->race_id;
 
             $pet->keywords = generateKeywords($pet);
-            
+
             $pet->save();
 
+            /*
             foreach($request->images as $index => $image) {
                 if($image != null) {
 
@@ -108,7 +135,7 @@ class PetAuthController extends Controller
                     $img_save->save();
                 }
             }
-    
+            */
             return response()->json([
                 'status' => true,
                 'message' => 'Pet Created Successfully',
@@ -121,10 +148,12 @@ class PetAuthController extends Controller
                 'message' => $th->getMessage()
             ], 500);
         }
-
-
-        return response()->json('', 200);
+        return response()->json([
+            'message' => 'pet added successfully',
+            'pet' => $pet
+        ], 200);
     }
+
 
     public function editPet($petId) :JsonResponse
     {
@@ -137,9 +166,11 @@ class PetAuthController extends Controller
 
             'race_name' => $pet->race_name,
             'sub_race' => $pet->sub_race,
-            'gender' => $pet->gender,
+            'gender_id' => $pet->gender_id,
+            'gender_name' => $pet->gender_name,
 
-            'offer_type_number' => $pet->offer_type_number,
+            'offer_type_id' => $pet->offer_type_id,
+            'offer_type_name' => $pet->offer_type_name,
             'price' => $pet->price,
 
             'birthday' => $pet->birthday,
@@ -149,9 +180,40 @@ class PetAuthController extends Controller
             'phone_number' => $pet->phone_number_this_pet,
             'race_id' => $pet->race_id,
         ];
-        return response()->json($data['pet'], 200);
+
+        $races = Race::all();
+        foreach($races as $index => $race) {
+            $data['races'][$index] = [
+                'value' => $race->id,
+                'label' => $race->name,
+            ];
+        }
+
+        $wilayas = getAllWilaya();
+
+        return response()->json([
+            'message' => 'here the editPet info needed for the screen',
+            'pet' => $data['pet'],
+            'wilaya' => $wilayas,
+        ]);
     }
 
+/*  inputs::
+|   name:petname
+|   location:petlocation
+|   wilaya_number:46
+|   race_id:1
+|   subRace:petSubRace
+|   gender_id:0
+|   typeOffer_id:0
+|   price:
+|   birthday:2022-08-07
+|   color:petcolor
+|   weight:petweight
+|   description:petDescription
+|   phoneNumber:0558054300
+|   images[]
+*/
     public function updatePet(Request $request, $petId) :JsonResponse
     {
         $pet = Pet::find($petId);
@@ -160,11 +222,13 @@ class PetAuthController extends Controller
         $pet->wilaya_name =  getWilayaName($request->wilaya_number);
         $pet->wilaya_number =  $request->wilaya_number;
 
-        $pet->race_name =  Race::find($request->race)->name;
+        $pet->race_name =  Race::find($request->race_id)->name;
         $pet->sub_race =  $request->sub_race;
-        $pet->gender =  $request->gender;
+        $pet->gender_id =  $request->gender_id;
+        $pet->gender_name =  getGenderName($request->gender_id);
 
-        $pet->offer_type_number =  $request->offer_type_id;
+        $pet->offer_type_id =  $request->typeOffer_id;
+        $pet->offer_type_name =  getOfferTypeName($request->typeOffer_id);
         $pet->price =  $request->price;
 
         $pet->birthday =  $request->birthday;
@@ -178,14 +242,19 @@ class PetAuthController extends Controller
 
         $pet->save();
 
-        return response()->json('', 200);
+        return response()->json([
+            'message' => 'updated successfully',
+            'pet' => $pet
+        ], 200);
     }
 
     public function deleteWithoutBackupPet($petId) :JsonResponse
     {  
         Pet::destroy($petId);
 
-        return response()->json('', 200);
+        return response()->json([
+            'message' => 'pet deleted successfully without backup, why have u dont that :...)'
+        ], 200);
     }
     
 }

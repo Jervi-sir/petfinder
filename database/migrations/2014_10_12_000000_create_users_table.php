@@ -23,7 +23,7 @@ return new class extends Migration
 
             $table->string('location')->nullable();
             $table->foreignId('wilaya_number')->nullable();
-            $table->tinyInteger('wilaya_name')->nullable();
+            $table->tinyText('wilaya_name')->nullable();
 
             $table->string('social_list')->nullable();
 
