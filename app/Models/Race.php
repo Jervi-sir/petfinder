@@ -11,6 +11,11 @@ class Race extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'details',
+    ];
+
     public function getPets() :HasMany
     {
         return $this->hasMany(Pet::class);

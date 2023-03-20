@@ -24,27 +24,28 @@ class Pet extends Model
         'name',
 
         'location',
+        'wilaya_name',
+        'wilaya_number',
 
-        'race',
+        'race_name',
+        'sub_race',
         'gender',
-        'colorName',
+
+        'offer_type_number',
+        'price',
+
         'birthday',
-        'pics',
+        'color',
+        'weight',
         'description',
-        'phone_number',
-
         'is_active',
-        'status',
         'last_date_activated',
-
         'keywords',
-
+       
         'user_id',
         'race_id',
-        'offer_type_id',
-        'wilaya_id',
-    ];
 
+    ];
 
     public function getUser() :BelongsTo
     {
@@ -56,27 +57,7 @@ class Pet extends Model
         return $this->belongsTo(Race::class);
     }
 
-    public function getOfferType() :BelongsTo
-    {
-        return $this->belongsTo(OfferType::class);
-    }
-
-    public function getWilaya() :BelongsTo
-    {
-        return $this->belongsTo(Wilaya::class);
-    }
-
-    public function getLikes() :HasMany
-    {
-        return $this->hasMany(Like::class);
-    }
-
-    public function getComments() :HasMany
-    {
-        return $this->hasMany(Comment::class);
-    }
-
-    public function getSaves() :HasMany
+    public function getUserWhoSaved() :HasMany
     {
         return $this->hasMany(Save::class);
     }

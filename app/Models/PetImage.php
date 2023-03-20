@@ -11,6 +11,12 @@ class PetImage extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'pet_id',
+        'image_url',
+        'meta',
+    ];
+
     public function getPet() :BelongsTo
     {
         return $this->belongsTo(Pet::class);

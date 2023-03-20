@@ -4,11 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Pet;
-use App\Models\Like;
 use App\Models\Role;
 use App\Models\Save;
-use App\Models\Comment;
-use App\Models\Usertype;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -30,6 +27,12 @@ class User extends Authenticatable
         'email',
         'password',
         'role_id',
+        'pic',
+        'phone_number',
+        'location',
+        'wilaya_name',
+        'wilaya_number',
+        'social_list'
     ];
 
     /**
@@ -51,11 +54,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getUsertype() :BelongsTo
-    {
-        return $this->belongsTo(Usertype::class);
-    }
-
     public function getRole() :BelongsTo
     {
         return $this->belongsTo(Role::class);
@@ -64,16 +62,6 @@ class User extends Authenticatable
     public function getPets() :HasMany
     {
         return $this->hasMany(Pet::class);
-    }
-
-    public function getCommentedPets() :HasMany
-    {
-        return $this->hasMany(Comment::class);
-    }
-
-    public function getLikedPets() :HasMany
-    {
-        return $this->hasMany(Like::class);
     }
 
     public function getSavedPets() :HasMany

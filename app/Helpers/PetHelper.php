@@ -9,6 +9,20 @@ use App\Models\Race;
 use App\Models\Wilaya;
 use Illuminate\Support\Facades\URL;
 
+function getWilayaName($number) {
+    $wilaya = ['', 'Adrar', 'Ain Temouchent', 'Oran', 'Alger', 'Tizi Ouzou', 'Tlemcen'];
+    return $wilaya[$number];
+}
+
+function getOfferTypeName($number) {
+    $offerType = ['adoption', 'sale', 'rent'];
+    return $offerType[$number];
+}
+
+function getGenderName($number) {
+    $gender = ['male', 'female', 'unknown'];
+    return $gender[$number];
+}
 
 /**
  *  get Pets from object input.
