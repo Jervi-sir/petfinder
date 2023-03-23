@@ -35,40 +35,48 @@ class PetAuthController extends Controller
                 'label' => $race->name,
             ];
         }
-        $wilayas = getAllWilaya();
-
+        $wilayas = storedWilaya();
+        foreach($wilayas as $index => $wilaya) {
+            $data['wialaya'][$index] = [
+                'value' => $wilaya['id'],
+                'label' => $wilaya['name'],
+            ];
+        }
         $user = Auth::user();
         return response()->json([
             'message' => 'here data needed for post pet page',
+            'wilaya' => $data['wialaya'],
             'races' => $data['races'],
-            'wilaya' => $wilayas,
             'phone_number' => $user->phone_number,
         ]);
     }
 
 /*  inputs::
-|   name:petname
-|   location:petlocation
-|   wilaya_number:46
-|   race_id:1
-|   subRace:petSubRace
-|   gender_id:0
-|   typeOffer_id:0
-|   price:
-|   birthday:2022-08-07
-|   color:petcolor
-|   weight:petweight
-|   description:petDescription
-|   phoneNumber:0558054300
+|    color: "Anycolor ",
+|    birthday: "2023/03/11",
+|    description: "Description for pet",
+|    gender: 1,
+|    location: "Algheiajbd",
+|    name: "Name of the pet",
+|    phoneNumber: "(05) 58054-300",
+|    price: "5007,00",
+|    race_id: 1,
+|    subRace: "Sicamoia",
+|    typeOffer: 1,
+|    weight: "12.33",
+|    wilaya_id: 16,
 |   images[]
 */
+
     public function postPet(Request $request) :JsonResponse
     {
         $validateUser = Validator::make($request->all(), 
         [
             'images' => 'required',
-            'wilaya_number' => 'required',
+            'wilaya_id' => 'required',
             'race_id' => 'required',
+            'typeOffer' => 'required',
+            'gender' => 'required',
         ]);
 
         if($validateUser->fails()){
@@ -89,16 +97,16 @@ class PetAuthController extends Controller
             $pet->uuid = $uuid;
             $pet->name = $request->name;
             $pet->location = $request->location;
-            $pet->wilaya_name = getWilayaName($request->wilaya_number);
-            $pet->wilaya_number = $request->wilaya_number;
+            $pet->wilaya_name = getWilayaName($request->wilaya_id);
+            $pet->wilaya_number = $request->wilaya_id;
             
             $pet->race_name = Race::find($request->race_id)->name;
             $pet->sub_race = $request->subRace;
-            $pet->gender_id = $request->gender_id;
-            $pet->gender_name = getGenderName($request->gender_id);
+            $pet->gender_id = $request->gender;
+            $pet->gender_name = getGenderName($request->gender);
 
-            $pet->offer_type_id = $request->typeOffer_id;
-            $pet->offer_type_name = getOfferTypeName($request->typeOffer_id);
+            $pet->offer_type_id = $request->typeOffer;
+            $pet->offer_type_name = getOfferTypeName($request->typeOffer);
 
             $pet->price = $request->price;
             $pet->birthday = $request->birthday;
@@ -116,7 +124,6 @@ class PetAuthController extends Controller
 
             $pet->save();
 
-            /*
             foreach($request->images as $index => $image) {
                 if($image != null) {
 
@@ -135,7 +142,6 @@ class PetAuthController extends Controller
                     $img_save->save();
                 }
             }
-            */
             return response()->json([
                 'status' => true,
                 'message' => 'Pet Created Successfully',

@@ -9,15 +9,20 @@ use App\Models\Race;
 use App\Models\Wilaya;
 use Illuminate\Support\Facades\URL;
 
+function apiUrl() {
+    return 'http://192.168.1.107:8000/';
+}
+
+
 function storedWilaya() {
     return [
-        1  => [ 'id' => 1,  'name' => 'Adrar', 'code' => 'adrar'],
-        16 => [ 'id' => 16, 'name' => 'Alger', 'code' => 'alger'],
-        17 => [ 'id' => 17, 'name' => 'Djelfa', 'code' => 'djelfa'],
-        13 => [ 'id' => 13, 'name' => 'Tlemcen', 'code' => 'tlemcen'],
-        31 => [ 'id' => 31, 'name' => 'Oran', 'code' => 'oran'],
-        46 => [ 'id' => 46, 'name' => 'Ain Temouchent', 'code' => 'ain temouchent'],
-        47 => [ 'id' => 47, 'name' => 'Ghardaia', 'code' => 'ghardaia'],
+        [ 'id' => 1,  'name' => 'Adrar', 'code' => 'adrar'],
+        [ 'id' => 16, 'name' => 'Alger', 'code' => 'alger'],
+        [ 'id' => 17, 'name' => 'Djelfa', 'code' => 'djelfa'],
+        [ 'id' => 13, 'name' => 'Tlemcen', 'code' => 'tlemcen'],
+        [ 'id' => 31, 'name' => 'Oran', 'code' => 'oran'],
+        [ 'id' => 46, 'name' => 'Ain Temouchent', 'code' => 'ain temouchent'],
+        [ 'id' => 47, 'name' => 'Ghardaia', 'code' => 'ghardaia'],
     ];
 }
 
@@ -50,15 +55,30 @@ function getAllGenders() {
 }
 
 function getWilayaName($number) {
-    return getAllWilaya()[$number]['name'] ?? null;
+    foreach (getAllWilaya() as $element) {
+        if ($element['id'] == $number) {
+            return $element['name'];
+        }
+    }
+    return null;
 }
 
 function getOfferTypeName($number) {
-    return storedOfferType()[$number]['name'];
+    foreach (storedOfferType() as $element) {
+        if ($element['id'] == $number) {
+            return $element['name'];
+        }
+    }
+    return null;
 }
 
 function getGenderName($number) {
-    return storedGender()[$number]['name'];
+    foreach (storedGender() as $element) {
+        if ($element['id'] == $number) {
+            return $element['name'];
+        }
+    }
+    return null;
 }
 
 /**
@@ -71,7 +91,10 @@ function getPetDetailed($pet) {
     $images = [];
     if($pet->getImages()->exists()) {
         foreach($pet->getImages as $image) {
-            array_push($images, $image);
+            array_push($images, [
+                'desc' => '$image->meta',
+                'image' => apiUrl() . 'storage/pets/' . $image->image_url,
+            ]);
         }
     }
 
@@ -100,6 +123,31 @@ function getPetDetailed($pet) {
         'phoneNumber' => $pet->phone_number_this_pet,
 
         'images' => $images ? $images : null,
+        'is_active' => $pet->is_active,
+    ];
+}
+
+function getPetPreview($pet) {
+    $image = $pet->getImages()->exists() ? apiUrl() . 'storage/pets/' . $pet->getImages[0]->image_url : null;
+    return [
+        'id' => $pet->id,
+        'name' => $pet->name,
+        'location' => $pet->location,
+        'wilaya_name' => $pet->wilaya_name,
+        'wilaya_number' => $pet->wilaya_number,
+
+        'race_name' => $pet->race_name,
+        'sub_race' => $pet->sub_race,
+        'gender_id' => $pet->gender_id,
+        'gender_name' => $pet->gender_name,
+
+        'offer_type_id' => $pet->offer_type_id,
+        'offer_type_name' => getOfferTypeName($pet->offer_type_id),
+        'price' => $pet->price,
+
+        'birthday' => $pet->birthday,
+        'image_preview' => $image,
+        'description' => $pet->description,
         'is_active' => $pet->is_active,
     ];
 }

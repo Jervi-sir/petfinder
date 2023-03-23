@@ -21,15 +21,14 @@ class ProfileController extends Controller
             'location' => $user->location,
             'wilaya_name' => $user->wilaya_name,
             'phone_number' => $user->phone_number,
-            'pic' => $user->pic ? 'http://192.168.1.106:8000/storage/users/' . $user->pic : null,
+            'pic' => $user->pic ? apiUrl() . 'storage/users/' . $user->pic : null,
             'social_list' => $user->socials,
         ];
 
-
         $data['pets'] = [];
 
-        foreach($user->getPets as $index => $pet) {
-            $image = $pet->getImages()->exists() ? 'http://192.168.1.106:8000/storage/pets/' . $pet->getImages[0]->image_url : null;
+        foreach($user->getPets()->latest()->get() as $index => $pet) {
+            $image = $pet->getImages()->exists() ? apiUrl() . 'storage/pets/' . $pet->getImages[0]->image_url : null;
             $data['pets'][$index] = [
                 'id' => $pet->id,
                 'name' => $pet->name,
@@ -48,7 +47,7 @@ class ProfileController extends Controller
 
                 'birthday' => $pet->birthday,
                 'image_preview' => $image,
-
+                'description' => $pet->description,
                 'is_active' => $pet->is_active,
             ];
         }
@@ -70,7 +69,7 @@ class ProfileController extends Controller
             'wilaya_number' => $user->wilaya_number,
             'email' => $user->email,
             'phone_number' => $user->phone_number,
-            'pic' => $user->pic ? 'http://192.168.1.106:8000/storage/users/' . $user->pic : null,
+            'pic' => $user->pic ? apiUrl() . 'storage/users/' . $user->pic : null,
             'social_list' => $user->social_list,
         ];
         $wilayas = getAllWilaya();
@@ -93,7 +92,7 @@ class ProfileController extends Controller
         $user->social_list = $request->social_list;
 
         if(strlen($request->imageUpload) > 0) {
-            $data = base64_decode($request->imageToServer);
+            $data = base64_decode($request->imageUpload);
             $filename = 'user_' . $user->id . 
             '_email_' . explode('@', $user->email)[0] .
             uniqid() .

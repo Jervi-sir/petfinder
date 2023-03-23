@@ -13,7 +13,7 @@ class PetController extends Controller
     {
         $pets = Pet::latest()->get();
         foreach($pets as $index => $pet) {
-            $data['pets'][$index] = getPetDetailed($pet);
+            $data['pets'][$index] = getPetPreview($pet);
         }
         return response()->json([
             'message' => 'here are latest pets',
@@ -25,7 +25,7 @@ class PetController extends Controller
     {
         $pets = Pet::where('race_id', $raceId)->get();
         foreach($pets as $index => $pet) {
-            $data['pets'][$index] = getPetDetailed($pet);
+            $data['pets'][$index] = getPetPreview($pet);
         }
         return response()->json([
             'message' => 'here are pet by race u ve specified',
