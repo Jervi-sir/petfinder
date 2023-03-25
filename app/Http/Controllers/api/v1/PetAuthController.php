@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Models\Pet;
-use Cloudinary\Cloudinary;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -14,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Carbon;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 /* [complted]
     [x] getPostPet()    //get info needed for the screen
@@ -25,18 +25,18 @@ use Illuminate\Support\Carbon;
 
 class PetAuthController extends Controller
 {
-   
-    public function getPostPet() :JsonResponse
+
+    public function getPostPet(): JsonResponse
     {
         $races = Race::all();
-        foreach($races as $index => $race) {
+        foreach ($races as $index => $race) {
             $data['races'][$index] = [
                 'value' => $race->id,
                 'label' => $race->name,
             ];
         }
         $wilayas = storedWilaya();
-        foreach($wilayas as $index => $wilaya) {
+        foreach ($wilayas as $index => $wilaya) {
             $data['wialaya'][$index] = [
                 'value' => $wilaya['id'],
                 'label' => $wilaya['name'],
@@ -51,7 +51,7 @@ class PetAuthController extends Controller
         ]);
     }
 
-/*  inputs::
+    /*  inputs::
 |    color: "Anycolor ",
 |    birthday: "2023/03/11",
 |    description: "Description for pet",
@@ -68,25 +68,27 @@ class PetAuthController extends Controller
 |   images[]
 */
 
-    public function postPet(Request $request) :JsonResponse
+    public function postPet(Request $request): JsonResponse
     {
-        $validateUser = Validator::make($request->all(), 
-        [
-            'images' => 'required',
-            'wilaya_id' => 'required',
-            'race_id' => 'required',
-            'typeOffer' => 'required',
-            'gender' => 'required',
-        ]);
+        $validateUser = Validator::make(
+            $request->all(),
+            [
+                'images' => 'required',
+                'wilaya_id' => 'required',
+                'race_id' => 'required',
+                'typeOffer' => 'required',
+                'gender' => 'required',
+            ]
+        );
 
-        if($validateUser->fails()){
+        if ($validateUser->fails()) {
             return response()->json([
                 'status' => false,
                 'message' => 'validation error',
                 'errors' => $validateUser->errors()
             ], 401);
         }
- 
+
         try {
             $user = Auth::user();
             $uuid = uniqid();
@@ -99,7 +101,7 @@ class PetAuthController extends Controller
             $pet->location = $request->location;
             $pet->wilaya_name = getWilayaName($request->wilaya_id);
             $pet->wilaya_number = $request->wilaya_id;
-            
+
             $pet->race_name = Race::find($request->race_id)->name;
             $pet->sub_race = $request->subRace;
             $pet->gender_id = $request->gender;
@@ -116,7 +118,7 @@ class PetAuthController extends Controller
             $pet->phone_number_this_pet = $request->phoneNumber;
 
             $pet->last_date_activated = $last_date_activated;
-            
+
             $pet->user_id = $user->id;
             $pet->race_id = $request->race_id;
 
@@ -124,20 +126,23 @@ class PetAuthController extends Controller
 
             $pet->save();
 
-            foreach($request->images as $index => $image) {
-                if($image != null) {
+            foreach ($request->images as $index => $image) {
+                if ($image != null) {
 
-                    $data = base64_decode($image);
-                    $filename = 'race_' . $request->race_id . 
-                    '_user_' . $user->id .
-                    '_random_' . $uuid .
-                    '_i_' . $index .
-                    '.jpg';
-                    Storage::put('public/pets/' . $filename, $data);
-                    
+                    //$data = base64_decode($image);
+                    $filename = 'race_' . $request->race_id .
+                        '_usr_' . $user->id .
+                        '_rndm_' . $uuid .
+                        '_i_' . $index;
+                    //Storage::put('public/pets/' . $filename, $data);
+
+                    $result = Cloudinary::upload('data:image/png;base64,' . $image, [
+                        'public_id' => $filename
+                    ]);
+
                     $img_save = new PetImage();
                     $img_save->pet_id = $pet->id;
-                    $img_save->image_url = $filename;
+                    $img_save->image_url = $result->getSecurePath();
                     $img_save->meta = $pet->keywords;
                     $img_save->save();
                 }
@@ -147,7 +152,6 @@ class PetAuthController extends Controller
                 'message' => 'Pet Created Successfully',
                 'token' => $pet,
             ], 200);
-
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
@@ -161,7 +165,7 @@ class PetAuthController extends Controller
     }
 
 
-    public function editPet($petId) :JsonResponse
+    public function editPet($petId): JsonResponse
     {
         $pet = Pet::find($petId);
         $data['pet'] = [
@@ -188,7 +192,7 @@ class PetAuthController extends Controller
         ];
 
         $races = Race::all();
-        foreach($races as $index => $race) {
+        foreach ($races as $index => $race) {
             $data['races'][$index] = [
                 'value' => $race->id,
                 'label' => $race->name,
@@ -204,7 +208,7 @@ class PetAuthController extends Controller
         ]);
     }
 
-/*  inputs::
+    /*  inputs::
 |   name:petname
 |   location:petlocation
 |   wilaya_number:46
@@ -220,7 +224,7 @@ class PetAuthController extends Controller
 |   phoneNumber:0558054300
 |   images[]
 */
-    public function updatePet(Request $request, $petId) :JsonResponse
+    public function updatePet(Request $request, $petId): JsonResponse
     {
         $pet = Pet::find($petId);
         $pet->name =  $request->name;
@@ -254,13 +258,12 @@ class PetAuthController extends Controller
         ], 200);
     }
 
-    public function deleteWithoutBackupPet($petId) :JsonResponse
-    {  
+    public function deleteWithoutBackupPet($petId): JsonResponse
+    {
         Pet::destroy($petId);
 
         return response()->json([
             'message' => 'pet deleted successfully without backup, why have u dont that :...)'
         ], 200);
     }
-    
 }

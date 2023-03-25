@@ -16,10 +16,10 @@ class GenderSeeder extends Seeder
         DB::table('genders')->insert([
             'name' => 'male',
         ]);
-        DB::table('gender')->insert([
+        DB::table('genders')->insert([
             'name' => 'female',
         ]);
-        DB::table('gender')->insert([
+        DB::table('genders')->insert([
             'name' => 'unknown',
         ]);
     }
