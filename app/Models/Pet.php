@@ -14,11 +14,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Pet extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'uuid',
         'name',
@@ -41,28 +42,28 @@ class Pet extends Model
         'is_active',
         'last_date_activated',
         'keywords',
-       
+
         'user_id',
         'race_id',
 
     ];
 
-    public function getUser() :BelongsTo
+    public function getUser(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function getRace() :BelongsTo
+    public function getRace(): BelongsTo
     {
         return $this->belongsTo(Race::class);
     }
 
-    public function getUserWhoSaved() :HasMany
+    public function getUserWhoSaved(): BelongsToMany
     {
-        return $this->hasMany(Save::class);
+        return $this->belongsToMany(User::class)->using(Save::class);
     }
 
-    public function getImages() :HasMany
+    public function getImages(): HasMany
     {
         return $this->hasMany(PetImage::class);
     }

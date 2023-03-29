@@ -11,6 +11,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -54,19 +55,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getRole() :BelongsTo
+    public function getRole(): BelongsTo
     {
         return $this->belongsTo(Role::class);
     }
 
-    public function getPets() :HasMany
+    public function getPets(): HasMany
     {
         return $this->hasMany(Pet::class);
     }
 
-    public function getSavedPets() :HasMany
+    public function getSavedPets(): BelongsToMany
     {
-        return $this->hasMany(Save::class);
+        return $this->belongsToMany(Pet::class, 'saves')->using(Save::class);
     }
-    
 }

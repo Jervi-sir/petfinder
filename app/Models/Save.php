@@ -7,18 +7,13 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class Save extends Model
+class Save extends Pivot
 {
     use HasFactory;
 
-    public function getPet() :BelongsTo
-    {
-        return $this->belongsTo(Pet::class);
-    }
-    
-    public function getUser() :BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+    protected $table = 'saves';
+    public $incrementing = true;
+    protected $guarded = ['id'];
 }

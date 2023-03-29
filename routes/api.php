@@ -39,17 +39,23 @@ Route::controller(PetController::class)->group(function () {
     Route::get('/v1/pet/{id}',  'showPet');             //api[done]
     Route::get('/v1/race/{raceId}',   'showByRace');    //api[done]
     Route::get('/v1/pets-latest',  'latest');           //api[done]
-    Route::get('/v1/pets-latest/race={raceId}','latestByRace'); //api[done]
+    Route::get('/v1/pets-latest/race={raceId}', 'latestByRace'); //api[done]
 });
-
-
 
 
 /*-----| SearchController |-----*/
 Route::controller(SearchController::class)->group(function () {
-    Route::get('/search?&keyword={keywords}','search');
-    Route::get('/search?&keyword={keywords}&filter={filter}','searchFilter');
+    Route::get('/search?&keyword={keywords}', 'search');
+    Route::get('/search?&keyword={keywords}&filter={filter}', 'searchFilter');
 });
+
+Route::controller(PetController::class)->middleware('auth:sanctum')->group(function () {
+    Route::get('/v1/auth/pet/{id}',  'showPet');             //api[done]
+    Route::get('/v1/auth/race/{raceId}',   'showByRace');    //api[done]
+    Route::get('/v1/auth/pets-latest',  'latest');           //api[done]
+    Route::get('/v1/auth/pets-latest/race={raceId}', 'latestByRace'); //api[done]
+});
+
 
 /*
 |--------------------------------------------------------------------------
@@ -77,6 +83,6 @@ Route::controller(ProfileController::class)->middleware('auth:sanctum')->group(f
 
 /*-----| ActionController |-----*/
 Route::controller(ActionController::class)->middleware('auth:sanctum')->group(function () {
-    Route::post('/v1/save/{petId}',       'save');      
-    Route::post('/v1/unsave/{petId}',     'unsave');    
+    Route::post('/v1/save/{petId}',       'save');
+    Route::post('/v1/unsave/{petId}',     'unsave');
 });

@@ -4,15 +4,16 @@ namespace App\Http\Controllers\api\v1;
 
 use App\Models\Pet;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class PetController extends Controller
 {
-    public function latest() :JsonResponse
+    public function latest(): JsonResponse
     {
         $pets = Pet::latest()->get();
-        foreach($pets as $index => $pet) {
+        foreach ($pets as $index => $pet) {
             $data['pets'][$index] = getPetPreview($pet);
         }
         return response()->json([
@@ -21,10 +22,11 @@ class PetController extends Controller
         ], 201);
     }
 
-    public function showByRace($raceId) :JsonResponse
+
+    public function showByRace($raceId): JsonResponse
     {
         $pets = Pet::where('race_id', $raceId)->get();
-        foreach($pets as $index => $pet) {
+        foreach ($pets as $index => $pet) {
             $data['pets'][$index] = getPetPreview($pet);
         }
         return response()->json([
@@ -34,22 +36,20 @@ class PetController extends Controller
         ], 201);
     }
 
-    public function showPet($id) :JsonResponse
+    public function showPet($id): JsonResponse
     {
         $pet = Pet::find($id);
-       
         $data['pet'] = getPetDetailed($pet);
         return response()->json([
             'message' => 'here is the pet u ve asked for',
             'pet' => $data['pet'],
         ], 201);
-
     }
 
-    public function latestByRace($raceId) :JsonResponse
+    public function latestByRace($raceId): JsonResponse
     {
         $pets = Pet::latest()->where('race_id', $raceId)->get();
-        foreach($pets as $index => $pet) {
+        foreach ($pets as $index => $pet) {
             $data['pets'][$index] = getPetDetailed($pet);
         }
         return response()->json([

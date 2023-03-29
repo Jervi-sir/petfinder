@@ -128,18 +128,15 @@ class PetAuthController extends Controller
 
             foreach ($request->images as $index => $image) {
                 if ($image != null) {
-
                     //$data = base64_decode($image);
                     $filename = 'race_' . $request->race_id .
                         '_usr_' . $user->id .
                         '_rndm_' . $uuid .
                         '_i_' . $index;
                     //Storage::put('public/pets/' . $filename, $data);
-
                     $result = Cloudinary::upload('data:image/png;base64,' . $image, [
                         'public_id' => $filename
                     ]);
-
                     $img_save = new PetImage();
                     $img_save->pet_id = $pet->id;
                     $img_save->image_url = $result->getSecurePath();
@@ -168,27 +165,31 @@ class PetAuthController extends Controller
     public function editPet($petId): JsonResponse
     {
         $pet = Pet::find($petId);
+        $imagesArray = [];
+        foreach ($pet->getImages as $index => $image) {
+            array_push($imagesArray, $image->image_url);
+        }
         $data['pet'] = [
             'name' => $pet->name,
-            'location' => $pet->location,
-            'wilaya_name' => $pet->wilaya_name,
-            'wilaya_number' => $pet->wilaya_number,
+            'color' => $pet->color ? $pet->color : '',
+            'weight' => $pet->weight ? $pet->weight : '',
+            'phone_number' => $pet->phone_number_this_pet,
 
+            'location' => $pet->location ? $pet->location : '',
+            'wilaya_name' => $pet->wilaya_name,
+            'wilaya_id' => $pet->wilaya_number,
+
+            'race_id' => $pet->race_id,
             'race_name' => $pet->race_name,
-            'sub_race' => $pet->sub_race,
+            'sub_race' => $pet->sub_race ? $pet->sub_race : '',
             'gender_id' => $pet->gender_id,
-            'gender_name' => $pet->gender_name,
 
             'offer_type_id' => $pet->offer_type_id,
-            'offer_type_name' => $pet->offer_type_name,
-            'price' => $pet->price,
 
-            'birthday' => $pet->birthday,
-            'color' => $pet->color,
-            'weight' => $pet->weight,
-            'description' => $pet->description,
-            'phone_number' => $pet->phone_number_this_pet,
-            'race_id' => $pet->race_id,
+            'price' => $pet->price ? strval($pet->price) : '',
+            'birthday' => $pet->birthday ? str_replace('-', '/', $pet->birthday,) : '',
+            'description' => $pet->description ? $pet->description : '',
+            'images' => array_pad($imagesArray, 4, null),
         ];
 
         $races = Race::all();
@@ -198,13 +199,19 @@ class PetAuthController extends Controller
                 'label' => $race->name,
             ];
         }
-
-        $wilayas = getAllWilaya();
+        $wilayas = storedWilaya();
+        foreach ($wilayas as $index => $wilaya) {
+            $data['wialaya'][$index] = [
+                'value' => $wilaya['id'],
+                'label' => $wilaya['name'],
+            ];
+        }
 
         return response()->json([
             'message' => 'here the editPet info needed for the screen',
             'pet' => $data['pet'],
-            'wilaya' => $wilayas,
+            'wilaya' => $data['wialaya'],
+            'races' => $data['races'],
         ]);
     }
 
@@ -226,31 +233,91 @@ class PetAuthController extends Controller
 */
     public function updatePet(Request $request, $petId): JsonResponse
     {
+        $validateUser = Validator::make(
+            $request->all(),
+            [
+                'images' => 'required',
+                'wilaya_id' => 'required',
+                'race_id' => 'required',
+                'typeOffer' => 'required',
+                'gender' => 'required',
+            ]
+        );
+
+        if ($validateUser->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'validation error',
+                'errors' => $validateUser->errors()
+            ], 401);
+        }
+
+        $last_date_activated = Carbon::now();
+
         $pet = Pet::find($petId);
         $pet->name =  $request->name;
         $pet->location =  $request->location;
-        $pet->wilaya_name =  getWilayaName($request->wilaya_number);
-        $pet->wilaya_number =  $request->wilaya_number;
+        $pet->wilaya_name =  getWilayaName($request->wilaya_id);
+        $pet->wilaya_number =  $request->wilaya_id;
 
         $pet->race_name =  Race::find($request->race_id)->name;
         $pet->sub_race =  $request->sub_race;
-        $pet->gender_id =  $request->gender_id;
-        $pet->gender_name =  getGenderName($request->gender_id);
+        $pet->gender_id =  $request->gender;
+        $pet->gender_name =  getGenderName($request->gender);
 
-        $pet->offer_type_id =  $request->typeOffer_id;
-        $pet->offer_type_name =  getOfferTypeName($request->typeOffer_id);
+        $pet->offer_type_id =  $request->typeOffer;
+        $pet->offer_type_name =  getOfferTypeName($request->typeOffer);
+
         $pet->price =  $request->price;
-
         $pet->birthday =  $request->birthday;
-
         $pet->color =  $request->color;
         $pet->weight =  $request->weight;
         $pet->description =  $request->description;
-        $pet->phone_number_this_pet = $request->phone_number;
+        $pet->phone_number_this_pet = $request->phoneNumber;
+        $pet->last_date_activated = $last_date_activated;
         $pet->race_id =  $request->race_id;
         $pet->keywords = generateKeywords($pet);
 
         $pet->save();
+
+        $imagesSaved = $pet->getImages;
+        foreach ($request->images as $index => $image) {
+            if ($image != null) {
+                //check if the row is already saved
+                if (filter_var($image, FILTER_VALIDATE_URL)) {
+                    continue;
+                } else {
+                    //-->if not, means its new and time to update it or save it
+                    //-->upload image
+                    $filename = 'race_' . $request->race_id . '_usr_' . $pet->uder_id . '_rndm_' . $pet->uuid . '_i_' . $index;
+                    $result = Cloudinary::upload('data:image/png;base64,' . $image, [
+                        'public_id' => $filename
+                    ]);
+                    //-->check if current from database already handles an image
+                    if (sizeof($imagesSaved) >= $index + 1) {
+                        $imagesSaved[$index]->image_url = $result->getSecurePath();
+                        $imagesSaved[$index]->save();
+                    } else {
+                        //-->if a totall new image then create a new relationship image
+                        //save it into record
+                        $img_save = new PetImage();
+                        $img_save->pet_id = $pet->id;
+                        $img_save->image_url = $result->getSecurePath();
+                        $img_save->meta = $pet->keywords;
+                        $img_save->save();
+                    }
+                }
+            } else {
+                //-->means its null, maybe remove or just not filled yet
+                //-->check if cell not new
+                if (sizeof($imagesSaved) >= $index + 1) {
+                    //if the cell is already filled
+                    if ($imagesSaved[$index]) {
+                        $imagesSaved[$index]->delete();
+                    }
+                }
+            }
+        }
 
         return response()->json([
             'message' => 'updated successfully',
