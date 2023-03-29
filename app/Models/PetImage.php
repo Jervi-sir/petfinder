@@ -17,7 +17,7 @@ class PetImage extends Model
         'meta',
     ];
 
-    public function getPet() :BelongsTo
+    public function pet(): BelongsTo
     {
         return $this->belongsTo(Pet::class);
     }

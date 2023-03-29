@@ -55,7 +55,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getRole(): BelongsTo
+    public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
     }

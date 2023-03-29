@@ -185,7 +185,7 @@ class PetAuthController extends Controller
             'gender_id' => $pet->gender_id,
 
             'offer_type_id' => $pet->offer_type_id,
-
+            'is_active' => $pet->is_active,
             'price' => $pet->price ? strval($pet->price) : '',
             'birthday' => $pet->birthday ? str_replace('-', '/', $pet->birthday,) : '',
             'description' => $pet->description ? $pet->description : '',

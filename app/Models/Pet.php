@@ -48,19 +48,19 @@ class Pet extends Model
 
     ];
 
-    public function getUser(): BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function getRace(): BelongsTo
+    public function race(): BelongsTo
     {
         return $this->belongsTo(Race::class);
     }
 
     public function getUserWhoSaved(): BelongsToMany
     {
-        return $this->belongsToMany(User::class)->using(Save::class);
+        return $this->belongsToMany(User::class, 'saves')->using(Save::class);
     }
 
     public function getImages(): HasMany

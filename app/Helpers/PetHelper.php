@@ -244,7 +244,7 @@ function uniqueUuid($race, $name)
  */
 function imagesToUrl($images)
 {
-    $base_image = URL::to('/petImages') . '/';
+    $base_image = URL::to('/getImages') . '/';
     $pet_pics_with_url = [];
     $pet_pics = json_decode($images);
     foreach ($pet_pics as $pic) {

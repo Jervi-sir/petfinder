@@ -69,7 +69,6 @@ Route::controller(PetAuthController::class)->middleware('auth:sanctum')->group(f
     Route::post('/v1/add-pet',              'postPet');         //api[done]
     Route::get('/v1/edit-pet/{petId}',      'editPet');         //api[done]
     Route::post('/v1/update-pet/{petId}',   'updatePet');       //api[done]
-    Route::post('/v1/delete-pet/{petId}',   'deleteWithoutBackupPet');  //api[done]
 });
 
 /*-----| ProfileController |-----*/
@@ -85,4 +84,7 @@ Route::controller(ProfileController::class)->middleware('auth:sanctum')->group(f
 Route::controller(ActionController::class)->middleware('auth:sanctum')->group(function () {
     Route::post('/v1/save/{petId}',       'save');
     Route::post('/v1/unsave/{petId}',     'unsave');
+    Route::post('/v1/archive/{petId}',  'archive');
+    Route::post('/v1/unarchive/{petId}',  'unarchive');
+    Route::post('/v1/deletepet/{petId}',  'delete');
 });
