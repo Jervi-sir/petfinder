@@ -13,6 +13,7 @@ class RaceSeeder extends Seeder
      */
     public function run(): void
     {
+        /*
         DB::table('races')->insert([
             //'order' => 1,
             'name' => 'cat',
@@ -48,5 +49,6 @@ class RaceSeeder extends Seeder
             'name' => 'goat',
             //'breed' => json_encode(['goat', 'chevre', 'vruh'])
         ]);
+        */
     }
 }

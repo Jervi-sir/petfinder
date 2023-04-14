@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('wilayas', function (Blueprint $table) {
             $table->id();
-            $table->tinyText('name');
-            $table->integer('number');
+            $table->string('name');
+            $table->tinyInteger('number');
             $table->timestamps();
         });
     }

@@ -18,8 +18,8 @@ use App\Http\Controllers\api\v1\ProfileController;
 |   [x] update pet      [x] get edit pet
 |   [x] show profile    [x] list my pets    [x] delete profile
 |   [x] update profile  [x] get edit profile
-|   [] save             [] unsave
-|   [] search           [] filter           [x] pet latest
+|   [x] save            [x] unsave
+|   [x] search          [x] filter           [x] pet latest
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -27,64 +27,58 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 /*-----| Authentication |-----*/
-Route::controller(AuthController::class)->group(function () {
-    Route::post('/v1/register', 'register');        //api[done]
-    Route::post('/v1/login',    'login');           //api[done]
-    Route::middleware('auth:sanctum')->post('/v1/logout', 'logout');    //api[done]    
+Route::prefix('v1/')->middleware('auth:sanctum')->group(function () {
+    Route::post('register', [AuthController::class, 'register']);               //[]
+    Route::post('login', [AuthController::class, 'login']);                     //[]
+    Route::prefix('auth/')->middleware('auth:sanctum')->group(function () {
+        Route::post('logout', [AuthController::class, 'logout']);               //[]post
+    });
+});
+
+
+Route::prefix('v1/auth/')->middleware('auth:sanctum')->group(function () {
+    Route::prefix('pets/')->group(function () {
+        Route::get('id/{id}',  [PetController::class, 'showPet']);                          //[]
+        Route::get('race/{raceId}',   [PetController::class, 'showByRace']);                //[]
+        Route::get('pets-latest',  [PetController::class, 'latest']);                       //[]
+        Route::get('pets-latest/race={raceId}', [PetController::class, 'latestByRace']);    //[]
+    });
+
+
+    Route::prefix('pet/')->group(function () {
+        Route::get('add-pet', [PetAuthController::class, 'getPostPet']);                    //[]
+        Route::post('add-pet', [PetAuthController::class, 'postPet']);                      //[]
+        Route::get('edit-pet/{petId}', [PetAuthController::class, 'editPet']);              //[]
+        Route::post('edit-pet/{petId}', [PetAuthController::class, 'updatePet']);           //[]
+    });
+
+    Route::prefix('profile/')->group(function () {
+        Route::get('show-my-profile', [ProfileController::class, 'showMyProfile']);         //[]
+        Route::get('edit-profile', [ProfileController::class, 'getMyProfileForEdit']);      //[]
+        Route::post('edit-profile', [ProfileController::class, 'updateMyProfile']);         //[]
+        Route::get('saved-list', [ProfileController::class, 'getSavedList']);               //[]
+    });
+
+    Route::prefix('actions/')->group(function () {
+        Route::post('save/{petId}',       [ActionController::class, 'save']);           //[]
+        Route::post('unsave/{petId}',     [ActionController::class, 'unsave']);         //[]
+        Route::post('archive/{petId}',  [ActionController::class, 'archive']);          //[]
+        Route::post('unarchive/{petId}',  [ActionController::class, 'unarchive']);      //[]
+        Route::post('deletepet/{petId}',  [ActionController::class, 'delete']);         //[]
+    });
 });
 
 
 /*-----| PetController |-----*/
-Route::controller(PetController::class)->group(function () {
-    Route::get('/v1/pet/{id}',  'showPet');             //api[done]
-    Route::get('/v1/race/{raceId}',   'showByRace');    //api[done]
-    Route::get('/v1/pets-latest',  'latest');           //api[done]
-    Route::get('/v1/pets-latest/race={raceId}', 'latestByRace'); //api[done]
+Route::prefix('v1/')->group(function () {
+    Route::get('pet/{id}',  [PetController::class, 'showPet']);                         //[]
+    Route::get('race/{raceId}',   [PetController::class, 'showByRace']);                //[]
+    Route::get('pets-latest',  [PetController::class, 'latest']);                       //[]
+    Route::get('pets-latest/race={raceId}', [PetController::class, 'latestByRace']);    //[]
 });
-
 
 /*-----| SearchController |-----*/
-Route::controller(SearchController::class)->group(function () {
-    Route::get('/search?&keyword={keywords}', 'search');
-    Route::get('/search?&keyword={keywords}&filter={filter}', 'searchFilter');
-});
-
-Route::controller(PetController::class)->middleware('auth:sanctum')->group(function () {
-    Route::get('/v1/auth/pet/{id}',  'showPet');             //api[done]
-    Route::get('/v1/auth/race/{raceId}',   'showByRace');    //api[done]
-    Route::get('/v1/auth/pets-latest',  'latest');           //api[done]
-    Route::get('/v1/auth/pets-latest/race={raceId}', 'latestByRace'); //api[done]
-});
-
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes with Auth Middleware
-|--------------------------------------------------------------------------
-*/
-
-/*-----| PetController |-----*/
-Route::controller(PetAuthController::class)->middleware('auth:sanctum')->group(function () {
-    Route::get('/v1/get-add-pet',           'getPostPet');       //api[done]
-    Route::post('/v1/add-pet',              'postPet');         //api[done]
-    Route::get('/v1/edit-pet/{petId}',      'editPet');         //api[done]
-    Route::post('/v1/update-pet/{petId}',   'updatePet');       //api[done]
-});
-
-/*-----| ProfileController |-----*/
-Route::controller(ProfileController::class)->middleware('auth:sanctum')->group(function () {
-    Route::get('/v1/showMyProfile',        'showMyProfile');        //api[done]
-    Route::get('/v1/profile-edit-get',     'getMyProfileForEdit');  //api[done]
-    Route::post('/v1/profile-edit-update', 'updateMyProfile');      //api[done]
-    Route::get('/v1/saved-list',           'getSavedList');         //api[]
-});
-
-
-/*-----| ActionController |-----*/
-Route::controller(ActionController::class)->middleware('auth:sanctum')->group(function () {
-    Route::post('/v1/save/{petId}',       'save');
-    Route::post('/v1/unsave/{petId}',     'unsave');
-    Route::post('/v1/archive/{petId}',  'archive');
-    Route::post('/v1/unarchive/{petId}',  'unarchive');
-    Route::post('/v1/deletepet/{petId}',  'delete');
+Route::prefix('search/')->group(function () {
+    Route::get('/keyword={keywords}', [SearchController::class, 'search']);                         //[]
+    Route::get('/keyword={keywords}&filter={filter}', [SearchController::class, 'searchFilter']);   //[]
 });

@@ -4,13 +4,22 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Pet;
+use App\Models\Race;
+use App\Models\Save;
+use App\Models\User;
+use App\Models\Wilaya;
+use App\Models\SubRace;
+use App\Models\PetImage;
 use App\Models\OfferType;
 use Database\Seeders\TagSeeder;
 use Illuminate\Database\Seeder;
 use Database\Seeders\RaceSeeder;
 use Database\Seeders\RoleSeeder;
 use Database\Seeders\ColorSeeder;
+use Database\Seeders\GenderSeeder;
 use Database\Seeders\WilayaSeeder;
+use Database\Seeders\OfferTypeSeeder;
 use Database\Seeders\TranslationSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,28 +29,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-
         $roles = new RoleSeeder();
-        $color = new ColorSeeder();
-        $race = new RaceSeeder();
-        $tag = new TagSeeder();
-        $translation = new TranslationSeeder();
-        $wilaya = new WilayaSeeder();
-        $offerType = new OfferTypeSeeder();
-
         $roles->run();
-        $color->run();
-        $race->run();
-        $tag->run();
-        $translation->run();
-        $wilaya->run();
+
+        Race::factory(11)->create();
+        SubRace::factory(60)->create();
+
+        Wilaya::factory(58)->create();
+
+        $offerType = new OfferTypeSeeder();
         $offerType->run();
-        
+
+        $gender = new GenderSeeder();
+        $gender->run();
+
+        User::factory(40)->create();
+        Pet::factory(69)->create();
+        PetImage::factory(256)->create();
+        Save::factory(1024)->create();
     }
 }
