@@ -8,6 +8,7 @@ use App\Http\Controllers\api\v1\ActionController;
 use App\Http\Controllers\api\v1\SearchController;
 use App\Http\Controllers\api\v1\PetAuthController;
 use App\Http\Controllers\api\v1\ProfileController;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,11 @@ use App\Http\Controllers\api\v1\ProfileController;
 |   [x] save            [x] unsave
 |   [x] search          [x] filter           [x] pet latest
 */
+
+Route::get('test', function (Request $request) {
+    $user = User::all();
+    return response()->json($user);
+});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
