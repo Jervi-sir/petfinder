@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('sub_races', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('race_id')->constrained('races');
+            //$table->foreignId('race_id')->constrained('races');
+            $table->foreignId('race_id')->index();
             $table->tinyText('name');
             $table->string('details')->nullable();
             $table->timestamps();

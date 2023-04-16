@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('pets', function (Blueprint $table) {
             $table->id();
             $table->string('uuid');
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('race_id')->constrained('races');
+            //$table->foreignId('user_id')->constrained('users');
+            //$table->foreignId('race_id')->constrained('races');
+            $table->foreignId('user_id')->index();
+            $table->foreignId('race_id')->index();
 
             $table->string('sub_race')->nullable();
             $table->tinyInteger('gender_id')->nullable();   //make it integer 3 options

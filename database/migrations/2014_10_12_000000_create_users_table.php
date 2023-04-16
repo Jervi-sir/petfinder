@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->tinyText('name');
-            $table->tinyText('email')->unique();
+            $table->string('email', 255)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
 
@@ -22,12 +22,13 @@ return new class extends Migration
             $table->string('pic')->nullable();
 
             $table->string('location')->nullable();
-            $table->foreignId('wilaya_id')->nullable();
+            $table->foreignId('wilaya_id')->index()->nullable();
             $table->tinyText('wilaya_name')->nullable();
 
             $table->string('social_list')->nullable();
 
-            $table->foreignId('role_id')->constrained('roles');
+            //$table->foreignId('role_id')->constrained('roles');
+            $table->foreignId('role_id')->index();
 
             $table->rememberToken();
             $table->timestamps();
