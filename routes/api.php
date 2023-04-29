@@ -34,57 +34,57 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 /*-----| Authentication |-----*/
 Route::prefix('v1/')->group(function () {
-    Route::post('register', [AuthController::class, 'register']);               //[verified]
-    Route::post('login', [AuthController::class, 'login']);                     //[verified]
+    Route::post('register', [AuthController::class, 'register']);               //[verified][done]
+    Route::post('login', [AuthController::class, 'login']);                     //[verified][done]
     Route::middleware('auth:sanctum')->group(function () {
-        Route::post('logout', [AuthController::class, 'logout']);               //[verified]
+        Route::post('logout', [AuthController::class, 'logout']);               //[verified][]
     });
 });
 
 
 Route::prefix('v1/auth/')->middleware('auth:sanctum')->group(function () {
     Route::prefix('pets/')->group(function () {
-        Route::get('id/{id}', [PetController::class, 'showPet']);                           //[verified]
-        Route::get('race/{raceId}', [PetController::class, 'showByRace']);                  //[verified]
-        Route::get('latest', [PetController::class, 'latest']);                             //[verified]
-        Route::get('latest/race={raceId}', [PetController::class, 'latestByRace']);         //[verified]
+        Route::get('id/{id}', [PetController::class, 'showPet']);                           //[verified][]
+        Route::get('race/{raceId}', [PetController::class, 'showByRace']);                  //[verified][]
+        Route::get('latest', [PetController::class, 'latest']);                             //[verified][]
+        Route::get('latest/race={raceId}', [PetController::class, 'latestByRace']);         //[verified][]
     });
 
 
     Route::prefix('pet/')->group(function () {
-        Route::get('add-pet', [PetAuthController::class, 'getPostPet']);                    //[verified]
-        Route::post('add-pet', [PetAuthController::class, 'postPet']);                      //[verified]
-        Route::get('edit-pet/{petId}', [PetAuthController::class, 'editPet']);              //[verified]
-        Route::post('edit-pet/{petId}', [PetAuthController::class, 'updatePet']);           //[verified]
+        Route::get('add-pet', [PetAuthController::class, 'getPostPet']);                    //[verified][]
+        Route::post('add-pet', [PetAuthController::class, 'postPet']);                      //[verified][]
+        Route::get('edit-pet/{petId}', [PetAuthController::class, 'editPet']);              //[verified][]
+        Route::post('edit-pet/{petId}', [PetAuthController::class, 'updatePet']);           //[verified][]
     });
 
     Route::prefix('profile/')->group(function () {
-        Route::get('show-my-profile', [ProfileController::class, 'showMyProfile']);         //[verified]
-        Route::get('edit-profile', [ProfileController::class, 'getMyProfileForEdit']);      //[verified]
-        Route::post('edit-profile', [ProfileController::class, 'updateMyProfile']);         //[verified]
-        Route::get('saved-list', [ProfileController::class, 'getSavedList']);               //[verified]
+        Route::get('show-my-profile', [ProfileController::class, 'showMyProfile']);         //[verified][]
+        Route::get('edit-profile', [ProfileController::class, 'getMyProfileForEdit']);      //[verified][]
+        Route::post('edit-profile', [ProfileController::class, 'updateMyProfile']);         //[verified][]
+        Route::get('saved-list', [ProfileController::class, 'getSavedList']);               //[verified][]
     });
 
     Route::prefix('actions/')->group(function () {
-        Route::post('save/{petId}',       [ActionController::class, 'save']);           //[verified]
-        Route::post('unsave/{petId}',     [ActionController::class, 'unsave']);         //[verified]
-        Route::post('archive/{petId}',  [ActionController::class, 'archive']);          //[verified]
-        Route::post('unarchive/{petId}',  [ActionController::class, 'unarchive']);      //[verified]
-        Route::post('deletepet/{petId}',  [ActionController::class, 'delete']);         //[verified]
+        Route::post('save/{petId}',       [ActionController::class, 'save']);           //[verified][]
+        Route::post('unsave/{petId}',     [ActionController::class, 'unsave']);         //[verified][]
+        Route::post('archive/{petId}',  [ActionController::class, 'archive']);          //[verified][]
+        Route::post('unarchive/{petId}',  [ActionController::class, 'unarchive']);      //[verified][]
+        Route::post('deletepet/{petId}',  [ActionController::class, 'delete']);         //[verified][]
     });
 });
 
 
 /*-----| PetController |-----*/
 Route::prefix('v1/pets/')->group(function () {
-    Route::get('id/{id}',  [PetController::class, 'showPet']);                         //[verified]
-    Route::get('race/{raceId}',   [PetController::class, 'showByRace']);                //[verified]
-    Route::get('latest',  [PetController::class, 'latest']);                            //[verified]
-    Route::get('latest/race={raceId}', [PetController::class, 'latestByRace']);         //[verified]
+    Route::get('id/{id}',  [PetController::class, 'showPet']);                         //[verified][]
+    Route::get('race/{raceId}',   [PetController::class, 'showByRace']);                //[verified][]
+    Route::get('latest',  [PetController::class, 'latest']);                            //[verified][]
+    Route::get('latest/race={raceId}', [PetController::class, 'latestByRace']);         //[verified][]
 });
 
 /*-----| SearchController |-----*/
 Route::prefix('search/')->group(function () {
-    Route::get('/keyword={keywords}', [SearchController::class, 'search']);                         //[verified]
-    Route::get('/keyword={keywords}&filter={filter}', [SearchController::class, 'searchFilter']);   //[verified]
+    Route::get('/keyword={keywords}', [SearchController::class, 'search']);                         //[verified][]
+    Route::get('/keyword={keywords}&filter={filter}', [SearchController::class, 'searchFilter']);   //[verified][]
 });

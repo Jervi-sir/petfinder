@@ -12,20 +12,21 @@ class PetController extends Controller
 {
     public function latest(): JsonResponse
     {
-        $pets = Pet::latest()->get();
+        $pets = Pet::paginate(7);
         foreach ($pets as $index => $pet) {
             $data['pets'][$index] = getPetPreview($pet);
         }
         return response()->json([
             'message' => 'here are latest pets',
             'pets' => $data['pets'],
+            'last_page' => $pets->lastPage(),
         ], 201);
     }
 
 
     public function showByRace($raceId): JsonResponse
     {
-        $pets = Pet::where('race_id', $raceId)->get();
+        $pets = Pet::where('race_id', $raceId)->paginate(7);
         foreach ($pets as $index => $pet) {
             $data['pets'][$index] = getPetPreview($pet);
         }
@@ -33,6 +34,7 @@ class PetController extends Controller
             'message' => 'here are pet by race u ve specified',
             'selected_race' => $raceId,
             'pets' => $data['pets'],
+            'last_page' => $pets->lastPage(),
         ], 201);
     }
 
@@ -48,7 +50,7 @@ class PetController extends Controller
 
     public function latestByRace($raceId): JsonResponse
     {
-        $pets = Pet::latest()->where('race_id', $raceId)->get();
+        $pets = Pet::latest()->where('race_id', $raceId)->paginate(7);
         foreach ($pets as $index => $pet) {
             $data['pets'][$index] = getPetDetailed($pet);
         }
@@ -56,6 +58,7 @@ class PetController extends Controller
             'message' => 'here are pet by race u ve specified',
             'selected_race' => $raceId,
             'pets' => $data['pets'],
+            'last_page' => $pets->lastPage(),
         ], 201);
         return response()->json('', 201);
     }

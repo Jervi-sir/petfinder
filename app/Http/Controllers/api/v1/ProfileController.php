@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api\v1;
 
 use App\Models\Save;
 use App\Models\Wilaya;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
@@ -29,7 +30,7 @@ class ProfileController extends Controller
 
         $data['pets'] = [];
 
-        foreach ($user->getPets()->latest()->get() as $index => $pet) {
+        foreach ($user->pets()->latest()->get() as $index => $pet) {
             //$image = $pet->getImages()->exists() ? apiUrl() . 'storage/pets/' . $pet->getImages[0]->image_url : null;
             $data['pets'][$index] = [
                 'id' => $pet->id,
@@ -38,18 +39,18 @@ class ProfileController extends Controller
                 'wilaya_name' => $pet->wilaya_name,
                 'wilaya_number' => $pet->wilaya_number,
 
-                'race_name' => $pet->race_name,
+                'race_id' => $pet->race_id,
+                'race_name' => $pet->race->name,
+
                 'sub_race' => $pet->sub_race,
                 'gender_id' => $pet->gender_id,
-                'gender_name' => $pet->gender_name,
 
                 'offer_type_id' => $pet->offer_type_id,
-                'offer_type_name' => getOfferTypeName($pet->offer_type_id),
                 'price' => $pet->price,
 
                 'birthday' => $pet->birthday,
                 'image_preview' => $pet->getImages[0]->image_url,
-                'description' => $pet->description,
+                'description' => Str::limit($pet->description, 25, '...'),
                 'is_active' => $pet->is_active,
             ];
         }

@@ -60,7 +60,7 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public function getPets(): HasMany
+    public function pets(): HasMany
     {
         return $this->hasMany(Pet::class);
     }
