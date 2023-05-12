@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('location')->nullable();
             $table->tinyInteger('wilaya_id')->nullable();
             $table->tinyText('wilaya_name')->nullable();
+            $table->json('images')->nullable();
 
             $table->date('birthday')->nullable();
             $table->string('color')->nullable();
@@ -39,7 +40,6 @@ return new class extends Migration
             $table->date('last_date_activated');
 
             $table->longText('keywords')->nullable();
-
 
             $table->timestamps();
         });

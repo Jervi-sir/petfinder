@@ -50,7 +50,6 @@ Route::prefix('v1/auth/')->middleware('auth:sanctum')->group(function () {
         Route::get('latest/race={raceId}', [PetController::class, 'latestByRace']);         //[verified][]
     });
 
-
     Route::prefix('pet/')->group(function () {
         Route::get('add-pet', [PetAuthController::class, 'getPostPet']);                    //[verified][]
         Route::post('add-pet', [PetAuthController::class, 'postPet']);                      //[verified][]

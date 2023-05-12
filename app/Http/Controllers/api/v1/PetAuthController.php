@@ -121,10 +121,14 @@ class PetAuthController extends Controller
 
             $pet->user_id = $user->id;
             $pet->race_id = $request->race_id;
+            $pet->images = '';
 
             $pet->keywords = generateKeywords($pet);
 
             $pet->save();
+
+            $pet_images = [];
+
 
             foreach ($request->images as $index => $image) {
                 if ($image != null) {
@@ -142,8 +146,15 @@ class PetAuthController extends Controller
                     $img_save->image_url = $result->getSecurePath();
                     $img_save->meta = $pet->keywords;
                     $img_save->save();
+
+                    array_push($pet_images, $result->getSecurePath());
                 }
             }
+
+            $pet_update = Pet::find($pet->id);
+            $pet_update->images = json_encode($pet_images);
+            $pet_update->save();
+
             return response()->json([
                 'status' => true,
                 'message' => 'Pet Created Successfully',
