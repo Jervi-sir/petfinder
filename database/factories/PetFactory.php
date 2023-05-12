@@ -27,6 +27,20 @@ class PetFactory extends Factory
         $race = Race::inRandomOrder()->first();
         $user = User::inRandomOrder()->first();
 
+        $nb_images = random_int(1, 4);
+        $image_source = ['https://placedog.net/480/480?random', 'https://placekitten.com/480/480?image='];
+
+        $pet_images = [];
+
+        for ($i = 0; $i < $nb_images; $i++) {
+            $index_source = random_int(0, 1);
+            if ($index_source == 0) {
+                array_push($pet_images, $image_source[0]);
+            } else {
+                array_push($pet_images, $image_source[1] . random_int(0, 16));
+            }
+        }
+
         return [
             'uuid' => Str::uuid(),
             'user_id' => $user->id,
@@ -51,6 +65,7 @@ class PetFactory extends Factory
             'is_active' => $this->faker->boolean,
             'last_date_activated' => $this->faker->dateTime(),
             'keywords' => implode(',', $this->faker->words(5)),
+            'images' => json_encode($pet_images),
         ];
     }
 }
