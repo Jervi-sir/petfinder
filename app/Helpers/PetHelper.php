@@ -103,12 +103,13 @@ function getPetDetailed($pet)
 {
 
     $images = [];
-    if ($pet->getImages()->exists()) {
-        foreach ($pet->getImages as $image) {
+    //if ($pet->getImages()->exists()) {
+    if ($pet->images) {
+        foreach (json_decode($pet->images) as $image) {
             array_push($images, [
                 'desc' => '$image->meta',
                 //'image' => apiUrl() . 'storage/pets/' . $image->image_url,
-                'image' => $image->image_url,
+                'image' => $image,
             ]);
         }
     }
@@ -180,7 +181,8 @@ function getPetPreview($pet)
         'color' => $pet->color,
         'weight' => $pet->weight,
 
-        'image_preview' => $pet->getImages[0]->image_url ?? null,
+        //'image_preview' => $pet->getImages[0]->image_url ?? null,
+        'image_preview' => json_decode($pet->images)[0],
         'is_liked' => $is_liked,
         //'description' => $pet->description,
         //'phone_number' => $pet->phone_number,

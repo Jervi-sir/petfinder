@@ -16,7 +16,7 @@ class Race extends Model
         'details',
     ];
 
-    public function getPets() :HasMany
+    public function pets(): HasMany
     {
         return $this->hasMany(Pet::class);
     }

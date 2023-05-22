@@ -3,16 +3,20 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Models\Pet;
+use App\Models\Race;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
+
 class PetController extends Controller
 {
+    public $pagination_amount = 8;
+
     public function latest(): JsonResponse
     {
-        $pets = Pet::paginate(7);
+        $pets = Pet::paginate($this->pagination_amount);
         foreach ($pets as $index => $pet) {
             $data['pets'][$index] = getPetPreview($pet);
         }
@@ -26,7 +30,7 @@ class PetController extends Controller
 
     public function showByRace($raceId): JsonResponse
     {
-        $pets = Pet::where('race_id', $raceId)->paginate(7);
+        $pets = Pet::where('race_id', $raceId)->paginate($this->pagination_amount);
         foreach ($pets as $index => $pet) {
             $data['pets'][$index] = getPetPreview($pet);
         }
@@ -50,16 +54,25 @@ class PetController extends Controller
 
     public function latestByRace($raceId): JsonResponse
     {
-        $pets = Pet::latest()->where('race_id', $raceId)->paginate(7);
+        $startTime = microtime(true);
+
+        $race = Race::find($raceId);
+        if (!$race) return response()->json(['message' => 'race doesnt exists']);
+        $pets = $race->pets()->latest()->paginate($this->pagination_amount);
+        //$pets = Pet::latest()->where('race_id', $raceId)->paginate($this->pagination_amount);
         foreach ($pets as $index => $pet) {
             $data['pets'][$index] = getPetDetailed($pet);
         }
+
+        $endTime = microtime(true);
+        $totalTime = $endTime - $startTime;
+
         return response()->json([
+            'time' => 'Execution time: ' . number_format($totalTime, 2) . ' seconds',
             'message' => 'here are pet by race u ve specified',
             'selected_race' => $raceId,
-            'pets' => $data['pets'],
             'last_page' => $pets->lastPage(),
+            'pets' => $data['pets'],
         ], 201);
-        return response()->json('', 201);
     }
 }

@@ -23,6 +23,8 @@ use App\Models\User;
 |   [x] search          [x] filter           [x] pet latest
 */
 
+
+
 Route::get('test', function (Request $request) {
     $user = User::all();
     return response()->json($user);
