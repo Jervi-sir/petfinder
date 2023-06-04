@@ -14,21 +14,21 @@ class ActionController extends Controller
     public function save($petId): JsonResponse
     {
         $user = Auth::user();
-        $user->getSavedPets()->syncWithoutDetaching([$petId]);
+        $user->savedPets()->syncWithoutDetaching([$petId]);
         return response()->json('User saved the pet', 200);
     }
 
     public function unsave($petId): JsonResponse
     {
         $user = Auth::user();
-        $user->getSavedPets()->detach([$petId]);
+        $user->savedPets()->detach([$petId]);
         return response()->json('User unsaved the pet', 200);
     }
 
     public function archive($petId): JsonResponse
     {
         $user = Auth::user();
-        $pet = $user->getSavedPets->where('id', $petId)->first();
+        $pet = $user->savedPets->where('id', $petId)->first();
         $pet->is_active = 0;
         $pet->save();
         return response()->json('User archived the pet', 200);
@@ -37,7 +37,7 @@ class ActionController extends Controller
     public function unarchive($petId): JsonResponse
     {
         $user = Auth::user();
-        $pet = $user->getSavedPets->where('id', $petId)->first();
+        $pet = $user->savedPets->where('id', $petId)->first();
         $pet->is_active = 1;
         $pet->save();
         return response()->json('User archived the pet', 200);

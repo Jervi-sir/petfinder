@@ -65,7 +65,7 @@ class User extends Authenticatable
         return $this->hasMany(Pet::class);
     }
 
-    public function getSavedPets(): BelongsToMany
+    public function savedPets(): BelongsToMany
     {
         return $this->belongsToMany(Pet::class, 'saves')->using(Save::class);
     }

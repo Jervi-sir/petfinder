@@ -116,7 +116,7 @@ function getPetDetailed($pet)
 
     $is_liked = null;
     if (Auth::user()) {
-        $is_liked = Auth::user()->getSavedPets()->where('pet_id', $pet->id)->exists() ? true : false;
+        $is_liked = Auth::user()->savedPets()->where('pet_id', $pet->id)->exists() ? true : false;
     }
 
     return [
@@ -153,7 +153,7 @@ function getPetPreview($pet)
 {
     $is_liked = null;
     if (Auth::user()) {
-        $is_liked = Auth::user()->getSavedPets()->where('pet_id', $pet->id)->exists() ? true : false;
+        $is_liked = Auth::user()->savedPets()->where('pet_id', $pet->id)->exists() ? true : false;
     }
     //$image = $pet->getImages()->exists() ? apiUrl() . 'storage/pets/' . $pet->getImages[0]->image_url : null;
     return [
