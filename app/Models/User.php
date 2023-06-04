@@ -67,6 +67,6 @@ class User extends Authenticatable
 
     public function savedPets(): BelongsToMany
     {
-        return $this->belongsToMany(Pet::class, 'saves')->using(Save::class);
+        return $this->belongsToMany(Pet::class, 'saves')->using(Save::class)->withTimestamps();;
     }
 }
