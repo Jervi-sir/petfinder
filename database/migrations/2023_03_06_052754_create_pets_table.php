@@ -30,6 +30,7 @@ return new class extends Migration
             $table->tinyText('wilaya_name')->nullable();
             $table->json('images')->nullable();
 
+
             $table->date('birthday')->nullable();
             $table->string('color')->nullable();
             $table->string('weight')->nullable();
@@ -40,6 +41,8 @@ return new class extends Migration
             $table->date('last_date_activated');
 
             $table->longText('keywords')->nullable();
+
+            $table->foreignId('media_services_id')->default(1)->index();
 
             $table->timestamps();
         });

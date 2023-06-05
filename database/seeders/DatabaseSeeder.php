@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\MediaService;
 use App\Models\Pet;
 use App\Models\Race;
 use App\Models\Save;
@@ -31,6 +32,9 @@ class DatabaseSeeder extends Seeder
     {
         $roles = new RoleSeeder();
         $roles->run();
+
+        $media = new MediaService();
+        $media->run();
 
         Race::factory(11)->create();
         SubRace::factory(60)->create();
