@@ -101,25 +101,23 @@ function getGenderName($number)
  */
 function getPetDetailed($pet)
 {
+    $is_liked = false;
+    if (Auth::user()) {
+        $is_liked = Auth::user()->savedPets()->where('pet_id', $pet->id)->exists() ? true : false;
+    }
 
     $images = [];
-    //if ($pet->getImages()->exists()) {
     if ($pet->images) {
         foreach (json_decode($pet->images) as $image) {
             array_push($images, [
                 'desc' => '$image->meta',
-                //'image' => apiUrl() . 'storage/pets/' . $image->image_url,
                 'image' => $image,
             ]);
         }
     }
 
-    $is_liked = null;
-    if (Auth::user()) {
-        $is_liked = Auth::user()->savedPets()->where('pet_id', $pet->id)->exists() ? true : false;
-    }
-
     return [
+        'user' =>Auth::user(),
         'id' => $pet->id,
         //'uuid' => $pet->uuid,
         'name' => $pet->name,
@@ -141,7 +139,7 @@ function getPetDetailed($pet)
         'color' => $pet->color,
         'weight' => $pet->weight,
         'description' => $pet->description,
-        'phoneNumber' => $pet->phone_number_this_pet,
+        'phoneNumber' => $pet->phone_number,
 
         'images' => $images ? $images : null,
         'is_active' => $pet->is_active,
