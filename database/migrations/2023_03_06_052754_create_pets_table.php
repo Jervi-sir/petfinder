@@ -27,7 +27,7 @@ return new class extends Migration
             $table->tinyText('name')->nullable();
             $table->string('location')->nullable();
             $table->tinyInteger('wilaya_id')->nullable();
-            $table->tinyText('wilaya_name')->nullable();
+            $table->string('wilaya_name')->nullable();
             $table->json('images')->nullable();
 
 

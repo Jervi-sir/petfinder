@@ -87,13 +87,14 @@ class ProfileController extends Controller
 
     public function updateMyProfile(Request $request): JsonResponse
     {
+        
         $user = Auth::user();
         $user->name = $request->name;
         $user->location = $request->location;
-        $user->wilaya_name = getWilayaName($request->wilaya_number);
-        $user->wilaya_number = $request->wilaya_number;
-        $user->phone_number = $request->phoneNumber;
-        $user->social_list = $request->social_list;
+        $user->wilaya_name = getWilayaName($request->wilayaNumber);
+        $user->wilaya_id = getWilayaId($request->wilayaNumber);
+        $user->phone_number = str_replace(['(', ')', ' ', '-'], '', $request->phoneNumber);
+        //$user->social_list = $request->social_list;
 
         if (strlen($request->imageUpload) > 0) {
             //$data = base64_decode($request->imageUpload);

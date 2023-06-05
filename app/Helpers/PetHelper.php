@@ -66,12 +66,22 @@ function getAllGenders()
 
 function getWilayaName($number)
 {
+    $wilaya = Wilaya::where('number', $number)->first();
+    return $wilaya->name;
+    /*
     foreach (getAllWilaya() as $element) {
         if ($element['id'] == $number) {
             return $element['name'];
         }
     }
     return null;
+    */
+}
+
+function getWilayaId($number)
+{
+    $wilaya = Wilaya::where('number', $number)->first();
+    return $wilaya->id;
 }
 
 function getOfferTypeName($number)
@@ -328,7 +338,7 @@ function generateKeywords($pet)
     $wilaya_id = $pet->wilaya_id;
     $wilaya_name = $pet->wilaya_name;
     $weight = $pet->weight;
-    $race_name = $pet->race_name;
+    $race_name = Race::find($pet->race_id)->name;
     $sub_race = $pet->sub_race;
     $gender = ['male', 'female', 'unknown'][$pet->gender + 1];
     $color = $pet->color;

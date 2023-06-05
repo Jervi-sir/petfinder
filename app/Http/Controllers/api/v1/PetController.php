@@ -16,7 +16,7 @@ class PetController extends Controller
 
     public function latest(): JsonResponse
     {
-        $pets = Pet::paginate($this->pagination_amount);
+        $pets = Pet::latest()->paginate($this->pagination_amount);
         foreach ($pets as $index => $pet) {
             $data['pets'][$index] = getPetPreview($pet);
         }
@@ -61,7 +61,7 @@ class PetController extends Controller
         $pets = $race->pets()->latest()->paginate($this->pagination_amount);
         //$pets = Pet::latest()->where('race_id', $raceId)->paginate($this->pagination_amount);
         foreach ($pets as $index => $pet) {
-            $data['pets'][$index] = getPetDetailed($pet);
+            $data['pets'][$index] = getPetPreview($pet);
         }
 
         $endTime = microtime(true);

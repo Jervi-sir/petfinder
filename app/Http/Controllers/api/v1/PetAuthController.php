@@ -70,24 +70,13 @@ class PetAuthController extends Controller
 
     public function postPet(Request $request): JsonResponse
     {
-        $validateUser = Validator::make(
-            $request->all(),
-            [
-                'images' => 'required',
-                'wilaya_id' => 'required',
-                'race_id' => 'required',
-                'typeOffer' => 'required',
-                'gender' => 'required',
-            ]
-        );
-
-        if ($validateUser->fails()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'validation error',
-                'errors' => $validateUser->errors()
-            ], 401);
-        }
+        $validated = $request->validate([
+            'images' => 'required',
+            'wilaya_number' => 'required',
+            'race_id' => 'required',
+            'typeOffer' => 'required',
+            'gender' => 'required',
+        ]);
 
         try {
             $user = Auth::user();
@@ -99,36 +88,35 @@ class PetAuthController extends Controller
             $pet->uuid = $uuid;
             $pet->name = $request->name;
             $pet->location = $request->location;
-            $pet->wilaya_name = getWilayaName($request->wilaya_id);
-            $pet->wilaya_number = $request->wilaya_id;
+            $pet->wilaya_name = getWilayaName($request->wilaya_number);
+            $pet->wilaya_id = getWilayaId($request->wilaya_number);
 
-            $pet->race_name = Race::find($request->race_id)->name;
             $pet->sub_race = $request->subRace;
             $pet->gender_id = $request->gender;
-            $pet->gender_name = getGenderName($request->gender);
+            //$pet->gender_name = getGenderName($request->gender);
 
             $pet->offer_type_id = $request->typeOffer;
-            $pet->offer_type_name = getOfferTypeName($request->typeOffer);
+            //$pet->offer_type_name = getOfferTypeName($request->typeOffer);
 
             $pet->price = $request->price;
             $pet->birthday = $request->birthday;
             $pet->color = $request->color;
             $pet->weight = $request->weight;
             $pet->description = $request->description;
-            $pet->phone_number_this_pet = $request->phoneNumber;
+            $pet->phone_number = $request->phoneNumber;
 
             $pet->last_date_activated = $last_date_activated;
 
             $pet->user_id = $user->id;
             $pet->race_id = $request->race_id;
-            $pet->images = '';
+            $pet->images = null;
 
             $pet->keywords = generateKeywords($pet);
-
+            $pet->media_services_id = 1;
+            
             $pet->save();
 
             $pet_images = [];
-
 
             foreach ($request->images as $index => $image) {
                 if ($image != null) {
@@ -158,7 +146,7 @@ class PetAuthController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Pet Created Successfully',
-                'token' => $pet,
+                'pet' => $pet,
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
@@ -166,10 +154,6 @@ class PetAuthController extends Controller
                 'message' => $th->getMessage()
             ], 500);
         }
-        return response()->json([
-            'message' => 'pet added successfully',
-            'pet' => $pet
-        ], 200);
     }
 
 
