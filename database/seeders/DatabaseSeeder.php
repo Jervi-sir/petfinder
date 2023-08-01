@@ -48,9 +48,9 @@ class DatabaseSeeder extends Seeder
         $gender = new GenderSeeder();
         $gender->run();
 
-        User::factory(100)->create();
-        Pet::factory(200)->create();
+        User::factory(10)->create();
+        Pet::factory(30)->create();
         //PetImage::factory(256)->create();
-        Save::factory(210)->create();
+        Save::factory(15)->create();
     }
 }
