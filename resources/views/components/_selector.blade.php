@@ -7,8 +7,8 @@
     </a>
 
     @foreach ($races as $race)
-    <a href="{{ route('pet.race', ['race' => $race->name]) }}" class="item {{ request()->is('race/' . $race->name) ? 'active' : '' }}" >
-       <span>{{ $race->name }}</span>
+    <a href="{{ route('pet.race', ['race' => $race['name']]) }}" class="item {{ request()->is('race/' . $race['name']) ? 'active' : '' }}" >
+       <span>{{ $race['name'] }}</span>
     </a>
     @endforeach
 

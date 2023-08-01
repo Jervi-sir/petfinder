@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\MediaService;
 use App\Models\Pet;
 use App\Models\Race;
 use App\Models\Save;
@@ -13,6 +12,7 @@ use App\Models\Wilaya;
 use App\Models\SubRace;
 use App\Models\PetImage;
 use App\Models\OfferType;
+use App\Models\MediaService;
 use Database\Seeders\TagSeeder;
 use Illuminate\Database\Seeder;
 use Database\Seeders\RaceSeeder;
@@ -22,6 +22,7 @@ use Database\Seeders\GenderSeeder;
 use Database\Seeders\WilayaSeeder;
 use Database\Seeders\OfferTypeSeeder;
 use Database\Seeders\TranslationSeeder;
+use Database\Seeders\MediaServiceSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -33,7 +34,7 @@ class DatabaseSeeder extends Seeder
         $roles = new RoleSeeder();
         $roles->run();
 
-        $media = new MediaService();
+        $media = new MediaServiceSeeder();
         $media->run();
 
         Race::factory(11)->create();
@@ -48,8 +49,8 @@ class DatabaseSeeder extends Seeder
         $gender->run();
 
         User::factory(100)->create();
-        Pet::factory(3000)->create();
+        Pet::factory(200)->create();
         //PetImage::factory(256)->create();
-        Save::factory(1000)->create();
+        Save::factory(210)->create();
     }
 }

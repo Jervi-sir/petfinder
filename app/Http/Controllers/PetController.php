@@ -29,18 +29,29 @@ class PetController extends Controller {
      *
      *  @return \ pets, race
      */
+    public $pagination_amount = 8;
+    
     public function index() :View
     {
-        $pets = Pet::all();
-
-        $data['races'] = Race::all();
-        $data['pets'] = getPets($pets);
-        $data['total_pets'] = count((array)$data['pets']);
-
-        return view('home', ['pets' => $data['pets'],
-                            'races' => $data['races'],
-                            'count' => $data['total_pets']
-                            ]);
+        $pets = Pet::latest()->paginate($this->pagination_amount);
+        foreach ($pets as $index => $pet) {
+            $data['pets'][$index] = getPetPreview($pet);
+        }
+        $races = Race::all();
+        foreach ($races as $index => $race) {
+            $data['races'][$index] = [
+                'name' => $race->name
+            ];
+        }
+        
+        $data['total_pets'] = count($data['pets']);
+        return view('home', 
+            [
+                'pets' => $data['pets'],
+                'races' => $data['races'],
+                'count' => $data['total_pets'],
+                'last_page' => $pets->lastPage(),
+            ]);
     }
 
     /**
@@ -54,7 +65,9 @@ class PetController extends Controller {
         $pets = $selected_race->pets;
 
         $data['races'] = Race::all();
-        $data['pets'] = getPets($pets);
+        foreach ($pets as $index => $pet) {
+            $data['pets'][$index] = getPetPreview($pet);
+        }
         $data['total_pets'] = count((array)$data['pets']);
         
         return view('home', ['pets' => $data['pets'],
@@ -90,6 +103,7 @@ class PetController extends Controller {
 
         foreach ($races as $key => $race) {
             $data['race'][$key] = [
+                'id' => $race->id,
                 'name' => $race->name,
                 'breeds' => $race->breed,
             ];

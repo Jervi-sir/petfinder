@@ -17,6 +17,7 @@
 <main x-data="submitForm" >
     <!-- pets -->
     <form class="form" action="{{ route('pet.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
         <div class="image">
             <template x-for="(image, index) in images">
                 <div class="show">
@@ -38,7 +39,7 @@
                 <select name="race" x-model="selectedRace" @change="filterBeed">
                     <option value="" selected disabled hidden>Race?</option>
                     <template x-for="(race, index) in races">
-                        <option :value="race['name']" x-text="race['name']"></option>
+                        <option :value="race['id']" x-text="race['name']"></option>
                     </template>
                 </select>
             </div>
