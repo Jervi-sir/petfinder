@@ -1,0 +1,57 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-b7ed600c.css",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-9f34e40c.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  },
+  "resources/scss/add.scss": {
+    "file": "assets/add-238e3f99.css",
+    "isEntry": true,
+    "src": "resources/scss/add.scss"
+  },
+  "resources/scss/card.scss": {
+    "file": "assets/card-efd9a483.css",
+    "isEntry": true,
+    "src": "resources/scss/card.scss"
+  },
+  "resources/scss/editProfile.scss": {
+    "file": "assets/editProfile-716a60b1.css",
+    "isEntry": true,
+    "src": "resources/scss/editProfile.scss"
+  },
+  "resources/scss/home.scss": {
+    "file": "assets/home-2df75e8a.css",
+    "isEntry": true,
+    "src": "resources/scss/home.scss"
+  },
+  "resources/scss/login.scss": {
+    "file": "assets/login-d36c2a92.css",
+    "isEntry": true,
+    "src": "resources/scss/login.scss"
+  },
+  "resources/scss/mediaQueries.scss": {
+    "file": "assets/mediaQueries-82da7af0.css",
+    "isEntry": true,
+    "src": "resources/scss/mediaQueries.scss"
+  },
+  "resources/scss/pet.scss": {
+    "file": "assets/pet-a0332798.css",
+    "isEntry": true,
+    "src": "resources/scss/pet.scss"
+  },
+  "resources/scss/profile.scss": {
+    "file": "assets/profile-128eabc7.css",
+    "isEntry": true,
+    "src": "resources/scss/profile.scss"
+  },
+  "resources/scss/styles.scss": {
+    "file": "assets/styles-38aa1d2b.css",
+    "isEntry": true,
+    "src": "resources/scss/styles.scss"
+  }
+}
