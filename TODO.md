@@ -9,9 +9,7 @@ Project Description
 - [ ] add adoption  
 - [ ] add lost  
 - [ ] message system  
-- [ ] editp profile  
-- [ ] favorite and unfavorite  
-- [ ] remove pet  
+- [ ] edit profile  
 - [ ] edit pet  
 - [ ] add pet  
 
@@ -20,6 +18,8 @@ Project Description
 
 ### Done ✓
 
+- [x] remove pet  
+- [x] favorite and unfavorite  
 - [x] list my pets adoptions  
 - [x] list my lost pets  
 - [x] list my favorite  

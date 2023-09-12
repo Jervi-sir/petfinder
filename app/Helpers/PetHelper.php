@@ -42,6 +42,8 @@ function getPetPreview($pet)
         'weight' => $pet->weight,
         'is_liked' => $is_liked,
         'keywords' => $pet->keywords,
+        'updated_at' => $pet->updated_at,
+        'created_at' => $pet->created_at,
     ];
 }
 function getLostPetPreview($pet)

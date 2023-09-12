@@ -14,7 +14,7 @@ class SearchController extends Controller
     
     public function searchPets(Request $request) :JsonResponse
     {
-        $query = Pet::query();
+        $query = Pet::query()->orderBy('id', 'desc');
         if ($request->has('race_id')) {
             $query->where('race_id', $request->input('race_id'));
         }
@@ -60,7 +60,7 @@ class SearchController extends Controller
 
     public function searchLostPets(Request $request) :JsonResponse
     {
-        $query = PetLost::query();
+        $query = PetLost::query()->orderBy('id', 'desc');
         if ($request->has('race_id')) {
             $query->where('race_id', $request->input('race_id'));
         }
@@ -103,8 +103,4 @@ class SearchController extends Controller
         ], 201);
     }
 
-    public function searchFilter($keywords, $filter) :JsonResponse
-    {
-        return response()->json('$data', 201);
-    }
 }

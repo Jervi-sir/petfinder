@@ -37,7 +37,7 @@ class PetController extends Controller
 
     public function latestPets(Request $request) :JsonResponse
     {
-        $query = Pet::query();
+        $query = Pet::query()->orderBy('id', 'desc');
         if ($request->has('race_id')) {
             $query->where('race_id', $request->input('race_id'));
         }
@@ -80,7 +80,7 @@ class PetController extends Controller
 
     public function latestLostPets(Request $request) :JsonResponse
     {
-        $query = PetLost::query();
+        $query = PetLost::query()->orderBy('id', 'desc');
         if ($request->has('race_id')) {
             $query->where('race_id', $request->input('race_id'));
         }
@@ -118,47 +118,4 @@ class PetController extends Controller
         ], 201);
     }
     /*-----------------*/
-
-
-
-
-    public function showByRace($raceId): JsonResponse
-    {
-        $pets = Pet::where('race_id', $raceId)->paginate($this->pagination_amount);
-        foreach ($pets as $index => $pet) {
-            $data['pets'][$index] = getPetPreview($pet);
-        }
-        return response()->json([
-            'message' => 'here are pet by race u ve specified',
-            'selected_race' => $raceId,
-            'pets' => $data['pets'],
-            'last_page' => $pets->lastPage(),
-        ], 201);
-    }
-
-
-
-    public function latestByRace($raceId): JsonResponse
-    {
-        $startTime = microtime(true);
-
-        $race = Race::find($raceId);
-        if (!$race) return response()->json(['message' => 'race doesnt exists']);
-        $pets = $race->pets()->latest()->paginate($this->pagination_amount);
-        //$pets = Pet::latest()->where('race_id', $raceId)->paginate($this->pagination_amount);
-        foreach ($pets as $index => $pet) {
-            $data['pets'][$index] = getPetPreview($pet);
-        }
-
-        $endTime = microtime(true);
-        $totalTime = $endTime - $startTime;
-
-        return response()->json([
-            'time' => 'Execution time: ' . number_format($totalTime, 2) . ' seconds',
-            'message' => 'here are pet by race u ve specified',
-            'selected_race' => $raceId,
-            'last_page' => $pets->lastPage(),
-            'pets' => $data['pets'],
-        ], 201);
-    }
 }
