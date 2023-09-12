@@ -2,22 +2,22 @@
 
 namespace App\Models;
 
-use App\Models\Like;
 use App\Models\Race;
 use App\Models\Save;
 use App\Models\User;
 use App\Models\Gender;
 use App\Models\Wilaya;
-use App\Models\Comment;
 use App\Models\PetImage;
 use App\Models\OfferType;
+use App\Models\LostPetPost;
+use App\Models\AdoptionSalePost;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Pet extends Model
+class PetLost extends Model
 {
     use HasFactory;
 
@@ -69,4 +69,5 @@ class Pet extends Model
         return $this->hasOne(LostPetPost::class);
     }
     */
+
 }

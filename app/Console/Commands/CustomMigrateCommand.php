@@ -45,15 +45,12 @@ class CustomMigrateCommand extends Command
         $this->call('migrate', ['--path' => 'database\migrations\user\2014_10_12_100000_create_password_reset_tokens_table.php']);
         $this->call('migrate', ['--path' => 'database\migrations\user\2019_12_14_000001_create_personal_access_tokens_table.php']);
 
-
-
         $this->call('migrate', ['--path' => 'database\migrations\pets\2023_03_06_052747_create_races_table.php']);
         $this->call('migrate', ['--path' => 'database\migrations\pets\2023_03_06_052748_create_sub_races_table.php']);
         $this->call('migrate', ['--path' => 'database\migrations\pets\2023_03_06_052754_create_pets_table.php']);
-        $this->call('migrate', ['--path' => 'database\migrations\pets\2023_03_06_052755_create_adoption_sale_posts_table.php']);
-        $this->call('migrate', ['--path' => 'database\migrations\pets\2023_03_06_052756_create_lost_pet_posts_table.php']);
-        $this->call('migrate', ['--path' => 'database\migrations\pets\2023_09_12_150825_create_post_metadata_table.php']);
-
+        $this->call('migrate', ['--path' => 'database\migrations\pets\2023_09_12_182120_create_pet_losts_table.php']);
+        $this->call('migrate', ['--path' => 'database\migrations\pets\2023_09_12_182544_create_pet_metadata_table.php']);
+        $this->call('migrate', ['--path' => 'database\migrations\pets\2023_09_12_182549_create_pet_lost_metadata_table.php']);
 
         $this->call('migrate', ['--path' => 'database\migrations\user\2023_03_06_231641_create_saves_table.php']);
         $this->call('migrate', ['--path' => 'database\migrations\user\2023_09_12_152652_create_notifications_table.php']);
@@ -62,7 +59,6 @@ class CustomMigrateCommand extends Command
         $this->call('migrate', ['--path' => 'database\migrations\user\2023_09_12_152722_create_favorites_table.php']);
         $this->call('migrate', ['--path' => 'database\migrations\user\2023_09_12_152732_create_transaction_histories_table.php']);
         $this->call('migrate', ['--path' => 'database\migrations\user\2023_09_12_152739_create_user_reviews_table.php']);
-
 
         $this->call('migrate', ['--path' => 'database\migrations\helpers\2023_09_12_152641_create_audit_logs_table.php']);
     }

@@ -11,12 +11,15 @@ use App\Models\Save;
 use App\Models\User;
 use App\Models\Color;
 use App\Models\Wilaya;
+use App\Models\PetLost;
 use App\Models\SubRace;
 use App\Models\PetImage;
 use App\Models\OfferType;
 use App\Models\LostPetPost;
+use App\Models\PetMetadata;
 use App\Models\MediaService;
 use App\Models\PostMetadata;
+use App\Models\PetLostMetadata;
 use Database\Seeders\TagSeeder;
 use Illuminate\Database\Seeder;
 use App\Models\AdoptionSalePost;
@@ -70,9 +73,9 @@ class DatabaseSeeder extends Seeder
         $subRace->run();
 
         Pet::factory(300)->create();
-        AdoptionSalePost::factory(150)->create();
-        LostPetPost::factory(150)->create();
-        PostMetadata::factory(300)->create();
+        PetLost::factory(150)->create();
+        PetMetadata::factory(300)->create();
+        PetLostMetadata::factory(300)->create();
 
         Save::factory(100)->create();
 

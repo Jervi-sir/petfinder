@@ -14,78 +14,81 @@ use App\Models\User;
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
-|   [x] login           [x] register        [x] logout  
-|   [x] get add pet     [x] add pet         [x] delete pet       
-|   [x] update pet      [x] get edit pet
-|   [x] show profile    [x] list my pets    [x] delete profile
-|   [x] update profile  [x] get edit profile
-|   [x] save            [x] unsave
-|   [x] search          [x] filter           [x] pet latest
 */
-
-
-
-Route::get('test', function (Request $request) {
-    $user = User::all();
-    return response()->json($user);
-});
 
 Route::middleware('auth:sanctum')->get('v1/user', function (Request $request) {
     return $request->user();
 });
-
 Route::prefix('v1/')->group(function () {
     /*-----| Authentication |-----*/
-    Route::post('register', [AuthController::class, 'register']);               //[verified][done]
-    Route::post('login', [AuthController::class, 'login']);                     //[verified][done]
-    Route::middleware('auth:sanctum')->group(function () {
-        Route::post('logout', [AuthController::class, 'logout']);               //[verified][]
+    Route::post('register', [AuthController::class, 'register']);       //[api done][]
+    Route::post('login', [AuthController::class, 'login']);             //[api done][]
+    Route::middleware('auth:sanctum')->group(function () {  
+        Route::post('logout', [AuthController::class, 'logout']);       //[api done][]
     });
-    /*-----| PetController |-----*/
-    Route::prefix('pets/')->group(function () {
-        Route::get('id/{id}',  [PetController::class, 'showPet']);                         //[verified][]
-        Route::get('race/{raceId}',   [PetController::class, 'showByRace']);                //[verified][]
-        Route::get('latest',  [PetController::class, 'latest']);                            //[verified][]
-        Route::get('latest/race={raceId}', [PetController::class, 'latestByRace']);         //[verified][]
-    });
-    /*-----| SearchController |-----*/
-    Route::get('search', [SearchController::class, 'search']);                         //[verified][]
-    
+    /*-----| Pets |-----*/
+    RoutePets();
+    RouteLostPets();
     /*-----| Authenticated |-----*/
     Route::prefix('auth/')->middleware('auth:sanctum')->group(function () {
-        Route::prefix('pets/')->group(function () {
-            Route::get('id/{id}', [PetController::class, 'showPet']);                           //[verified][]
-            Route::get('race/{raceId}', [PetController::class, 'showByRace']);                  //[verified][]
-            Route::get('latest', [PetController::class, 'latest']);                             //[verified][]
-            Route::get('latest/race={raceId}', [PetController::class, 'latestByRace']);         //[verified][]
-        });
-    
-        Route::prefix('pet/')->group(function () {
-            Route::get('add-pet', [PetAuthController::class, 'getPostPet']);                    //[verified][]
-            Route::post('add-pet', [PetAuthController::class, 'postPet']);                      //[verified][]
-            Route::get('edit-pet/{petId}', [PetAuthController::class, 'editPet']);              //[verified][]
-            Route::post('edit-pet/{petId}', [PetAuthController::class, 'updatePet']);           //[verified][]
-        });
-    
+        /*-----| Profile |-----*/
         Route::prefix('profile/')->group(function () {
-            Route::get('show-my-profile', [ProfileController::class, 'showMyProfile']);         //[verified][]
-            Route::get('edit-profile', [ProfileController::class, 'getMyProfileForEdit']);      //[verified][]
-            Route::post('edit-profile', [ProfileController::class, 'updateMyProfile']);         //[verified][]
-            Route::get('saved-list', [ProfileController::class, 'getSavedList']);               //[verified][]
+            Route::get('show-my-profile', [ProfileController::class, 'showMyProfile']);         //[api done][]
+            Route::get('show-my-favorites', [ProfileController::class, 'showMyFavorites']);     //[api done][]
+
+            Route::get('edit-profile', [ProfileController::class, 'getMyProfileForEdit']);      //[][]
+            Route::post('edit-profile', [ProfileController::class, 'updateMyProfile']);         //[][]
         });
-    
+        /*-----| Pets |-----*/
+        RoutePets();
+        RouteLostPets();
+        Route::get('list-my-pets', [ProfileController::class, 'getMyPets']);                //[api done][]
+        Route::get('list-my-lost-pets', [ProfileController::class, 'getMyLostPets']);       //[api done][]
+
+        /*-----| Pet |-----*/
+        Route::prefix('pet/')->group(function () {
+            //Route::get('add-pet', [PetAuthController::class, 'getPostPet']);              //[][]
+            Route::post('add', [PetAuthController::class, 'postPet']);                      //[][]
+            Route::get('edit/{petId}', [PetAuthController::class, 'editPet']);              //[api done][]
+            Route::post('update/{petId}', [PetAuthController::class, 'updatePet']);         //[][]
+        });
+        /*-----| Pet |-----*/
+        Route::prefix('lostpet/')->group(function () {
+            //Route::get('add-pet', [PetAuthController::class, 'getPostPet']);              //[][]
+            Route::post('add', [PetAuthController::class, 'postLostPet']);                  //[][]
+            Route::get('edit/{petId}', [PetAuthController::class, 'editLostPet']);          //[api done][]
+            Route::post('update/{petId}', [PetAuthController::class, 'updateLostPet']);     //[][]
+        });
+
+        /*-----| Actions |-----*/
         Route::prefix('actions/')->group(function () {
-            Route::post('save/{petId}',       [ActionController::class, 'save']);           //[verified][]
-            Route::post('unsave/{petId}',     [ActionController::class, 'unsave']);         //[verified][]
-            Route::post('archive/{petId}',  [ActionController::class, 'archive']);          //[verified][]
-            Route::post('unarchive/{petId}',  [ActionController::class, 'unarchive']);      //[verified][]
-            Route::post('deletepet/{petId}',  [ActionController::class, 'delete']);         //[verified][]
+            Route::post('save',       [ActionController::class, 'save']);           //[api done][]
+            Route::post('unsave',     [ActionController::class, 'unsave']);         //[api done][]
+            Route::post('archive',  [ActionController::class, 'archive']);          //[api done][]
+            Route::post('unarchive',  [ActionController::class, 'unarchive']);      //[api done][]
+            Route::post('deletepet',  [ActionController::class, 'delete']);         //[api done][]
         });
     });
 });
 
 
+/*-----| Adoption and Lost Pets |-----*/
+function RoutePets() {
+    Route::prefix('pets/')->group(function () {
+        Route::get('id/{id}',  [PetController::class, 'showPet']);      //[api done][]
+        Route::get('search', [SearchController::class, 'searchPets']);  //[api done][]
+        Route::get('latest',  [PetController::class, 'latestPets']);    //[api done][]
+    });
+}
 
+/*-----| Lost Pets |-----*/
+function RouteLostPets() {
+    Route::prefix('lostpets/')->group(function () {
+        Route::get('id/{id}',  [PetController::class, 'showLostPet']);      //[api done][]
+        Route::get('search', [SearchController::class, 'searchLostPets']);  //[api done][]
+        Route::get('latest',  [PetController::class, 'latestLostPets']);    //[api done][]
 
+    });
+}
 
 

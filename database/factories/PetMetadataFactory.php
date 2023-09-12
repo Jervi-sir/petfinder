@@ -6,9 +6,9 @@ use App\Models\Pet;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\PostMetadata>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\PetMetadata>
  */
-class PostMetadataFactory extends Factory
+class PetMetadataFactory extends Factory
 {
     /**
      * Define the model's default state.

@@ -14,45 +14,18 @@ use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class ProfileController extends Controller
 {
+    public $pagination_amount = 8;
+
     public function showMyProfile(): JsonResponse
     {
         $user = Auth::user();
-        $data['user'] = [
-            'name' => $user->name,
-            'email' => $user->email,
-            'location' => $user->location,
-            'wilaya_name' => $user->wilaya_name,
-            'phone_number' => $user->phone_number,
-            //'pic' => $user->pic ? apiUrl() . 'storage/users/' . $user->pic : null,
-            'pic' => $user->pic ? $user->pic : null,
-            'social_list' => $user->socials,
-        ];
+        $data['user'] = getProfileData($user);
 
         $data['pets'] = [];
 
         foreach ($user->pets()->latest()->get() as $index => $pet) {
             //$image = $pet->getImages()->exists() ? apiUrl() . 'storage/pets/' . $pet->getImages[0]->image_url : null;
-            $data['pets'][$index] = [
-                'id' => $pet->id,
-                'name' => $pet->name,
-                'location' => $pet->location,
-                'wilaya_name' => $pet->wilaya_name,
-                'wilaya_number' => $pet->wilaya_number,
-
-                'race_id' => $pet->race_id,
-                'race_name' => $pet->race->name,
-
-                'sub_race' => $pet->sub_race,
-                'gender_id' => $pet->gender_id,
-
-                'offer_type_id' => $pet->offer_type_id,
-                'price' => $pet->price,
-
-                'birthday' => $pet->birthday,
-                'image_preview' => $pet->getImages[0]->image_url,
-                'description' => Str::limit($pet->description, 25, '...'),
-                'is_active' => $pet->is_active,
-            ];
+            $data['pets'][$index] = getPetPreview($pet);
         }
 
         return response()->json([
@@ -61,6 +34,142 @@ class ProfileController extends Controller
             'pets' => $data['pets'],
         ]);
     }
+    public function getMyPets(Request $request) :JsonResponse
+    {
+        $user = Auth::user();
+
+        $query = $user->pets();
+        if ($request->has('race_id')) {
+            $query->where('race_id', $request->input('race_id'));
+        }
+        if ($request->has('sub_race')) {
+            $query->where('sub_race', 'like', '%' . $request->input('sub_race') . '%');
+        }
+        if ($request->has('offer_type_id')) {
+            $query->where('offer_type_id', 'like', '%' . $request->input('offer_type_id') . '%');
+        }
+        if ($request->has('gender_id')) {
+            $query->where('gender_id', $request->input('gender_id'));
+        }
+        if ($request->has('offer_type_id')) {
+            $query->where('offer_type_id', $request->input('offer_type_id'));
+        }
+        if ($request->has('location')) {
+            $query->where('location', 'like', '%' . $request->input('location') . '%');
+        }
+
+        $pets_query = $query->paginate($this->pagination_amount);
+
+        $data['pets'] = [];
+        foreach ($pets_query as $index => $pet) {
+            $data['pets'][$index] = getPetPreview($pet);
+        }
+
+        $paginationData = [
+            'current_page' => $pets_query->currentPage(),
+            'last_page' => $pets_query->lastPage(),
+            'per_page' => $pets_query->perPage(),
+            'total' => $pets_query->total(),
+        ];
+
+        return response()->json([
+            'message' => 'here are my pets for adoption or sale',
+            'paginationData' => $paginationData,
+            'pets' => $data['pets'],
+        ], 201);
+    }
+    
+    public function getMyLostPets(Request $request) :JsonResponse
+    {
+        $user = Auth::user();
+
+        $query = $user->lostPets();
+        if ($request->has('race_id')) {
+            $query->where('race_id', $request->input('race_id'));
+        }
+        if ($request->has('sub_race')) {
+            $query->where('sub_race', 'like', '%' . $request->input('sub_race') . '%');
+        }
+        if ($request->has('offer_type_id')) {
+            $query->where('offer_type_id', 'like', '%' . $request->input('offer_type_id') . '%');
+        }
+        if ($request->has('gender_id')) {
+            $query->where('gender_id', $request->input('gender_id'));
+        }
+        if ($request->has('offer_type_id')) {
+            $query->where('offer_type_id', $request->input('offer_type_id'));
+        }
+        if ($request->has('location')) {
+            $query->where('location', 'like', '%' . $request->input('location') . '%');
+        }
+
+        $pets_query = $query->paginate($this->pagination_amount);
+
+        $data['pets'] = [];
+        foreach ($pets_query as $index => $pet) {
+            $data['pets'][$index] = getLostPetPreview($pet);
+        }
+
+        $paginationData = [
+            'current_page' => $pets_query->currentPage(),
+            'last_page' => $pets_query->lastPage(),
+            'per_page' => $pets_query->perPage(),
+            'total' => $pets_query->total(),
+        ];
+
+        return response()->json([
+            'message' => 'here are my lost pets',
+            'paginationData' => $paginationData,
+            'pets' => $data['pets'],
+        ], 201);
+    }
+
+    public function showMyFavorites(Request $request) :JsonResponse
+    {
+        $user = Auth::user();
+
+        $query = $user->savedPets();
+        if ($request->has('race_id')) {
+            $query->where('race_id', $request->input('race_id'));
+        }
+        if ($request->has('sub_race')) {
+            $query->where('sub_race', 'like', '%' . $request->input('sub_race') . '%');
+        }
+        if ($request->has('offer_type_id')) {
+            $query->where('offer_type_id', 'like', '%' . $request->input('offer_type_id') . '%');
+        }
+        if ($request->has('gender_id')) {
+            $query->where('gender_id', $request->input('gender_id'));
+        }
+        if ($request->has('offer_type_id')) {
+            $query->where('offer_type_id', $request->input('offer_type_id'));
+        }
+        if ($request->has('location')) {
+            $query->where('location', 'like', '%' . $request->input('location') . '%');
+        }
+
+        $pets_query = $query->paginate($this->pagination_amount);
+
+        $data['pets'] = [];
+        foreach ($pets_query as $index => $pet) {
+            $data['pets'][$index] = getLostPetPreview($pet);
+        }
+
+        $paginationData = [
+            'current_page' => $pets_query->currentPage(),
+            'last_page' => $pets_query->lastPage(),
+            'per_page' => $pets_query->perPage(),
+            'total' => $pets_query->total(),
+        ];
+
+        return response()->json([
+            'message' => 'here are my favorite pets',
+            'paginationData' => $paginationData,
+            'pets' => $data['pets'],
+        ], 201);
+    }
+
+    /* ------------------------------------------------ */
 
     public function getMyProfileForEdit(): JsonResponse
     {
@@ -116,9 +225,4 @@ class ProfileController extends Controller
         ], 200);
     }
 
-    public function getSavedList(): JsonResponse
-    {
-        $saved = Auth::user()->save;
-        return response()->json(1, 200);
-    }
 }

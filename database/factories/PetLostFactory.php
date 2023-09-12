@@ -2,23 +2,25 @@
 
 namespace Database\Factories;
 
-use App\Models\Gender;
-use App\Models\OfferType;
-use App\Models\Pet;
 use App\Models\Race;
-use App\Models\SubRace;
 use App\Models\User;
+use App\Models\Gender;
 use App\Models\Wilaya;
+use App\Models\SubRace;
+use App\Models\OfferType;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Pet>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\PetLost>
  */
-class PetFactory extends Factory
+class PetLostFactory extends Factory
 {
-    protected $model = Pet::class;
-
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
     public function definition(): array
     {
         $wilaya = Wilaya::inRandomOrder()->first();
@@ -47,11 +49,10 @@ class PetFactory extends Factory
         return [
             'uuid' => Str::uuid(),
             'user_id' => $user->id,
+            
             'race_id' => $race->id,
-
             'sub_race' => SubRace::inRandomOrder()->where('race_id', $this->faker->numberBetween(1, 2))->first()->id,
             'gender_id' => $gender->id,
-            'offer_type_id' => $offer_type->id,
             'price' => $this->faker->randomFloat(2, 0, 1000),
 
             'name' => $this->faker->name,

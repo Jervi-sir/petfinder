@@ -1,6 +1,30 @@
 <?php
 
+use App\Models\Race;
+use App\Models\Wilaya;
 
+function getAllWilaya() {
+    $wilayas = Wilaya::all();
+    foreach ($wilayas as $index => $wilaya) {
+        $data['wialaya'][$index] = [
+            'value' => $wilaya['id'],
+            'label' => $wilaya['name'],
+        ];
+    }
+}
+
+function getAllRaces() {
+    $races = Race::all();
+    $data['races'] = [];
+    foreach ($races as $index => $race) {
+        $data['races'][$index] = [
+            'value' => $race->id,
+            'label' => $race->name,
+        ];
+    }
+
+    return $data['races'];
+}
 
 function getWilayaName($number)
 {

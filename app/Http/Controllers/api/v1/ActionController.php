@@ -11,22 +11,25 @@ use Illuminate\Support\Facades\Auth;
 
 class ActionController extends Controller
 {
-    public function save($petId): JsonResponse
+    public function save(Request $request): JsonResponse
     {
+        $petId = $request->pet_id;
         $user = Auth::user();
         $user->savedPets()->syncWithoutDetaching([$petId]);
         return response()->json('User saved the pet', 200);
     }
 
-    public function unsave($petId): JsonResponse
+    public function unsave(Request $request): JsonResponse
     {
+        $petId = $request->pet_id;
         $user = Auth::user();
         $user->savedPets()->detach([$petId]);
         return response()->json('User unsaved the pet', 200);
     }
 
-    public function archive($petId): JsonResponse
+    public function archive(Request $request): JsonResponse
     {
+        $petId = $request->pet_id;
         $user = Auth::user();
         $pet = $user->savedPets->where('id', $petId)->first();
         $pet->is_active = 0;
@@ -34,8 +37,9 @@ class ActionController extends Controller
         return response()->json('User archived the pet', 200);
     }
 
-    public function unarchive($petId): JsonResponse
+    public function unarchive(Request $request): JsonResponse
     {
+        $petId = $request->pet_id;
         $user = Auth::user();
         $pet = $user->savedPets->where('id', $petId)->first();
         $pet->is_active = 1;
@@ -43,9 +47,9 @@ class ActionController extends Controller
         return response()->json('User archived the pet', 200);
     }
 
-    public function delete($petId): JsonResponse
+    public function delete(Request $request): JsonResponse
     {
-
+        $petId = $request->pet_id;
         $user = Auth::user();
         $pet = $user->getPets->where('id', $petId)->first();
         if (!$pet) {

@@ -3,16 +3,17 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Models\Pet;
+use App\Models\Race;
+use App\Models\PetLost;
+use App\Models\PetImage;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use App\Models\PetImage;
-use App\Models\Race;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Carbon;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 /* [complted]
@@ -159,55 +160,45 @@ class PetAuthController extends Controller
 
     public function editPet($petId): JsonResponse
     {
-        $pet = Pet::find($petId);
-        $imagesArray = [];
-        foreach ($pet->getImages as $index => $image) {
-            array_push($imagesArray, $image->image_url);
+        $user = Auth::user();
+        try {
+            $pet = $user->pets->find($petId);
+            //$imagesArray = [];
+            //foreach ($pet->getImages as $index => $image) {
+            //    array_push($imagesArray, $image->image_url);
+            //}
+            $data['pet'] = getLostPetPreview($pet);
+            return response()->json([
+                'message' => 'here the editPet info needed for the screen',
+                'pet' => getLostPetPreview($pet),
+                'wilaya' => getAllWilaya(),
+                'races' => getAllRaces(),
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'This isnt your pet',
+            ], 400);
         }
-        $data['pet'] = [
-            'name' => $pet->name,
-            'color' => $pet->color ? $pet->color : '',
-            'weight' => $pet->weight ? $pet->weight : '',
-            'phone_number' => $pet->phone_number_this_pet,
+    }
+    public function editLostPet($petId): JsonResponse
+    {
+        $user = Auth::user();
+        try {
 
-            'location' => $pet->location ? $pet->location : '',
-            'wilaya_name' => $pet->wilaya_name,
-            'wilaya_id' => $pet->wilaya_number,
-
-            'race_id' => $pet->race_id,
-            'race_name' => $pet->race_name,
-            'sub_race' => $pet->sub_race ? $pet->sub_race : '',
-            'gender_id' => $pet->gender_id,
-
-            'offer_type_id' => $pet->offer_type_id,
-            'is_active' => $pet->is_active,
-            'price' => $pet->price ? strval($pet->price) : '',
-            'birthday' => $pet->birthday ? str_replace('-', '/', $pet->birthday,) : '',
-            'description' => $pet->description ? $pet->description : '',
-            'images' => array_pad($imagesArray, 4, null),
-        ];
-
-        $races = Race::all();
-        foreach ($races as $index => $race) {
-            $data['races'][$index] = [
-                'value' => $race->id,
-                'label' => $race->name,
-            ];
+            $pet = $user->lostPets->find($petId);
+            
+            $data['pet'] = getLostPetPreview($pet);
+            return response()->json([
+                'message' => 'here the editPet info needed for the screen',
+                'pet' => getLostPetPreview($pet),
+                'wilaya' => getAllWilaya(),
+                'races' => getAllRaces(),
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'This isnt your pet',
+            ], 400);
         }
-        $wilayas = storedWilaya();
-        foreach ($wilayas as $index => $wilaya) {
-            $data['wialaya'][$index] = [
-                'value' => $wilaya['id'],
-                'label' => $wilaya['name'],
-            ];
-        }
-
-        return response()->json([
-            'message' => 'here the editPet info needed for the screen',
-            'pet' => $data['pet'],
-            'wilaya' => $data['wialaya'],
-            'races' => $data['races'],
-        ]);
     }
 
     /*  inputs::

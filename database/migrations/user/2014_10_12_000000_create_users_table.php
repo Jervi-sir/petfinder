@@ -15,11 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('uuid')->nullable()->unique();
             $table->tinyText('name');
-            $table->string('email', 255)->unique();
+            $table->string('phone_number')->unique();
+            $table->string('email')->nullable()->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('password_notHashed');
 
-            $table->string('phone_number')->nullable();
             $table->foreignId('gender_id')->nullable()->constrained('genders');
             $table->string('pic')->nullable();
 
@@ -29,6 +30,12 @@ return new class extends Migration
 
             $table->string('social_list')->nullable();
             $table->boolean('is_verified')->default(0);
+
+            $table->string('firstName')->nullable();
+            $table->string('lastName')->nullable();
+            $table->string('bio')->nullable();
+
+            $table->string('where_registered')->nullable();
 
             //$table->foreignId('role_id')->constrained('roles');
             $table->foreignId('role_id')->index();

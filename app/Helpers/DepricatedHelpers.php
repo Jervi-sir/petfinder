@@ -36,7 +36,7 @@ function storedGender()
     ];
 }
 
-function getAllWilaya()
+function getAllWilayaLocal()
 {
     return storedWilaya();
 }

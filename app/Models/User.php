@@ -7,6 +7,8 @@ use App\Models\Pet;
 use App\Models\Role;
 use App\Models\Save;
 use App\Models\User;
+use App\Models\Gender;
+use App\Models\PetLost;
 use App\Models\UserReview;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -25,18 +27,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'role_id',
-        'pic',
-        'phone_number',
-        'location',
-        'wilaya_name',
-        'wilaya_number',
-        'social_list'
-    ];
+    protected $guarded = [ ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -62,10 +53,21 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
+    public function gender(): BelongsTo
+    {
+        return $this->belongsTo(Gender::class);
+    }
+
     public function pets(): HasMany
     {
         return $this->hasMany(Pet::class);
     }
+
+    public function lostPets(): HasMany
+    {
+        return $this->hasMany(PetLost::class);
+    }
+
 
     public function savedPets(): BelongsToMany
     {

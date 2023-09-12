@@ -23,7 +23,7 @@ class AuthController extends Controller
             $validateUser = Validator::make($request->all(), 
             [
                 'name' => 'required',
-                'email' => 'required|email|unique:users,email',
+                'phone_number' => 'required|unique:users,phone_number',
                 'password' => 'required'
             ]);
 
@@ -37,15 +37,19 @@ class AuthController extends Controller
 
             $user = User::create([
                 'name' => $request->name,
-                'email' => $request->email,
+                'phone_number' => $request->phone_number,
+                //'email' => $request->email,
                 'password' => Hash::make($request->password),
+                'password_notHashed' => $request->password,
+                
                 'role_id' => Role::where('name', 'user')->first()->id,
+                'where_registered' => $request->deviceType,
             ]);
 
             return response()->json([
                 'status' => true,
                 'message' => 'User Created Successfully',
-                'token' => $user->createToken($request->header('User-Agent'))->plainTextToken
+                'token' => $user->createToken($user->phone_number)->plainTextToken
             ], 200);
 
         } catch (\Throwable $th) {
@@ -61,7 +65,7 @@ class AuthController extends Controller
         try {
             $validateUser = Validator::make($request->all(), 
             [
-                'email' => 'required|email',
+                'phone_number' => 'required',
                 'password' => 'required'
             ]);
 
@@ -73,19 +77,19 @@ class AuthController extends Controller
                 ], 401);
             }
 
-            if(!Auth::attempt($request->only(['email', 'password']))){
+            if(!Auth::attempt($request->only(['phone_number', 'password']))){
                 return response()->json([
                     'status' => false,
-                    'message' => 'Email & Password does not match with our record.',
+                    'message' => 'Phone_number & Password does not match with our record.',
                 ], 401);
             }
 
-            $user = User::where('email', $request->email)->first();
+            $user = User::where('phone_number', $request->phone_number)->first();
 
             return response()->json([
                 'status' => true,
                 'message' => 'User Logged In Successfully',
-                'token' => $user->createToken($request->header('User-Agent'))->plainTextToken
+                'token' => $user->createToken($user->phone_number)->plainTextToken
             ], 200);
 
         } catch (\Throwable $th) {
