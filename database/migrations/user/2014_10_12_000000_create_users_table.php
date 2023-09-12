@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid')->nullable()->unique();
             $table->tinyText('name');
             $table->string('email', 255)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
 
-            $table->tinyText('phone_number')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->foreignId('gender_id')->nullable()->constrained('genders');
             $table->string('pic')->nullable();
 
             $table->string('location')->nullable();
@@ -26,6 +28,7 @@ return new class extends Migration
             $table->tinyText('wilaya_name')->nullable();
 
             $table->string('social_list')->nullable();
+            $table->boolean('is_verified')->default(0);
 
             //$table->foreignId('role_id')->constrained('roles');
             $table->foreignId('role_id')->index();

@@ -6,13 +6,15 @@ namespace App\Models;
 use App\Models\Pet;
 use App\Models\Role;
 use App\Models\Save;
+use App\Models\User;
+use App\Models\UserReview;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -69,4 +71,17 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Pet::class, 'saves')->using(Save::class)->withTimestamps();;
     }
+
+    
+    public function reviewsWritten()
+    {
+        return $this->hasMany(UserReview::class, 'reviewer_id', 'id');
+    }
+
+    public function reviewsReceived()
+    {
+        return $this->hasMany(UserReview::class, 'reviewee_id', 'id');
+    }
+ 
+
 }

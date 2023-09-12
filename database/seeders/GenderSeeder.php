@@ -14,12 +14,15 @@ class GenderSeeder extends Seeder
     public function run(): void
     {
         DB::table('genders')->insert([
+            'id' => 1,
             'name' => 'male',
         ]);
         DB::table('genders')->insert([
+            'id' => 2,
             'name' => 'female',
         ]);
         DB::table('genders')->insert([
+            'id' => 3,
             'name' => 'unknown',
         ]);
     }

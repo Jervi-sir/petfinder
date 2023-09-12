@@ -14,8 +14,6 @@ return new class extends Migration
         Schema::create('pets', function (Blueprint $table) {
             $table->id();
             $table->string('uuid');
-            //$table->foreignId('user_id')->constrained('users');
-            //$table->foreignId('race_id')->constrained('races');
             $table->foreignId('user_id')->index();
             $table->foreignId('race_id')->index();
 
@@ -37,12 +35,10 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->tinyText('phone_number')->nullable();
 
-            $table->tinyInteger('is_active')->default(1);
-            $table->date('last_date_activated');
+            $table->tinyInteger('is_vaccinated')->default(1);
+            $table->string('special_needs')->nullable();
 
-            $table->longText('keywords')->nullable();
-
-            $table->foreignId('media_services_id')->default(1)->index();
+            $table->string('keywords')->nullable();
 
             $table->timestamps();
         });

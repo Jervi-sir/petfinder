@@ -18,7 +18,7 @@ class SaveFactory extends Factory
     public function definition(): array
     {
         return [
-            'pet_id' => Pet::inRandomOrder()->first()->id,
+            'pet_id' => Pet::inRandomOrder()->first()->id, 
             'user_id' => User::inRandomOrder()->first()->id,
         ];
     }

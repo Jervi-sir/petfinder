@@ -29,7 +29,7 @@ class SearchController extends Controller
     {
         //turn keywords single line string into a keyword array
         $eng_keywords = translateToEnglish($request->keywords);
-
+        
         //create a collection of db that has keyword score 1
         $keyword_score_1 = [];
         foreach ($eng_keywords as $key => $value) {

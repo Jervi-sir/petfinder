@@ -210,7 +210,7 @@ class PetController extends Controller {
             'date_birth' => $age,
             'size' => $pet->size,
             'color' => $pet->colorName,
-            'images' => imagesToUrl($pet->pics),
+            'images' => imagesToUrl($pet->images),
             'description' => $pet->description,
             'phone_number' => $pet->phone_number
         ];

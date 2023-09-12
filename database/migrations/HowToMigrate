@@ -1,0 +1,30 @@
+php artisan make:command CustomMigrateCommand
+
+```CustomMigrateCommand.php
+protected $signature = 'custom:migrate {--fresh : Drop all tables and re-run migrations}';
+protected $description = 'Run custom migrations';
+
+public function handle()
+{
+    if ($this->option('fresh')) {
+        $this->call('db:wipe');
+        $this->info('Dropped all tables successfully.');
+    }
+    
+    $this->call('migrate', ['--path' => 'database/migrations']);
+    $this->call('migrate', ['--path' => 'database/migrations/subfolder1']);
+    $this->call('migrate', ['--path' => 'database/migrations/subfolder2']);
+}
+```
+
+
+```Kernel.php
+protected $commands = [
+    // ...
+    Commands\CustomMigrateCommand::class,
+];
+```
+
+
+php artisan custom:migrate
+php artisan custom:migrate --fresh

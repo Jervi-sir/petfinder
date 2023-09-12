@@ -67,4 +67,14 @@ class Pet extends Model
     {
         return $this->hasMany(PetImage::class);
     }
+
+    public function adoptionSalePost()
+    {
+        return $this->hasOne(AdoptionSalePost::class);
+    }
+
+    public function lostPetPost()
+    {
+        return $this->hasOne(LostPetPost::class);
+    }
 }

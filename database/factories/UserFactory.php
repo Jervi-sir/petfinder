@@ -16,13 +16,16 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
+            'role_id' => 3,
+            'uuid' => Str::uuid(),
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
             'password' => bcrypt('password'),
             'phone_number' => $this->faker->phoneNumber,
+            'gender_id' => $this->faker->numberBetween(1, 3),
             'pic' => $this->faker->imageUrl(),
+            
             'location' => $this->faker->address,
-            'role_id' => 3,
         ];
     }
 

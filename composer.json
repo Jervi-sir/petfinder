@@ -25,7 +25,10 @@
     },
     "autoload": {
         "files": [
-            "app/Helpers/PetHelper.php"
+            "app/Helpers/PetHelper.php",
+            "app/Helpers/ProfileHelpers.php",
+            "app/Helpers/GeneralHelpers.php",
+            "app/Helpers/DepricatedHelpers.php"
         ],
         "psr-4": {
             "App\\": "app/",
