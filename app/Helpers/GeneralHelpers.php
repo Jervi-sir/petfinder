@@ -2,6 +2,7 @@
 
 use App\Models\Race;
 use App\Models\Wilaya;
+use App\Models\SubRace;
 
 function getAllWilaya() {
     $wilayas = Wilaya::all();
@@ -18,12 +19,40 @@ function getAllRaces() {
     $data['races'] = [];
     foreach ($races as $index => $race) {
         $data['races'][$index] = [
-            'value' => $race->id,
-            'label' => $race->name,
+            'id' => $race->id,
+            'name' => $race->name,
+            //'details' => $race->details,
+            'sub_races' => getSubRaces($race->id),
         ];
     }
-
     return $data['races'];
+}
+
+function getSubRaces($race_id) {
+    $sub_races = SubRace::where('race_id', $race_id)->get();
+    $data['sub_races'] = [];
+    foreach ($sub_races as $index => $sub_race) {
+        $data['sub_races'][$index] = [
+            'id' => $sub_race->id,
+            'race_id' => $sub_race->race_id,
+            'name' => $sub_race->name,
+            //'details' => $sub_race->details,
+        ];
+    }
+    return $data['sub_races'];
+}
+
+function getAllWilayas() {
+    $wilayas = Wilaya::all();
+    $data['wilayas'] = [];
+    foreach ($wilayas as $index => $wilaya) {
+        $data['wilayas'][$index] = [
+            'id' => $wilaya->id,
+            'name' => $wilaya->name,
+            'number' => $wilaya->number,
+        ];
+    }
+    return $data['wilayas'];
 }
 
 function getWilayaName($number)

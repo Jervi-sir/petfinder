@@ -1,14 +1,15 @@
 <?php
 
-use App\Models\Gender;
 use Carbon\Carbon;
 use App\Models\Race;
+use App\Models\Gender;
 use App\Models\Wilaya;
+use App\Models\SubRace;
+use App\Models\OfferType;
 use App\Models\Petbackup;
 use App\Models\Translation;
 use Illuminate\Support\Str;
 use App\Models\ImagesToDelete;
-use App\Models\OfferType;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
 
@@ -208,3 +209,4 @@ function getLostPetDetailed($pet)
         //'adoptionSalePost' => $adoptionSalePost,
     ];
 }
+

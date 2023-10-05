@@ -29,26 +29,10 @@ class PetAuthController extends Controller
 
     public function getPostPet(): JsonResponse
     {
-        $races = Race::all();
-        foreach ($races as $index => $race) {
-            $data['races'][$index] = [
-                'value' => $race->id,
-                'label' => $race->name,
-            ];
-        }
-        $wilayas = storedWilaya();
-        foreach ($wilayas as $index => $wilaya) {
-            $data['wialaya'][$index] = [
-                'value' => $wilaya['id'],
-                'label' => $wilaya['name'],
-            ];
-        }
-        $user = Auth::user();
         return response()->json([
             'message' => 'here data needed for post pet page',
-            'wilaya' => $data['wialaya'],
-            'races' => $data['races'],
-            'phone_number' => $user->phone_number,
+            'wilayas' => getAllWilayas(),
+            'races' => getAllRaces(),
         ]);
     }
 

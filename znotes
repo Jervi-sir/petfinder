@@ -22,3 +22,7 @@ Medium Blob: Varies depending on length
 Long Blob: Varies depending on length.
 
 
+how to get user with highest pets
+$user = User::withCount('pets')->orderBy('pets_count', 'desc')->first()   
+
+

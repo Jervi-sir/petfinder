@@ -31,11 +31,14 @@ class SearchController extends Controller
             $query->where('location', 'like', '%' . $request->input('location') . '%');
         }
         if ($request->has('keywords')) {
-            $query->where('keywords', 'like', '%' . $request->input('keywords') . '%')
-                ->orWhere('description', 'like', '%' . $request->input('keywords') . '%')
-                ->orWhere('name', 'like', '%' . $request->input('keywords') . '%');
+            $keywords = $request->input('keywords');
+            $query->where(function ($query) use ($keywords) {
+                $query->where('keywords', 'like', '%' . $keywords . '%')
+                      ->orWhere('description', 'like', '%' . $keywords . '%')
+                      ->orWhere('name', 'like', '%' . $keywords . '%');
+            });
         }
-
+        
         $pets_query = $query->paginate(10);
 
         $data['pets'] = [];
@@ -77,9 +80,12 @@ class SearchController extends Controller
             $query->where('location', 'like', '%' . $request->input('location') . '%');
         }
         if ($request->has('keywords')) {
-            $query->where('keywords', 'like', '%' . $request->input('keywords') . '%')
-                ->orWhere('description', 'like', '%' . $request->input('keywords') . '%')
-                ->orWhere('name', 'like', '%' . $request->input('keywords') . '%');
+            $keywords = $request->input('keywords');
+            $query->where(function ($query) use ($keywords) {
+                $query->where('keywords', 'like', '%' . $keywords . '%')
+                      ->orWhere('description', 'like', '%' . $keywords . '%')
+                      ->orWhere('name', 'like', '%' . $keywords . '%');
+            });
         }
 
         $pets_query = $query->paginate(10);

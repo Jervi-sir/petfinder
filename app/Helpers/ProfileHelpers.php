@@ -10,6 +10,7 @@ function profileImageUrl($image)
 
 function getProfileData($user) {
     return [
+        'id' => $user->id,
         'uuid' => $user->uuid,
         'name' => $user->name,
         'phone_number' => $user->phone_number,
@@ -32,3 +33,5 @@ function getProfileData($user) {
         //'pic' => $user->pic ? apiUrl() . 'storage/users/' . $user->pic : null,
     ];
 }
+
+

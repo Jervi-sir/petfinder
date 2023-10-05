@@ -173,24 +173,9 @@ class ProfileController extends Controller
 
     public function getMyProfileForEdit(): JsonResponse
     {
-        $user = Auth::user();
-        $data['user'] = [
-            'name' => $user->name,
-            'location' => $user->location,
-            'wilaya_name' => $user->wilaya_name,
-            'wilaya_number' => $user->wilaya_number,
-            'email' => $user->email,
-            'phone_number' => $user->phone_number,
-            //'pic' => $user->pic ? apiUrl() . 'storage/users/' . $user->pic : null,
-            'pic' => $user->pic ? $user->pic : null,
-            'social_list' => $user->social_list,
-        ];
-        $wilayas = getAllWilaya();
-
         return response()->json([
             'message' => 'here data needed for screen',
-            'user' => $data['user'],
-            'wilayas' => $wilayas,
+            'wilayas' => getAllWilayas(),
         ]);
     }
 

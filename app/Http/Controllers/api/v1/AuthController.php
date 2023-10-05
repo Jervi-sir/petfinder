@@ -49,7 +49,8 @@ class AuthController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'User Created Successfully',
-                'token' => $user->createToken($user->phone_number)->plainTextToken
+                'token' => $user->createToken($user->phone_number)->plainTextToken,
+                'user_auth_info' => getProfileData($user),
             ], 200);
 
         } catch (\Throwable $th) {
@@ -89,7 +90,9 @@ class AuthController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'User Logged In Successfully',
-                'token' => $user->createToken($user->phone_number)->plainTextToken
+                'token' => $user->createToken($user->phone_number)->plainTextToken,
+                'user_auth_info' => getProfileData($user),
+
             ], 200);
 
         } catch (\Throwable $th) {
@@ -109,4 +112,16 @@ class AuthController extends Controller
         'message' => 'Successfully logged out'
         ]);
     }
+
+    public function validateToken(Request $request)
+    {
+        $user = auth()->user();
+
+        return response()->json([
+            'status' => 'success', 
+            'message' => 'Token is valid',
+            'user_auth_info' => getProfileData($user)
+        ]);
+    }
+
 }

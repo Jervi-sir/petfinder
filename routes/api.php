@@ -16,21 +16,27 @@ use App\Models\User;
 |--------------------------------------------------------------------------
 */
 
+Route::get('test', [PetAuthController::class, 'getPostPet']);
+
 Route::middleware('auth:sanctum')->get('v1/user', function (Request $request) {
     return $request->user();
 });
+
+
 Route::prefix('v1/')->group(function () {
     /*-----| Authentication |-----*/
     Route::post('register', [AuthController::class, 'register']);       //[api done][]
     Route::post('login', [AuthController::class, 'login']);             //[api done][]
     Route::middleware('auth:sanctum')->group(function () {  
         Route::post('logout', [AuthController::class, 'logout']);       //[api done][]
+        Route::get('validate_token', [AuthController::class, 'validateToken']);
     });
     /*-----| Pets |-----*/
     RoutePets();
     RouteLostPets();
     /*-----| Authenticated |-----*/
     Route::prefix('auth/')->middleware('auth:sanctum')->group(function () {
+        
         /*-----| Profile |-----*/
         Route::prefix('profile/')->group(function () {
             Route::get('show-my-profile', [ProfileController::class, 'showMyProfile']);         //[api done][]
@@ -47,7 +53,7 @@ Route::prefix('v1/')->group(function () {
 
         /*-----| Pet |-----*/
         Route::prefix('pet/')->group(function () {
-            //Route::get('add-pet', [PetAuthController::class, 'getPostPet']);              //[][]
+            Route::get('add-pet-helpers', [PetAuthController::class, 'getPostPet']);              //[][]
             Route::post('add', [PetAuthController::class, 'postPet']);                      //[][]
             Route::get('edit/{petId}', [PetAuthController::class, 'editPet']);              //[api done][]
             Route::post('update/{petId}', [PetAuthController::class, 'updatePet']);         //[][]
@@ -62,11 +68,11 @@ Route::prefix('v1/')->group(function () {
 
         /*-----| Actions |-----*/
         Route::prefix('actions/')->group(function () {
-            Route::post('save',       [ActionController::class, 'save']);           //[api done][]
-            Route::post('unsave',     [ActionController::class, 'unsave']);         //[api done][]
-            Route::post('archive',  [ActionController::class, 'archive']);          //[api done][]
-            Route::post('unarchive',  [ActionController::class, 'unarchive']);      //[api done][]
-            Route::post('deletepet',  [ActionController::class, 'delete']);         //[api done][]
+            Route::post('save',         [ActionController::class, 'save']);           //[api done][]
+            Route::post('unsave',       [ActionController::class, 'unsave']);         //[api done][]
+            Route::post('archive',      [ActionController::class, 'archive']);          //[api done][]
+            Route::post('unarchive',    [ActionController::class, 'unarchive']);      //[api done][]
+            Route::post('deletepet',    [ActionController::class, 'delete']);         //[api done][]
         });
     });
 });
@@ -92,3 +98,17 @@ function RouteLostPets() {
 }
 
 
+
+Route::get('v1/request', function (Request $request) {
+    return reponse()->json([
+        'ip' => $request->ip(),
+        'headers' => $request->headers->all(),
+        'userAgent' => $request->header('User-Agent'),
+        'method' => $request->method(),
+        'url' => $request->fullUrl(),
+        'uri' => $request->path(),
+        'cookies' => $request->cookies->all(),
+        'serverParams' => $request->server(),
+        'serverParams' => $request->server(),
+    ]);
+});

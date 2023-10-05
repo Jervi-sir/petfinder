@@ -55,7 +55,7 @@ class DatabaseSeeder extends Seeder
         $offerType = new OfferTypeSeeder();
         $offerType->run();
         
-        User::factory(10)->create();
+        User::factory(100)->create();
 
         Color::factory(60)->create();
 
@@ -72,12 +72,12 @@ class DatabaseSeeder extends Seeder
         $subRace = new SubRacesSeeder();
         $subRace->run();
 
-        Pet::factory(300)->create();
-        PetLost::factory(150)->create();
-        PetMetadata::factory(300)->create();
-        PetLostMetadata::factory(300)->create();
+        Pet::factory(669)->create();
+        PetLost::factory(600)->create();
+        PetMetadata::factory(669)->create();
+        PetLostMetadata::factory(600)->create();
 
-        Save::factory(100)->create();
+        Save::factory(1000)->create();
 
         //PetImage::factory(256)->create();
     }
