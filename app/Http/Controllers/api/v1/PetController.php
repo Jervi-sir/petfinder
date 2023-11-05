@@ -35,9 +35,25 @@ class PetController extends Controller
         ], 201);
     }
 
-    public function latestPets(Request $request) :JsonResponse
+    public function latestPets(Request $request) : JsonResponse
     {
+
         $query = Pet::query();
+
+
+        // Apply ordering based on wilaya_id
+        // This will create an ordered list where wilaya_id 46 will be at the top
+        if ($request->has('wilaya_id')) {
+            $wilayaId = intval($request->input('wilaya_id'));
+            $query->orderByRaw(
+                "CASE WHEN wilaya_id = ? THEN 0 ELSE 1 END, id DESC",
+                [$wilayaId]
+            );
+        } else {
+            $query->orderBy('id', 'desc');
+        }
+
+        // Apply additional filters
         if ($request->has('race_id')) {
             $query->where('race_id', $request->input('race_id'));
         }
@@ -53,24 +69,13 @@ class PetController extends Controller
         if ($request->has('location')) {
             $query->where('location', 'like', '%' . $request->input('location') . '%');
         }
+        // The wilaya_id filter is already applied in the ordering, so we don't need to filter by it again.
 
-        if ($request->has('wilaya_id')) {
-            $wilaya_id = $request->input('wilaya_id');
-            // Use orderByRaw to order by a custom condition,
-            // placing the specified wilaya_id at the beginning
-            $query->orderByRaw(
-                "CASE WHEN wilaya_id = ? THEN 0 ELSE 1 END, id DESC",
-                [$wilaya_id]
-            );
-        } else {
-            // Default ordering
-            $query->orderBy('id', 'desc');
-        }
         $pets_query = $query->paginate($this->pagination_amount);
 
         $data['pets'] = [];
         foreach ($pets_query as $index => $pet) {
-            $data['pets'][$index] = getPetPreview($pet);
+            $data['pets'][$index] = getPetPreview($pet); // make sure getPetPreview is accessible, might need $this->getPetPreview($pet) if it's a method of this class
         }
 
         $paginationData = [
