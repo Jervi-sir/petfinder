@@ -37,15 +37,12 @@ class PetController extends Controller
 
     public function latestPets(Request $request) :JsonResponse
     {
-        $query = Pet::query()->orderBy('id', 'desc');
+        $query = Pet::query();
         if ($request->has('race_id')) {
             $query->where('race_id', $request->input('race_id'));
         }
         if ($request->has('sub_race')) {
             $query->where('sub_race', 'like', '%' . $request->input('sub_race') . '%');
-        }
-        if ($request->has('offer_type_id')) {
-            $query->where('offer_type_id', 'like', '%' . $request->input('offer_type_id') . '%');
         }
         if ($request->has('gender_id')) {
             $query->where('gender_id', $request->input('gender_id'));
@@ -57,6 +54,18 @@ class PetController extends Controller
             $query->where('location', 'like', '%' . $request->input('location') . '%');
         }
 
+        if ($request->has('wilaya_id')) {
+            $wilaya_id = $request->input('wilaya_id');
+            // Use orderByRaw to order by a custom condition,
+            // placing the specified wilaya_id at the beginning
+            $query->orderByRaw(
+                "CASE WHEN wilaya_id = ? THEN 0 ELSE 1 END, id DESC",
+                [$wilaya_id]
+            );
+        } else {
+            // Default ordering
+            $query->orderBy('id', 'desc');
+        }
         $pets_query = $query->paginate($this->pagination_amount);
 
         $data['pets'] = [];
