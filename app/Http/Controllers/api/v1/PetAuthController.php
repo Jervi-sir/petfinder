@@ -31,6 +31,7 @@ class PetAuthController extends Controller
     {
         return response()->json([
             'message' => 'here data needed for post pet page',
+            'colors' => getColors(),
             'wilayas' => getAllWilayas(),
             'races' => getAllRaces(),
         ]);
@@ -98,7 +99,7 @@ class PetAuthController extends Controller
 
             $pet->keywords = generateKeywords($pet);
             $pet->media_services_id = 1;
-            
+
             $pet->save();
 
             $pet_images = [];
@@ -170,7 +171,7 @@ class PetAuthController extends Controller
         try {
 
             $pet = $user->lostPets->find($petId);
-            
+
             $data['pet'] = getLostPetPreview($pet);
             return response()->json([
                 'message' => 'here the editPet info needed for the screen',

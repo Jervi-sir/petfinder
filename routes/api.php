@@ -9,6 +9,7 @@ use App\Http\Controllers\api\v1\SearchController;
 use App\Http\Controllers\api\v1\PetAuthController;
 use App\Http\Controllers\api\v1\ProfileController;
 use App\Models\User;
+use Stevebauman\Location\Facades\Location;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,22 @@ use App\Models\User;
 |--------------------------------------------------------------------------
 */
 
-Route::get('test', [PetAuthController::class, 'getPostPet']);
+Route::get('test', function(Request $request) {
+    $ip = $request->ip();
+    $location = Location::get($ip);
+    if ($location) {
+        // Successfully retrieved location
+        return response()->json([
+            'country' => $location->countryName,
+            'city' => $location->cityName,
+            // ... you can return more data as needed
+        ]);
+    } else {
+        // Location not found
+        return response()->json(['error' => 'Location not found.'], 404);
+    }
+
+});
 
 Route::middleware('auth:sanctum')->get('v1/user', function (Request $request) {
     return $request->user();
@@ -27,16 +43,19 @@ Route::prefix('v1/')->group(function () {
     /*-----| Authentication |-----*/
     Route::post('register', [AuthController::class, 'register']);       //[api done][]
     Route::post('login', [AuthController::class, 'login']);             //[api done][]
-    Route::middleware('auth:sanctum')->group(function () {  
+    Route::middleware('auth:sanctum')->group(function () {
         Route::post('logout', [AuthController::class, 'logout']);       //[api done][]
         Route::get('validate_token', [AuthController::class, 'validateToken']);
     });
+    /*-----| Helpers |-----*/
+    Route::get('add-pet-helpers', [PetAuthController::class, 'getPostPet']);              //[][]
+
     /*-----| Pets |-----*/
     RoutePets();
     RouteLostPets();
     /*-----| Authenticated |-----*/
     Route::prefix('auth/')->middleware('auth:sanctum')->group(function () {
-        
+
         /*-----| Profile |-----*/
         Route::prefix('profile/')->group(function () {
             Route::get('show-my-profile', [ProfileController::class, 'showMyProfile']);         //[api done][]
