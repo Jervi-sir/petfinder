@@ -55,7 +55,7 @@ Route::prefix('v1/')->group(function () {
     RoutePets();
     RouteLostPets();
 
-    //Route::post('generate-name'. [NameGeneratorController::class, 'generateName']);
+    Route::post('generate-name', [NameGeneratorController::class, 'generateName']);
     /*-----| Authenticated |-----*/
     Route::prefix('auth/')->middleware('auth:sanctum')->group(function () {
 
