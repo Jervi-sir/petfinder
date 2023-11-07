@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\v1\PetController;
 use App\Http\Controllers\api\v1\AuthController;
 use App\Http\Controllers\api\v1\ActionController;
+use App\Http\Controllers\api\v1\NameGeneratorController;
 use App\Http\Controllers\api\v1\SearchController;
 use App\Http\Controllers\api\v1\PetAuthController;
 use App\Http\Controllers\api\v1\ProfileController;
@@ -53,6 +54,8 @@ Route::prefix('v1/')->group(function () {
     /*-----| Pets |-----*/
     RoutePets();
     RouteLostPets();
+
+    //Route::post('generate-name'. [NameGeneratorController::class, 'generateName']);
     /*-----| Authenticated |-----*/
     Route::prefix('auth/')->middleware('auth:sanctum')->group(function () {
 

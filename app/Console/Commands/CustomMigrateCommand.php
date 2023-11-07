@@ -61,5 +61,8 @@ class CustomMigrateCommand extends Command
         $this->call('migrate', ['--path' => 'database/migrations/user/2023_09_12_152739_create_user_reviews_table.php']);
 
         $this->call('migrate', ['--path' => 'database/migrations/helpers/2023_09_12_152641_create_audit_logs_table.php']);
+        $this->call('migrate', ['--path' => 'database/migrations/helpers/2023_11_07_225931_create_pet_names_table.php']);
+
+
     }
 }
